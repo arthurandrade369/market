@@ -2,14 +2,14 @@
 
 class Buy
 {
-    private $id;
-    private $date;
-    private $state;
-    private $was_paid;
-    private $payment_method;
-    private $final_price;
-    private $discount;
-    private $shipping;
+    private int $id;
+    private string $date;
+    private string $state;
+    private bool $was_paid;
+    private string $payment_method;
+    private float $final_price;
+    private float $discount;
+    private float $shipping;
 
     public function getId(): ?int
     {

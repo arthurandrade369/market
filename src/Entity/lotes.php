@@ -2,16 +2,16 @@
 
 class Lotes
 {
-    private $id;
-    private $fabrication_date;
-    private $expiration_date;
-    private $entry_date;
-    private $quantity;
-    private $used;
-    private $sold_off;
-    private $description;
-    private $providers_id;
-    private $products_id;
+    private int $id;
+    private string $fabrication_date;
+    private string $expiration_date;
+    private string $entry_date;
+    private int $quantity;
+    private bool $used;
+    private bool $sold_off;
+    private string $description;
+    private int $providers_id;
+    private int $products_id;
 
     public function getId(): ?int
     {

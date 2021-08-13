@@ -2,12 +2,12 @@
 
 class Orders
 {
-    private $id;
-    private $type;
-    private $receipt;
-    private $forecast;
-    private $clients_id;
-    private $buy_id;
+    private int $id;
+    private string $type;
+    private string $receipt;
+    private string $forecast;
+    private int $clients_id;
+    private int $buy_id;
 
     public function getId(): ?int
     {

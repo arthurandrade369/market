@@ -2,9 +2,9 @@
 
 class Providers
 {
-    private $id;
-    private $name;
-    private $cnpj;
+    private int $id;
+    private string $name;
+    private string $cnpj;
 
     public function getId(): ?int
     {
@@ -38,7 +38,6 @@ class Providers
 
     public function setObject($object)
     {
-        $this->setId($object['id']);
         $this->setName($object['name']);
         $this->setCnpj($object['cnpj']);
 

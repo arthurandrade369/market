@@ -2,11 +2,11 @@
 
 class Products
 {
-    private $id;
-    private $name;
-    private $price_product;
-    private $quantity_inventory;
-    private $discount;
+    private int $id;
+    private string $name;
+    private float $price_product;
+    private int $quantity_inventory;
+    private float $discount;
 
     public function getId(): ?int
     {

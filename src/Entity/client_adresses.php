@@ -2,15 +2,15 @@
 
 class Client_adresses
 {
-    private $id;
-    private $state;
-    private $city;
-    private $district;
-    private $street;
-    private $number;
-    private $complement;
-    private $postal_code;
-    private $clients_id;
+    private int $id;
+    private string $state;
+    private string $city;
+    private string $district;
+    private string $street;
+    private string $number;
+    private string $complement;
+    private string $postal_code;
+    private int $clients_id;
 
     public function getId(): ?int
     {
@@ -100,5 +100,19 @@ class Client_adresses
     public function setClients_id(int $clients_id)
     {
         $this->clients_id = $clients_id;
+    }
+
+    public function setObject($object)
+    {
+        $this->setState($object['state']);
+        $this->setCity($object['city']);
+        $this->setDistrict($object['district']);
+        $this->setStreet($object['street']);
+        $this->setNumber($object['number']);
+        $this->setComplement($object['complement']);
+        $this->setPostal_code($object['postal_code']);
+        $this->setClients_id($object['clients_id']);
+
+        return $this;
     }
 }

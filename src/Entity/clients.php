@@ -2,9 +2,9 @@
 
 class Clients
 {
-    private $id;
-    private $name;
-    private $email;
+    private int $id;
+    private string $name;
+    private string $email;
 
     public function getId(): ?int
     {
@@ -35,7 +35,6 @@ class Clients
 
     public function setObject($object)
     {
-        $this->setId($object['id']);
         $this->setName($object['name']);
         $this->setEmail($object['email']);
 

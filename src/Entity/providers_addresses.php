@@ -2,15 +2,15 @@
 
 class Providers_addresses
 {
-    private $id;
-    private $state;
-    private $city;
-    private $district;
-    private $street;
-    private $number;
-    private $complement;
-    private $postal_code;
-    private $providers_id;
+    private int $id;
+    private string $state;
+    private string $city;
+    private string $district;
+    private string $street;
+    private string $number;
+    private string $complement;
+    private string $postal_code;
+    private int $providers_id;
 
     public function getId(): ?int
     {
@@ -100,5 +100,19 @@ class Providers_addresses
     public function setProviders_id(int $providers_id)
     {
         $this->providers_id = $providers_id;
+    }
+
+    public function setObject($object)
+    {
+        $this->setState($object['state']);
+        $this->setCity($object['city']);
+        $this->setDistrict($object['district']);
+        $this->setStreet($object['street']);
+        $this->setNumber($object['number']);
+        $this->setComplement($object['complement']);
+        $this->setPostal_code($object['postal_code']);
+        $this->setProviders_id($object['providers_id']);
+
+        return $this;
     }
 }

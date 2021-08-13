@@ -2,11 +2,11 @@
 
 class Sale_items
 {
-    private $id;
-    private $quantity_sale;
-    private $price_total;
-    private $products_id;
-    private $buy_id;
+    private int $id;
+    private int $quantity_sale;
+    private float $price_total;
+    private int $products_id;
+    private int $buy_id;
 
     public function getId(): ?int
     {
