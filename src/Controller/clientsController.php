@@ -1,24 +1,25 @@
 <?php
 
 require_once("../../config/connection-db.php");
-require_once("../Entity/clients.php");
-require_once("../Entity/client_adresses.php");
+require_once("../Entity/Clients.php");
+require_once("../Entity/ClientAdresses.php");
 
 class ClientsController
 {
-    public function newClient(Clients $clients)
+    public function newClient(Clients $clients): void
     {
-        $sql = "INSERT INTO clients(name, email) VALUES(:name, :email) LIMIT 1";
+        $sql = "INSERT INTO clients(name, email) VALUES(:name, :email)";
         $p_sql = Connection::getInstance()->prepare($sql);
         $p_sql->bindValue('name', $clients->getName());
         $p_sql->bindValue('email', $clients->getEmail());
         $p_sql->execute();
     }
 
-    public function newClientAddress(Client_adresses $addresses)
+    public function newClientAddress(ClientAdresses $addresses): void
     {
+        $aws = $this->getLastColumn();
         $sql = "INSERT INTO client_addresses(state,city,district,street,number,complement,postal_code,clients_id)
-        VALUES(:state,:city,:district,:street,:number,:complement,:postal_code,:clients_id) LIMIT 1";
+        VALUES(:state,:city,:district,:street,:number,:complement,:postal_code,:clients_id)";
         $p_sql = Connection::getInstance()->prepare($sql);
         $p_sql->bindValue('state', $addresses->getState());
         $p_sql->bindValue('city', $addresses->getCity());
@@ -27,8 +28,18 @@ class ClientsController
         $p_sql->bindValue('number', $addresses->getNumber());
         $p_sql->bindValue('complement', $addresses->getComplement());
         $p_sql->bindValue('postal_code', $addresses->getPostal_code());
-        $p_sql->bindValue('clients_id', $addresses->getClients_id());
+        $p_sql->bindValue('clients_id', $aws['id']);
         $p_sql->execute();
+    }
+
+    public function showClient()
+    {
+        $sql = "SELECT c.name,c.email,
+        a.street,a.number,a.district,a.city,a.complement,
+        a.state,a.postal_code FROM clients c JOIN client_addresses a LIMIT 1";
+        $p_sql = Connection::getInstance()->prepare($sql);
+        $p_sql->execute();
+        return $p_sql->fetch();
     }
 
     public function checkIsEmail(string $email): bool
@@ -43,7 +54,11 @@ class ClientsController
         return true;
     }
 
-    
-
-
+    public function getLastColumn()
+    {
+        $sql = "SELECT * FROM clients ORDER BY id DESC LIMIT 1";
+        $p_sql = Connection::getInstance()->prepare($sql);
+        $p_sql->execute();
+        return $p_sql->fetch();
+    }
 }

@@ -1,6 +1,6 @@
 <?php
 
-class Client_adresses
+class ClientAdresses
 {
     private int $id;
     private string $state;
@@ -111,7 +111,6 @@ class Client_adresses
         $this->setNumber($object['number']);
         $this->setComplement($object['complement']);
         $this->setPostal_code($object['postal_code']);
-        $this->setClients_id($object['clients_id']);
 
         return $this;
     }

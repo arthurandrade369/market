@@ -1,19 +1,17 @@
 <?php
 
-require_once(__DIR__ . "/../../src/Entity/clients.php");
-require_once(__DIR__ . "/../../src/Entity/client_adresses.php");
-require_once(__DIR__ . "/../../src/Controller/clientsController.php");
+require_once(__DIR__ . "/../../src/Entity/Clients.php");
+require_once(__DIR__ . "/../../src/Entity/ClientAdresses.php");
+require_once(__DIR__ . "/../../src/Controller/ClientsController.php");
+require_once("../../config/dbFunction.php");
 
 if (isset($_REQUEST['send'])) {
     $signup = new ClientsController();
     if ($signup->checkIsEmail($_POST['email'])) {
-        $user = new Clients;
-        $address = new Client_adresses;
-        $user->setObject(array($_POST['name'], $_POST['email']));
-        $address->setObject(array(
-            $_POST['state'], $_POST['city'], $_POST['district'], $_POST['street'], $_POST['number'],
-            $_POST['complement'], $_POST['postal_code']
-        ));
+        $user = new Clients();
+        $address = new ClientAdresses();
+        $user->setObject($_POST);
+        $address->setObject($_POST);
         $signup->newClient($user);
         $signup->newClientAddress($address);
     } else {
