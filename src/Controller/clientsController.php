@@ -32,14 +32,16 @@ class ClientsController
         $p_sql->execute();
     }
 
-    public function showClient()
+    public function showAllClients()
     {
         $sql = "SELECT c.name,c.email,
         a.street,a.number,a.district,a.city,a.complement,
-        a.state,a.postal_code FROM clients c JOIN client_addresses a LIMIT 1";
+        a.state,a.postal_code FROM clients c JOIN client_addresses a on c.id = a.client_id LIMIT 1";
         $p_sql = Connection::getInstance()->prepare($sql);
         $p_sql->execute();
-        return $p_sql->fetch();
+        if ($p_sql->rowCount() > 0) return $p_sql->fetch();
+
+        return false;
     }
 
     public function checkIsEmail(string $email): bool
@@ -59,6 +61,8 @@ class ClientsController
         $sql = "SELECT * FROM clients ORDER BY id DESC LIMIT 1";
         $p_sql = Connection::getInstance()->prepare($sql);
         $p_sql->execute();
-        return $p_sql->fetch();
+        if ($p_sql->rowCount() > 0) return $p_sql->fetch();
+
+        return false;
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-class Lotes
+class Batches
 {
     private int $id;
     private string $fabrication_date;

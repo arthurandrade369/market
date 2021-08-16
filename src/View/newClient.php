@@ -89,7 +89,7 @@ if (isset($_REQUEST['send'])) {
             <input type="submit" name="send" value="Cadastrar">
         </form>
 
-        <a href="../../public/index.php"><button type="button">Voltar</button></a>
+        <a href="./Clients.php"><button type="button">Voltar</button></a>
     </div>
 
 </body>

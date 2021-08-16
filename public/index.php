@@ -9,7 +9,7 @@
 <body>
     <h1>Ações</h1>
     <i class="fas fa-user"></i>
-    <a href="../src/View/newClient.php"><button type="button">Cadastrar Cliente</button></a>
+    <a href="../src/View/Clients.php"><button type="button">Opçoes Cliente</button></a>
 
 </body>
 
