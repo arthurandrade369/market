@@ -6,6 +6,10 @@ require_once("../Entity/ClientAdresses.php");
 
 class ClientsController
 {
+    /**
+     * @param Clients $clients
+     * @return void
+     */
     public function newClient(Clients $clients): void
     {
         $sql = "INSERT INTO clients(name, email) VALUES(:name, :email)";
@@ -15,6 +19,10 @@ class ClientsController
         $p_sql->execute();
     }
 
+    /**
+     * @param ClientAdresses $addresses
+     * @return void
+     */
     public function newClientAddress(ClientAdresses $addresses): void
     {
         $aws = $this->getLastColumn();
@@ -32,18 +40,23 @@ class ClientsController
         $p_sql->execute();
     }
 
+    /**
+     * @return 
+     */
     public function showAllClients()
     {
-        $sql = "SELECT c.name,c.email,
-        a.street,a.number,a.district,a.city,a.complement,
-        a.state,a.postal_code FROM clients c JOIN client_addresses a on c.id = a.client_id LIMIT 1";
+        $sql = "SELECT * FROM clients";
         $p_sql = Connection::getInstance()->prepare($sql);
         $p_sql->execute();
-        if ($p_sql->rowCount() > 0) return $p_sql->fetch();
+        if ($p_sql->rowCount() > 0) return $p_sql->fetchall();
 
         return false;
     }
 
+    /**
+     * @param string $email
+     * @return boolean
+     */
     public function checkIsEmail(string $email): bool
     {
         $sql = "SELECT email FROM clients WHERE email = :email";

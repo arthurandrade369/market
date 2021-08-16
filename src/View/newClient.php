@@ -88,7 +88,7 @@ if (isset($_REQUEST['send'])) {
             <h1></h1>
             <input type="submit" name="send" value="Cadastrar">
         </form>
-
+        <i class="fas fa-undo"></i>
         <a href="./Clients.php"><button type="button">Voltar</button></a>
     </div>
 

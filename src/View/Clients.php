@@ -12,8 +12,9 @@
     <a href="./NewClient.php"><button type="button">Novo Cliente</button></a>
     <h1></h1>
     <i class="fas fa-users"></i>
-    <a href="./ShowClients.php"><button type="button">Mostrar Clientes</button></a>
+    <a href="./ShowAllClients.php"><button type="button">Mostrar Clientes</button></a>
     <h1></h1>
+    <i class="fas fa-undo"></i>
     <a href="../../public/index.php"><button type="button">Voltar</button></a>
 </body>
 
