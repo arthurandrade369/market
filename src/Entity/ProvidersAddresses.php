@@ -1,6 +1,6 @@
 <?php
 
-class Providers_addresses
+class ProvidersAddresses
 {
     private int $id;
     private string $state;
@@ -111,7 +111,6 @@ class Providers_addresses
         $this->setNumber($object['number']);
         $this->setComplement($object['complement']);
         $this->setPostal_code($object['postal_code']);
-        $this->setProviders_id($object['providers_id']);
 
         return $this;
     }

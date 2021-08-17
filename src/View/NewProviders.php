@@ -1,22 +1,22 @@
 <?php
 
-require_once(__DIR__ . "/../../src/Entity/Clients.php");
-require_once(__DIR__ . "/../../src/Entity/ClientAddresses.php");
-require_once(__DIR__ . "/../../src/Controller/ClientsController.php");
+require_once("../Entity/ProvidersAddresses.php");
+require_once("../Entity/ProvidersAddresses.php");
+require_once("../Controller/ProvidersController.php");
 
 if (isset($_REQUEST['send'])) {
-    $signup = new ClientsController();
-    if ($signup->checkIsEmail($_POST['email'])) {
-        $user = new Clients();
-        $address = new ClientAdresses();
-        $user->setObject($_POST);
+    $signup = new ProvidersController();
+    if ($signup->checkIsCnpj($_POST['cnpj'])) {
+        $providers = new Providers();
+        $address = new ProvidersAddresses();
+        $providers->setObject($_POST);
         $address->setObject($_POST);
-        $signup->newClient($user);
-        $signup->newClientAddress($address);
+        $signup->newProviders($providers);
+        $signup->newProvidersAddress($address);
 
-        echo "<h2>Cliente cadastrado com sucesso!</h2>";
+        echo "<h2>Fornecedor cadastrado com sucesso!</h2>";
     } else {
-        echo "<h2>Email ja existe!</h2>";
+        echo "<h2>CNPJ ja existe!</h2>";
     }
 }
 
@@ -26,14 +26,14 @@ if (isset($_REQUEST['send'])) {
 
 <head>
     <meta charset="utf-8">
-    <title>Cliente</title>
+    <title>Fornecedores</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
 </head>
 
 <body>
     <div class="register">
-        <h1>Cliente</h1>
-        <h2>Pessoal:</h2>
+        <h1>Fornecedores</h1>
+        <h2>Dados:</h2>
 
         <form method="post">
             <label for="name">
@@ -41,10 +41,10 @@ if (isset($_REQUEST['send'])) {
             </label>
             <input type="text" name="name" placeholder="Nome" id="name" required>
 
-            <label for="email">
+            <label for="cnpj">
                 <i class="fas fa-at"></i>
             </label>
-            <input type="text" name="email" placeholder="Email" id="email" required>
+            <input type="text" name="cnpj" placeholder="CNPJ" id="cnpj" required>
 
             <h2>Endereço</h2>
 
@@ -90,7 +90,7 @@ if (isset($_REQUEST['send'])) {
             <input type="submit" name="send" value="Cadastrar">
         </form>
         <i class="fas fa-undo"></i>
-        <a href="./Clients.php"><button type="button">Voltar</button></a>
+        <a href="./Providers.php"><button type="button">Voltar</button></a>
     </div>
 
 </body>

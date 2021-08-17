@@ -2,7 +2,7 @@
 
 require_once("../../config/connection-db.php");
 require_once("../Entity/Clients.php");
-require_once("../Entity/ClientAdresses.php");
+require_once("../Entity/ClientAddresses.php");
 
 class ClientsController
 {
@@ -41,11 +41,11 @@ class ClientsController
     }
 
     /**
-     * @return 
+     * @return array|bool
      */
     public function showAllClients()
     {
-        $sql = "SELECT * FROM clients";
+        $sql = "SELECT * FROM clients c JOIN  client_addresses a WHERE c.id = a.id";
         $p_sql = Connection::getInstance()->prepare($sql);
         $p_sql->execute();
         if ($p_sql->rowCount() > 0) return $p_sql->fetchall();
@@ -53,6 +53,21 @@ class ClientsController
         return false;
     }
 
+    /**
+     * @param array $email
+     * @return array|bool
+     */
+    public function showSingleClients($id)
+    {
+        $sql = "SELECT * FROM clients c JOIN  client_addresses a on c.id = a.id WHERE c.id = :id LIMIT 1";
+        $p_sql = Connection::getInstance()->prepare($sql);
+        $p_sql->bindValue('id',$id);
+        $p_sql->execute();
+        if ($p_sql->rowCount() > 0) return $p_sql->fetch();
+
+        return false;
+    }
+    
     /**
      * @param string $email
      * @return boolean
@@ -69,6 +84,9 @@ class ClientsController
         return true;
     }
 
+    /**
+     * @return array|bool
+     */
     public function getLastColumn()
     {
         $sql = "SELECT * FROM clients ORDER BY id DESC LIMIT 1";
