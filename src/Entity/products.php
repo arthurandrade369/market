@@ -4,57 +4,117 @@ class Products
 {
     private int $id;
     private string $name;
-    private float $price_product;
-    private int $quantity_inventory;
+    private float $priceProduct;
+    private int $quantityInventory;
     private float $discount;
 
-    public function getId(): ?int
+    /**
+     * Get the value of id
+     */
+    public function getId()
     {
         return $this->id;
     }
 
-    public function setId(int $id)
+    /**
+     * Set the value of id
+     *
+     * @return  self
+     */
+    public function setId($id)
     {
         $this->id = $id;
+
+        return $this;
     }
 
-    public function getName(): ?string
+    /**
+     * Get the value of name
+     */
+    public function getName()
     {
         return $this->name;
     }
 
-    public function setName(string $name)
+    /**
+     * Set the value of name
+     *
+     * @return  self
+     */
+    public function setName($name)
     {
         $this->name = $name;
+
+        return $this;
     }
 
-    public function getPrice_product(): ?float
+    /**
+     * Get the value of priceProduct
+     */
+    public function getPriceProduct()
     {
-        return $this->price_product;
+        return $this->priceProduct;
     }
 
-    public function setPrice_product(float $price_product)
+    /**
+     * Set the value of priceProduct
+     *
+     * @return  self
+     */
+    public function setPriceProduct($priceProduct)
     {
-        $this->price_product = $price_product;
+        $this->priceProduct = $priceProduct;
+
+        return $this;
     }
 
-    public function getQuantity_inventory(): ?int
+    /**
+     * Get the value of quantityInventory
+     */
+    public function getQuantityInventory()
     {
-        return $this->quantity_inventory;
+        return $this->quantityInventory;
     }
 
-    public function setQuantity_inventory(int $quantity_inventory)
+    /**
+     * Set the value of quantityInventory
+     *
+     * @return  self
+     */
+    public function setQuantityInventory($quantityInventory)
     {
-        $this->quantity_inventory = $quantity_inventory;
+        $this->quantityInventory = $quantityInventory;
+
+        return $this;
     }
 
-    public function getDiscount(): ?float
+    /**
+     * Get the value of discount
+     */
+    public function getDiscount()
     {
         return $this->discount;
     }
 
-    public function setDiscount(float $discount)
+    /**
+     * Set the value of discount
+     *
+     * @return  self
+     */
+    public function setDiscount($discount)
     {
         $this->discount = $discount;
+
+        return $this;
+    }
+
+    public function setObject($object)
+    {
+        $this->setName($object['name']);
+        $this->setPriceProduct($object['priceproduct']);
+        $this->setQuantityInventory($object['quantityinventory']);
+        if (is_numeric($object['discount'])) {
+            $this->setDiscount($object['discount']);
+        }
     }
 }

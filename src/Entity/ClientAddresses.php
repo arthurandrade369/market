@@ -9,97 +9,187 @@ class ClientAdresses
     private string $street;
     private string $number;
     private string $complement;
-    private string $postal_code;
-    private int $clients_id;
+    private string $postalCode;
+    private int $clientsId;
 
-    public function getId(): ?int
+    /**
+     * Get the value of id
+     */ 
+    public function getId()
     {
         return $this->id;
     }
 
-    public function setId(int $id)
+    /**
+     * Set the value of id
+     *
+     * @return  self
+     */ 
+    public function setId($id)
     {
         $this->id = $id;
+
+        return $this;
     }
 
-    public function getState(): ?string
+    /**
+     * Get the value of state
+     */ 
+    public function getState()
     {
         return $this->state;
     }
 
-    public function setState(string $state)
+    /**
+     * Set the value of state
+     *
+     * @return  self
+     */ 
+    public function setState($state)
     {
         $this->state = $state;
+
+        return $this;
     }
 
-    public function getCity(): ?string
+    /**
+     * Get the value of city
+     */ 
+    public function getCity()
     {
         return $this->city;
     }
 
-    public function setCity(string $city)
+    /**
+     * Set the value of city
+     *
+     * @return  self
+     */ 
+    public function setCity($city)
     {
         $this->city = $city;
+
+        return $this;
     }
 
-    public function getDistrict(): ?string
+    /**
+     * Get the value of district
+     */ 
+    public function getDistrict()
     {
         return $this->district;
     }
 
-    public function setDistrict(string $district)
+    /**
+     * Set the value of district
+     *
+     * @return  self
+     */ 
+    public function setDistrict($district)
     {
         $this->district = $district;
+
+        return $this;
     }
 
-    public function getStreet(): ?string
+    /**
+     * Get the value of street
+     */ 
+    public function getStreet()
     {
         return $this->street;
     }
 
-    public function setStreet(string $street)
+    /**
+     * Set the value of street
+     *
+     * @return  self
+     */ 
+    public function setStreet($street)
     {
         $this->street = $street;
+
+        return $this;
     }
 
-    public function getNumber(): ?string
+    /**
+     * Get the value of number
+     */ 
+    public function getNumber()
     {
         return $this->number;
     }
 
-    public function setNumber(string $number)
+    /**
+     * Set the value of number
+     *
+     * @return  self
+     */ 
+    public function setNumber($number)
     {
         $this->number = $number;
+
+        return $this;
     }
 
-    public function getComplement(): ?string
+    /**
+     * Get the value of complement
+     */ 
+    public function getComplement()
     {
         return $this->complement;
     }
 
-    public function setComplement(string $complement)
+    /**
+     * Set the value of complement
+     *
+     * @return  self
+     */ 
+    public function setComplement($complement)
     {
         $this->complement = $complement;
+
+        return $this;
     }
 
-    public function getPostal_code(): ?string
+    /**
+     * Get the value of postalCode
+     */ 
+    public function getPostalCode()
     {
-        return $this->postal_code;
+        return $this->postalCode;
     }
 
-    public function setPostal_code(string $postal_code)
+    /**
+     * Set the value of postalCode
+     *
+     * @return  self
+     */ 
+    public function setPostalCode($postalCode)
     {
-        $this->postal_code = $postal_code;
+        $this->postalCode = $postalCode;
+
+        return $this;
     }
 
-    public function getClients_id(): ?int
+    /**
+     * Get the value of clientsId
+     */ 
+    public function getClientsId()
     {
-        return $this->clients_id;
+        return $this->clientsId;
     }
 
-    public function setClients_id(int $clients_id)
+    /**
+     * Set the value of clientsId
+     *
+     * @return  self
+     */ 
+    public function setClientsId($clientsId)
     {
-        $this->clients_id = $clients_id;
+        $this->clientsId = $clientsId;
+
+        return $this;
     }
 
     public function setObject($object)
@@ -110,7 +200,7 @@ class ClientAdresses
         $this->setStreet($object['street']);
         $this->setNumber($object['number']);
         $this->setComplement($object['complement']);
-        $this->setPostal_code($object['postal_code']);
+        $this->setPostalCode($object['postal_code']);
 
         return $this;
     }

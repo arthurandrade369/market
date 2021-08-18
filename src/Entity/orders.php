@@ -6,66 +6,126 @@ class Orders
     private string $type;
     private string $receipt;
     private string $forecast;
-    private int $clients_id;
-    private int $buy_id;
+    private int $clientsId;
+    private int $buyId;
 
-    public function getId(): ?int
+    /**
+     * Get the value of id
+     */ 
+    public function getId()
     {
         return $this->id;
     }
 
-    public function setId(int $id)
+    /**
+     * Set the value of id
+     *
+     * @return  self
+     */ 
+    public function setId($id)
     {
         $this->id = $id;
+
+        return $this;
     }
 
-    public function getType(): ?string
+    /**
+     * Get the value of type
+     */ 
+    public function getType()
     {
         return $this->type;
     }
 
-    public function setType(string $type)
+    /**
+     * Set the value of type
+     *
+     * @return  self
+     */ 
+    public function setType($type)
     {
         $this->type = $type;
+
+        return $this;
     }
 
-    public function getReceipt(): ?string
+    /**
+     * Get the value of receipt
+     */ 
+    public function getReceipt()
     {
         return $this->receipt;
     }
 
-    public function setReceipt(string $receipt)
+    /**
+     * Set the value of receipt
+     *
+     * @return  self
+     */ 
+    public function setReceipt($receipt)
     {
         $this->receipt = $receipt;
+
+        return $this;
     }
 
-    public function getForecast(): ?string
+    /**
+     * Get the value of forecast
+     */ 
+    public function getForecast()
     {
         return $this->forecast;
     }
 
-    public function setForecast(string $forecast)
+    /**
+     * Set the value of forecast
+     *
+     * @return  self
+     */ 
+    public function setForecast($forecast)
     {
         $this->forecast = $forecast;
+
+        return $this;
     }
 
-    public function getClients_id(): ?int
+    /**
+     * Get the value of clientsId
+     */ 
+    public function getClientsId()
     {
-        return $this->clients_id;
+        return $this->clientsId;
     }
 
-    public function setClients_id(int $clients_id)
+    /**
+     * Set the value of clientsId
+     *
+     * @return  self
+     */ 
+    public function setClientsId($clientsId)
     {
-        $this->clients_id = $clients_id;
+        $this->clientsId = $clientsId;
+
+        return $this;
     }
 
-    public function getBuy_id(): ?int
+    /**
+     * Get the value of buyId
+     */ 
+    public function getBuyId()
     {
-        return $this->buy_id;
+        return $this->buyId;
     }
 
-    public function setBuy_id(int $buy_id)
+    /**
+     * Set the value of buyId
+     *
+     * @return  self
+     */ 
+    public function setBuyId($buyId)
     {
-        $this->buy_id = $buy_id;
+        $this->buyId = $buyId;
+
+        return $this;
     }
 }

@@ -2,17 +2,17 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Clientes</title>
+    <title>Produtos</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
 </head>
 
 <body>
-    <h1>Opções de Clientes</h1>
-    <i class="fas fa-user-plus"></i>
-    <a href="./NewClient.php"><button type="button">Novo Cliente</button></a>
+    <h1>Opções de Produtos</h1>
+    <i class="fas fa-box-open"></i>
+    <a href="./NewProduct.php"><button type="button">Novo Produtos</button></a>
     <h1></h1>
-    <i class="fas fa-users"></i>
-    <a href="./ShowClients.php"><button type="button">Mostrar Clientes</button></a>
+    <i class="fas fa-boxes"></i>
+    <a href="./ShowProducts.php"><button type="button">Mostrar Produtos</button></a>
     <h1></h1>
     <i class="fas fa-reply"></i>
     <a href="../../public/index.php"><button type="button">Voltar</button></a>

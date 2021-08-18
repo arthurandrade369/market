@@ -3,113 +3,214 @@
 class Batches
 {
     private int $id;
-    private string $fabrication_date;
-    private string $expiration_date;
-    private string $entry_date;
+    private string $fabricationDate;
+    private string $expirationDate;
+    private string $entryDate;
     private int $quantity;
     private bool $used;
-    private bool $sold_off;
+    private bool $soldOff;
     private string $description;
-    private int $providers_id;
-    private int $products_id;
+    private int $providersId;
+    private int $productsId;
 
-    public function getId(): ?int
+    /**
+     * Get the value of id
+     */
+    public function getId()
     {
         return $this->id;
     }
 
-    public function setid(int $id)
+    /**
+     * Set the value of id
+     *
+     * @return  self
+     */
+    public function setId($id)
     {
         $this->id = $id;
+
+        return $this;
     }
 
-    public function getFabrication_date(): ?string
+
+    /**
+     * Get the value of fabricationDate
+     */
+    public function getFabricationDate()
     {
-        return $this->fabrication_date;
+        return $this->fabricationDate;
     }
 
-    public function setFabrication_date(string $fabrication_date)
+    /**
+     * Set the value of fabricationDate
+     *
+     * @return  self
+     */
+    public function setFabricationDate($fabricationDate)
     {
-        $this->fabrication_date = $fabrication_date;
+        $this->fabricationDate = $fabricationDate;
+
+        return $this;
     }
 
-    public function getExpiration_date(): ?string
+    /**
+     * Get the value of expirationDate
+     */
+    public function getExpirationDate()
     {
-        return $this->expiration_date;
+        return $this->expirationDate;
     }
 
-    public function setExpiration_date(string $expiration_date)
+    /**
+     * Set the value of expirationDate
+     *
+     * @return  self
+     */
+    public function setExpirationDate($expirationDate)
     {
-        $this->expiration_date = $expiration_date;
+        $this->expirationDate = $expirationDate;
+
+        return $this;
     }
 
-    public function getEntry_date(): ?string
+    /**
+     * Get the value of entryDate
+     */
+    public function getEntryDate()
     {
-        return $this->entry_date;
+        return $this->entryDate;
     }
 
-    public function setEntry_date(string $entry_date)
+    /**
+     * Set the value of entryDate
+     *
+     * @return  self
+     */
+    public function setEntryDate($entryDate)
     {
-        $this->entry_date = $entry_date;
+        $this->entryDate = $entryDate;
+
+        return $this;
     }
 
-    public function getQuantity(): ?int
+    /**
+     * Get the value of quantity
+     */
+    public function getQuantity()
     {
         return $this->quantity;
     }
 
-    public function setQuantity(int $quantity)
+    /**
+     * Set the value of quantity
+     *
+     * @return  self
+     */
+    public function setQuantity($quantity)
     {
         $this->quantity = $quantity;
+
+        return $this;
     }
 
-    public function getUsed(): ?bool
+    /**
+     * Get the value of used
+     */
+    public function getUsed()
     {
         return $this->used;
     }
 
-    public function setUsed(bool $used)
+    /**
+     * Set the value of used
+     *
+     * @return  self
+     */
+    public function setUsed($used)
     {
         $this->used = $used;
+
+        return $this;
     }
 
-    public function getSold_off(): ?bool
+    /**
+     * Get the value of soldOff
+     */
+    public function getSoldOff()
     {
-        return $this->sold_off;
+        return $this->soldOff;
     }
 
-    public function setSold_off(bool $sold_off)
+    /**
+     * Set the value of soldOff
+     *
+     * @return  self
+     */
+    public function setSoldOff($soldOff)
     {
-        $this->sold_off = $sold_off;
+        $this->soldOff = $soldOff;
+
+        return $this;
     }
 
-    public function getDescription(): ?string
+    /**
+     * Get the value of description
+     */
+    public function getDescription()
     {
         return $this->description;
     }
 
-    public function setDescription(string $description)
+    /**
+     * Set the value of description
+     *
+     * @return  self
+     */
+    public function setDescription($description)
     {
         $this->description = $description;
+
+        return $this;
     }
 
-    public function getProviders_id(): ?int
+    /**
+     * Get the value of providersId
+     */
+    public function getProvidersId()
     {
-        return $this->providers_id;
+        return $this->providersId;
     }
 
-    public function setProviders_id(int $providers_id)
+    /**
+     * Set the value of providersId
+     *
+     * @return  self
+     */
+    public function setProvidersId($providersId)
     {
-        $this->providers_id = $providers_id;
+        $this->providersId = $providersId;
+
+        return $this;
     }
 
-    public function getProducts_id(): ?int
+    /**
+     * Get the value of productsId
+     */
+    public function getProductsId()
     {
-        return $this->products_id;
+        return $this->productsId;
     }
 
-    public function setProducts_id(int $products_id)
+    /**
+     * Set the value of productsId
+     *
+     * @return  self
+     */
+    public function setProductsId($productsId)
     {
-        $this->products_id = $products_id;
+        $this->productsId = $productsId;
+
+        return $this;
     }
 }

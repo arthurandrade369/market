@@ -6,31 +6,64 @@ class Clients
     private string $name;
     private string $email;
 
-    public function getId(): ?int
+    /**
+     * Get the value of id
+     */
+    public function getId()
     {
         return $this->id;
     }
-    public function setId(int $id)
+
+    /**
+     * Set the value of id
+     *
+     * @return  self
+     */
+    public function setId($id)
     {
         $this->id = $id;
+
+        return $this;
     }
 
-    public function getName(): ?string
+    /**
+     * Get the value of name
+     */
+    public function getName()
     {
         return $this->name;
     }
-    public function setName(string $name)
+
+    /**
+     * Set the value of name
+     *
+     * @return  self
+     */
+    public function setName($name)
     {
         $this->name = $name;
+
+        return $this;
     }
 
-    public function getEmail(): ?string
+    /**
+     * Get the value of email
+     */
+    public function getEmail()
     {
         return $this->email;
     }
-    public function setEmail(string $email)
+
+    /**
+     * Set the value of email
+     *
+     * @return  self
+     */
+    public function setEmail($email)
     {
         $this->email = $email;
+
+        return $this;
     }
 
     public function setObject($object)

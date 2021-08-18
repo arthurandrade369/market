@@ -14,7 +14,7 @@
     <i class="fas fa-boxes"></i>
     <a href="./ShowProviders.php"><button type="button">Mostrar Fornecedores</button></a>
     <h1></h1>
-    <i class="fas fa-undo"></i>
+    <i class="fas fa-reply"></i>
     <a href="../../public/index.php"><button type="button">Voltar</button></a>
 </body>
 

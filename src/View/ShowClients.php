@@ -62,84 +62,112 @@ if (isset($_REQUEST['id']) and $_REQUEST['id'] != "") {
             <td>Cidade</td>
             <td>Estado</td>
             <td>Complemento</td>
+            <td>Código Postal</td>
         </tr>
         <tr>
-            <td><?php if (count($aws) == 23) {
-                    echo $aws['id'];
-                } else {
-                    foreach ($aws as $value) {
-                        echo $value['id'] . "<br>";
+            <td><?php if ($aws) {
+                    if (count($aws) == 23) {
+                        echo $aws['id'];
+                    } else {
+                        foreach ($aws as $value) {
+                            echo $value['id'] . "<br>";
+                        }
                     }
                 } ?></td>
 
-            <td><?php if (count($aws) == 23) {
-                    echo $aws['name'];
-                } else {
-                    foreach ($aws as $value) {
-                        echo $value['name'] . "<br>";
+            <td><?php if ($aws) {
+                    if (count($aws) == 23) {
+                        echo $aws['name'];
+                    } else {
+                        foreach ($aws as $value) {
+                            echo $value['name'] . "<br>";
+                        }
                     }
                 } ?></td>
 
-            <td><?php if (count($aws) == 23) {
-                    echo $aws['email'];
-                } else {
-                    foreach ($aws as $value) {
-                        echo $value['email'] . "<br>";
+            <td><?php if ($aws) {
+                    if (count($aws) == 23) {
+                        echo $aws['email'];
+                    } else {
+                        foreach ($aws as $value) {
+                            echo $value['email'] . "<br>";
+                        }
                     }
                 } ?></td>
 
-            <td><?php if (count($aws) == 23) {
-                    echo $aws['street'];
-                } else {
-                    foreach ($aws as $value) {
-                        echo $value['street'] . "<br>";
+            <td><?php if ($aws) {
+                    if (count($aws) == 23) {
+                        echo $aws['street'];
+                    } else {
+                        foreach ($aws as $value) {
+                            echo $value['street'] . "<br>";
+                        }
                     }
                 } ?></td>
 
-            <td><?php if (count($aws) == 23) {
-                    echo $aws['number'];
-                } else {
-                    foreach ($aws as $value) {
-                        echo $value['number'] . "<br>";
+            <td><?php if ($aws) {
+                    if (count($aws) == 23) {
+                        echo $aws['number'];
+                    } else {
+                        foreach ($aws as $value) {
+                            echo $value['number'] . "<br>";
+                        }
                     }
                 } ?></td>
 
-            <td><?php if (count($aws) == 23) {
-                    echo $aws['district'];
-                } else {
-                    foreach ($aws as $value) {
-                        echo $value['district'] . "<br>";
+            <td><?php if ($aws) {
+                    if (count($aws) == 23) {
+                        echo $aws['district'];
+                    } else {
+                        foreach ($aws as $value) {
+                            echo $value['district'] . "<br>";
+                        }
                     }
                 } ?></td>
 
-            <td><?php if (count($aws) == 23) {
-                    echo $aws['city'];
-                } else {
-                    foreach ($aws as $value) {
-                        echo $value['city'] . "<br>";
+            <td><?php if ($aws) {
+                    if (count($aws) == 23) {
+                        echo $aws['city'];
+                    } else {
+                        foreach ($aws as $value) {
+                            echo $value['city'] . "<br>";
+                        }
                     }
                 } ?></td>
 
-            <td><?php if (count($aws) == 23) {
-                    echo $aws['state'];
-                } else {
-                    foreach ($aws as $value) {
-                        echo $value['state'] . "<br>";
+            <td><?php if ($aws) {
+                    if (count($aws) == 23) {
+                        echo $aws['state'];
+                    } else {
+                        foreach ($aws as $value) {
+                            echo $value['state'] . "<br>";
+                        }
                     }
                 } ?></td>
 
-            <td><?php if (count($aws) == 23) {
-                    echo $aws['complement'];
-                } else {
-                    foreach ($aws as $value) {
-                        echo $value['complement'] . "<br>";
+            <td><?php if ($aws) {
+                    if (count($aws) == 23) {
+                        echo $aws['complement'];
+                    } else {
+                        foreach ($aws as $value) {
+                            echo $value['complement'] . "<br>";
+                        }
+                    }
+                } ?></td>
+                <td><?php if ($aws) {
+                    if (count($aws) == 23) {
+                        echo $aws['postal_code'];
+                    } else {
+                        foreach ($aws as $value) {
+                            echo $value['postal_code'] . "<br>";
+                        }
                     }
                 } ?></td>
 
         </tr>
     </table>
     <h2></h2>
-    <i class="fas fa-undo"></i>
+    <i class="fas fa-reply"></i>
     <a href="./Clients.php"><button type="button">Voltar</button></a>
 </body>
 

@@ -3,58 +3,108 @@
 class Sale_items
 {
     private int $id;
-    private int $quantity_sale;
-    private float $price_total;
-    private int $products_id;
-    private int $buy_id;
+    private int $quantitySale;
+    private float $priceTotal;
+    private int $productsId;
+    private int $buyId;
 
-    public function getId(): ?int
+    /**
+     * Get the value of id
+     */
+    public function getId()
     {
         return $this->id;
     }
 
-    public function setId(int $id)
+    /**
+     * Set the value of id
+     *
+     * @return  self
+     */
+    public function setId($id)
     {
         $this->id = $id;
+
+        return $this;
     }
 
-    public function getQuantity_sale(): ?int
+    /**
+     * Get the value of quantitySale
+     */
+    public function getQuantitySale()
     {
-        return $this->quantity_sale;
+        return $this->quantitySale;
     }
 
-    public function setQuantity_sale(int $quantity_sale)
+    /**
+     * Set the value of quantitySale
+     *
+     * @return  self
+     */
+    public function setQuantitySale($quantitySale)
     {
-        $this->quantity_sale = $quantity_sale;
+        $this->quantitySale = $quantitySale;
+
+        return $this;
     }
 
-    public function getPrice_total(): ?float
+    /**
+     * Get the value of priceTotal
+     */
+    public function getPriceTotal()
     {
-        return $this->price_total;
+        return $this->priceTotal;
     }
 
-    public function setPrice_total(float $price_total)
+    /**
+     * Set the value of priceTotal
+     *
+     * @return  self
+     */
+    public function setPriceTotal($priceTotal)
     {
-        $this->price_total = $price_total;
+        $this->priceTotal = $priceTotal;
+
+        return $this;
     }
 
-    public function getProducts_id(): ?int
+    /**
+     * Get the value of productsId
+     */
+    public function getProductsId()
     {
-        return $this->products_id;
+        return $this->productsId;
     }
 
-    public function setProducts_id(int $products_id)
+    /**
+     * Set the value of productsId
+     *
+     * @return  self
+     */
+    public function setProductsId($productsId)
     {
-        $this->products_id = $products_id;
+        $this->productsId = $productsId;
+
+        return $this;
     }
 
-    public function getBuy_id(): ?int
+    /**
+     * Get the value of buyId
+     */
+    public function getBuyId()
     {
-        return $this->buy_id;
+        return $this->buyId;
     }
 
-    public function setBuy_id(int $buy_id)
+    /**
+     * Set the value of buyId
+     *
+     * @return  self
+     */
+    public function setBuyId($buyId)
     {
-        $this->buy_id = $buy_id;
+        $this->buyId = $buyId;
+
+        return $this;
     }
 }

@@ -7,6 +7,8 @@ require_once("../Entity/ClientAddresses.php");
 class ClientsController
 {
     /**
+     * Signup a new client in database
+     * 
      * @param Clients $clients
      * @return void
      */
@@ -20,6 +22,8 @@ class ClientsController
     }
 
     /**
+     * Signup a client address in database 
+     *
      * @param ClientAdresses $addresses
      * @return void
      */
@@ -35,12 +39,14 @@ class ClientsController
         $p_sql->bindValue('street', $addresses->getStreet());
         $p_sql->bindValue('number', $addresses->getNumber());
         $p_sql->bindValue('complement', $addresses->getComplement());
-        $p_sql->bindValue('postal_code', $addresses->getPostal_code());
+        $p_sql->bindValue('postal_code', $addresses->getPostalCode());
         $p_sql->bindValue('clients_id', $aws['id']);
         $p_sql->execute();
     }
 
     /**
+     * Bring the entire clients from database
+     * 
      * @return array|bool
      */
     public function showAllClients()
@@ -54,6 +60,8 @@ class ClientsController
     }
 
     /**
+     * Bring a specify client from database
+     * 
      * @param array $email
      * @return array|bool
      */
@@ -69,6 +77,8 @@ class ClientsController
     }
     
     /**
+     * Verify if the entry of email already exists in database 
+     * 
      * @param string $email
      * @return boolean
      */
@@ -85,6 +95,8 @@ class ClientsController
     }
 
     /**
+     * Bring the last column added in database
+     * 
      * @return array|bool
      */
     public function getLastColumn()

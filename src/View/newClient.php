@@ -48,48 +48,48 @@ if (isset($_REQUEST['send'])) {
 
             <h2>Endereço</h2>
 
-            <label for="state">
+            <label for="postal_code">
                 <i class="fas fa-home"></i>
             </label>
-            <input type="text" name="state" placeholder="Estado" id="state" required>
-
-            <label for="city">
-                <i class="fas fa-home"></i>
-            </label>
-            <input type="text" name="city" placeholder="Cidade" id="city" required>
-
-            <label for="district">
-                <i class="fas fa-home"></i>
-            </label>
-            <input type="text" name="district" placeholder="Bairro" id="district" required>
+            <input type="text" name="postal_code" placeholder="CEP" id="postal_code" required>
 
             <label for="street">
                 <i class="fas fa-home"></i>
             </label>
             <input type="text" name="street" placeholder="Rua" id="street" required>
 
-            <h4></h4>
-
             <label for="number">
                 <i class="fas fa-home"></i>
             </label>
             <input type="text" name="number" placeholder="N°" id="" required>
 
+            <label for="district">
+                <i class="fas fa-home"></i>
+            </label>
+            <input type="text" name="district" placeholder="Bairro" id="district" required>
+            
+            <h1></h1>
+
+            <label for="city">
+                <i class="fas fa-home"></i>
+            </label>
+            <input type="text" name="city" placeholder="Cidade" id="city" required>
+
+            <label for="state">
+                <i class="fas fa-home"></i>
+            </label>
+            <input type="text" name="state" placeholder="Estado" id="state" required>
+
+
             <label for="complement">
                 <i class="fas fa-home"></i>
             </label>
             <input type="text" name="complement" placeholder="Complemento" id="complement">
-
-            <label for="postal_code">
-                <i class="fas fa-home"></i>
-            </label>
-            <input type="text" name="postal_code" placeholder="CEP" id="postal_code" required>
-
-
+            
             <h1></h1>
             <input type="submit" name="send" value="Cadastrar">
         </form>
-        <i class="fas fa-undo"></i>
+        <i class="fas fa-reply"></i>
         <a href="./Clients.php"><button type="button">Voltar</button></a>
     </div>
 
