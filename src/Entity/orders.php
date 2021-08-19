@@ -11,8 +11,10 @@ class Orders
 
     /**
      * Get the value of id
+     * 
+     * @return int
      */ 
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
@@ -20,9 +22,10 @@ class Orders
     /**
      * Set the value of id
      *
+     * @param int $id
      * @return  self
      */ 
-    public function setId($id)
+    public function setId(int $id)
     {
         $this->id = $id;
 
@@ -31,8 +34,10 @@ class Orders
 
     /**
      * Get the value of type
+     * 
+     * @return string
      */ 
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }
@@ -40,9 +45,10 @@ class Orders
     /**
      * Set the value of type
      *
+     * @param string $type
      * @return  self
      */ 
-    public function setType($type)
+    public function setType(string $type)
     {
         $this->type = $type;
 
@@ -51,8 +57,10 @@ class Orders
 
     /**
      * Get the value of receipt
+     * 
+     * @return string
      */ 
-    public function getReceipt()
+    public function getReceipt(): string
     {
         return $this->receipt;
     }
@@ -60,9 +68,10 @@ class Orders
     /**
      * Set the value of receipt
      *
+     * @param string $receipt
      * @return  self
      */ 
-    public function setReceipt($receipt)
+    public function setReceipt(string $receipt)
     {
         $this->receipt = $receipt;
 
@@ -71,8 +80,10 @@ class Orders
 
     /**
      * Get the value of forecast
+     * 
+     * @return string
      */ 
-    public function getForecast()
+    public function getForecast(): string
     {
         return $this->forecast;
     }
@@ -80,9 +91,10 @@ class Orders
     /**
      * Set the value of forecast
      *
+     * @param string $forecast
      * @return  self
      */ 
-    public function setForecast($forecast)
+    public function setForecast(string $forecast)
     {
         $this->forecast = $forecast;
 
@@ -91,8 +103,10 @@ class Orders
 
     /**
      * Get the value of clientsId
+     * 
+     * @return int
      */ 
-    public function getClientsId()
+    public function getClientsId(): int
     {
         return $this->clientsId;
     }
@@ -100,9 +114,10 @@ class Orders
     /**
      * Set the value of clientsId
      *
+     * @param int $clientsId
      * @return  self
      */ 
-    public function setClientsId($clientsId)
+    public function setClientsId(int $clientsId)
     {
         $this->clientsId = $clientsId;
 
@@ -111,8 +126,10 @@ class Orders
 
     /**
      * Get the value of buyId
+     * 
+     * @return int
      */ 
-    public function getBuyId()
+    public function getBuyId(): int
     {
         return $this->buyId;
     }
@@ -120,9 +137,10 @@ class Orders
     /**
      * Set the value of buyId
      *
+     * @param int $buyId
      * @return  self
      */ 
-    public function setBuyId($buyId)
+    public function setBuyId(int $buyId)
     {
         $this->buyId = $buyId;
 

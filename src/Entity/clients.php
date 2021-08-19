@@ -8,8 +8,10 @@ class Clients
 
     /**
      * Get the value of id
+     * 
+     * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
@@ -17,9 +19,10 @@ class Clients
     /**
      * Set the value of id
      *
+     * @param int $id
      * @return  self
      */
-    public function setId($id)
+    public function setId(int $id)
     {
         $this->id = $id;
 
@@ -28,8 +31,10 @@ class Clients
 
     /**
      * Get the value of name
+     * 
+     * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -37,9 +42,10 @@ class Clients
     /**
      * Set the value of name
      *
+     * @param string $name
      * @return  self
      */
-    public function setName($name)
+    public function setName(string $name)
     {
         $this->name = $name;
 
@@ -48,24 +54,33 @@ class Clients
 
     /**
      * Get the value of email
+     * 
+     * @return string
      */
-    public function getEmail()
+    public function getEmail(): string
     {
         return $this->email;
     }
 
     /**
      * Set the value of email
-     *
+     * 
+     *@param string $email
      * @return  self
      */
-    public function setEmail($email)
+    public function setEmail(string $email)
     {
         $this->email = $email;
 
         return $this;
     }
 
+    /**
+     * Set the main attributes of class
+     *
+     * @param object|array $object
+     * @return self
+     */
     public function setObject($object)
     {
         $this->setName($object['name']);

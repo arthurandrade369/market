@@ -8,7 +8,7 @@ if (isset($_REQUEST['send'])) {
     $signup = new ClientsController();
     if ($signup->checkIsEmail($_POST['email'])) {
         $user = new Clients();
-        $address = new ClientAdresses();
+        $address = new ClientAddresses();
         $user->setObject($_POST);
         $address->setObject($_POST);
         $signup->newClient($user);
@@ -46,7 +46,7 @@ if (isset($_REQUEST['send'])) {
             </label>
             <input type="text" name="email" placeholder="Email" id="email" required>
 
-            <h2>Endereço</h2>
+            <h2>Endereço: </h2>
 
             <label for="postal_code">
                 <i class="fas fa-home"></i>

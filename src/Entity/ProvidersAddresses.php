@@ -14,8 +14,10 @@ class ProvidersAddresses
 
     /**
      * Get the value of id
-     */
-    public function getId()
+     * 
+     * @return int
+     */ 
+    public function getId(): int
     {
         return $this->id;
     }
@@ -23,9 +25,10 @@ class ProvidersAddresses
     /**
      * Set the value of id
      *
+     * @param int $id
      * @return  self
-     */
-    public function setId($id)
+     */ 
+    public function setId(int $id)
     {
         $this->id = $id;
 
@@ -34,8 +37,10 @@ class ProvidersAddresses
 
     /**
      * Get the value of state
-     */
-    public function getState()
+     * 
+     * @return string
+     */ 
+    public function getState(): string
     {
         return $this->state;
     }
@@ -43,9 +48,10 @@ class ProvidersAddresses
     /**
      * Set the value of state
      *
+     * @param string $state
      * @return  self
-     */
-    public function setState($state)
+     */ 
+    public function setState(string $state)
     {
         $this->state = $state;
 
@@ -54,8 +60,10 @@ class ProvidersAddresses
 
     /**
      * Get the value of city
-     */
-    public function getCity()
+     * 
+     * @return string
+     */ 
+    public function getCity(): string
     {
         return $this->city;
     }
@@ -63,9 +71,10 @@ class ProvidersAddresses
     /**
      * Set the value of city
      *
+     * @param string $city
      * @return  self
-     */
-    public function setCity($city)
+     */ 
+    public function setCity(string $city)
     {
         $this->city = $city;
 
@@ -74,8 +83,10 @@ class ProvidersAddresses
 
     /**
      * Get the value of district
-     */
-    public function getDistrict()
+     * 
+     * @return string
+     */ 
+    public function getDistrict(): string
     {
         return $this->district;
     }
@@ -83,9 +94,10 @@ class ProvidersAddresses
     /**
      * Set the value of district
      *
+     * @param string $disctrict
      * @return  self
-     */
-    public function setDistrict($district)
+     */ 
+    public function setDistrict(string $district)
     {
         $this->district = $district;
 
@@ -94,8 +106,10 @@ class ProvidersAddresses
 
     /**
      * Get the value of street
-     */
-    public function getStreet()
+     * 
+     * @return string
+     */ 
+    public function getStreet(): string
     {
         return $this->street;
     }
@@ -103,9 +117,10 @@ class ProvidersAddresses
     /**
      * Set the value of street
      *
+     * @param string $street
      * @return  self
-     */
-    public function setStreet($street)
+     */ 
+    public function setStreet(string $street)
     {
         $this->street = $street;
 
@@ -114,8 +129,10 @@ class ProvidersAddresses
 
     /**
      * Get the value of number
-     */
-    public function getNumber()
+     * 
+     * @return string
+     */ 
+    public function getNumber(): string
     {
         return $this->number;
     }
@@ -123,9 +140,10 @@ class ProvidersAddresses
     /**
      * Set the value of number
      *
+     * @param string $number
      * @return  self
-     */
-    public function setNumber($number)
+     */ 
+    public function setNumber(string $number)
     {
         $this->number = $number;
 
@@ -134,8 +152,10 @@ class ProvidersAddresses
 
     /**
      * Get the value of complement
-     */
-    public function getComplement()
+     * 
+     * @return string
+     */ 
+    public function getComplement(): string
     {
         return $this->complement;
     }
@@ -143,9 +163,10 @@ class ProvidersAddresses
     /**
      * Set the value of complement
      *
+     * @param string $complement
      * @return  self
-     */
-    public function setComplement($complement)
+     */ 
+    public function setComplement(string $complement)
     {
         $this->complement = $complement;
 
@@ -154,8 +175,10 @@ class ProvidersAddresses
 
     /**
      * Get the value of postalCode
-     */
-    public function getPostalCode()
+     * 
+     * @return string
+     */ 
+    public function getPostalCode(): string
     {
         return $this->postalCode;
     }
@@ -163,9 +186,10 @@ class ProvidersAddresses
     /**
      * Set the value of postalCode
      *
+     * @param string $postalCode
      * @return  self
-     */
-    public function setPostalCode($postalCode)
+     */ 
+    public function setPostalCode(string $postalCode)
     {
         $this->postalCode = $postalCode;
 
@@ -174,8 +198,10 @@ class ProvidersAddresses
 
     /**
      * Get the value of providersId
-     */
-    public function getProvidersId()
+     * 
+     * @return int
+     */ 
+    public function getProvidersId(): int
     {
         return $this->providersId;
     }
@@ -183,15 +209,22 @@ class ProvidersAddresses
     /**
      * Set the value of providersId
      *
+     * @param int $providersId
      * @return  self
-     */
-    public function setProvidersId($providersId)
+     */ 
+    public function setProvidersId(int $providersId)
     {
         $this->providersId = $providersId;
 
         return $this;
     }
 
+    /**
+     * Set the main attributes of class
+     *
+     * @param object|array $object
+     * @return void
+     */
     public function setObject($object)
     {
         $this->setState($object['state']);

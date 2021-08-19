@@ -6,12 +6,14 @@ class Products
     private string $name;
     private float $priceProduct;
     private int $quantityInventory;
-    private float $discount;
+    private ?float $discount = 0;
 
     /**
      * Get the value of id
+     * 
+     * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
@@ -19,9 +21,10 @@ class Products
     /**
      * Set the value of id
      *
+     * @param int $id
      * @return  self
      */
-    public function setId($id)
+    public function setId(int $id)
     {
         $this->id = $id;
 
@@ -30,8 +33,10 @@ class Products
 
     /**
      * Get the value of name
+     * 
+     * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -39,9 +44,10 @@ class Products
     /**
      * Set the value of name
      *
+     * @param string $name
      * @return  self
      */
-    public function setName($name)
+    public function setName(string $name)
     {
         $this->name = $name;
 
@@ -50,8 +56,10 @@ class Products
 
     /**
      * Get the value of priceProduct
+     * 
+     * @return float
      */
-    public function getPriceProduct()
+    public function getPriceProduct(): float
     {
         return $this->priceProduct;
     }
@@ -59,9 +67,10 @@ class Products
     /**
      * Set the value of priceProduct
      *
+     * @param float $priceProduct
      * @return  self
      */
-    public function setPriceProduct($priceProduct)
+    public function setPriceProduct(float $priceProduct)
     {
         $this->priceProduct = $priceProduct;
 
@@ -70,8 +79,10 @@ class Products
 
     /**
      * Get the value of quantityInventory
+     * 
+     * @return int
      */
-    public function getQuantityInventory()
+    public function getQuantityInventory(): int
     {
         return $this->quantityInventory;
     }
@@ -79,6 +90,7 @@ class Products
     /**
      * Set the value of quantityInventory
      *
+     * @param int $quantityInventory
      * @return  self
      */
     public function setQuantityInventory($quantityInventory)
@@ -89,9 +101,11 @@ class Products
     }
 
     /**
-     * Get the value of discount
+     * Undocumented function
+     *
+     * @return float|null
      */
-    public function getDiscount()
+    public function getDiscount(): ?float
     {
         return $this->discount;
     }
@@ -99,22 +113,31 @@ class Products
     /**
      * Set the value of discount
      *
-     * @return  self
+     * @param float|null $discount
+     * @return void
      */
-    public function setDiscount($discount)
+    public function setDiscount(?float $discount)
     {
         $this->discount = $discount;
 
         return $this;
     }
 
+    /**
+     * Set the main attributes of class
+     *
+     * @param object|array $object
+     * @return self
+     */
     public function setObject($object)
     {
         $this->setName($object['name']);
         $this->setPriceProduct($object['priceproduct']);
         $this->setQuantityInventory($object['quantityinventory']);
-        if (is_numeric($object['discount'])) {
+        if (!is_null($object['discount'])) {
             $this->setDiscount($object['discount']);
         }
+
+        return $this;
     }
 }

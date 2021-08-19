@@ -1,14 +1,14 @@
 <?php
 require_once("../Controller/ClientsController.php");
 
-
+$aux = 0;
 $clients = new ClientsController();
-if (isset($_REQUEST['id']) and $_REQUEST['id'] != "") {
-    $aws = $clients->showSingleClients($_POST['id']);
+if (isset($_REQUEST['param']) and $_REQUEST['param'] != "") {
+    $aws = $clients->showSingleClients($_POST['param']);
     if ($aws) {
-        //
+        $aux = count($aws);
     } else {
-        echo "<h2>Id não existe!</h2>";
+        echo "<h2>Cliente não existe!</h2>";
     }
 } else {
     $aws = $clients->showAllClients();
@@ -44,14 +44,14 @@ if (isset($_REQUEST['id']) and $_REQUEST['id'] != "") {
 
 <body>
     <form method="post">
-        <label for="id">
+        <label for="param">
             <i class="fas fa-user"></i>
         </label>
-        <input type="text" name="id" placeholder="Id" id="id">
+        <input type="text" name="param" placeholder="Buscar" id="param">
 
         <input type="submit" name="send" value="Confirmar">
     </form>
-    <table style="width:80%">
+    <table style="width:100%">
         <tr>
             <td>Id</td>
             <td>Nome</td>
@@ -66,7 +66,7 @@ if (isset($_REQUEST['id']) and $_REQUEST['id'] != "") {
         </tr>
         <tr>
             <td><?php if ($aws) {
-                    if (count($aws) == 23) {
+                    if (count($aws) == $aux) {
                         echo $aws['id'];
                     } else {
                         foreach ($aws as $value) {
@@ -76,7 +76,7 @@ if (isset($_REQUEST['id']) and $_REQUEST['id'] != "") {
                 } ?></td>
 
             <td><?php if ($aws) {
-                    if (count($aws) == 23) {
+                    if (count($aws) == $aux) {
                         echo $aws['name'];
                     } else {
                         foreach ($aws as $value) {
@@ -86,7 +86,7 @@ if (isset($_REQUEST['id']) and $_REQUEST['id'] != "") {
                 } ?></td>
 
             <td><?php if ($aws) {
-                    if (count($aws) == 23) {
+                    if (count($aws) == $aux) {
                         echo $aws['email'];
                     } else {
                         foreach ($aws as $value) {
@@ -96,7 +96,7 @@ if (isset($_REQUEST['id']) and $_REQUEST['id'] != "") {
                 } ?></td>
 
             <td><?php if ($aws) {
-                    if (count($aws) == 23) {
+                    if (count($aws) == $aux) {
                         echo $aws['street'];
                     } else {
                         foreach ($aws as $value) {
@@ -106,7 +106,7 @@ if (isset($_REQUEST['id']) and $_REQUEST['id'] != "") {
                 } ?></td>
 
             <td><?php if ($aws) {
-                    if (count($aws) == 23) {
+                    if (count($aws) == $aux) {
                         echo $aws['number'];
                     } else {
                         foreach ($aws as $value) {
@@ -116,7 +116,7 @@ if (isset($_REQUEST['id']) and $_REQUEST['id'] != "") {
                 } ?></td>
 
             <td><?php if ($aws) {
-                    if (count($aws) == 23) {
+                    if (count($aws) == $aux) {
                         echo $aws['district'];
                     } else {
                         foreach ($aws as $value) {
@@ -126,7 +126,7 @@ if (isset($_REQUEST['id']) and $_REQUEST['id'] != "") {
                 } ?></td>
 
             <td><?php if ($aws) {
-                    if (count($aws) == 23) {
+                    if (count($aws) == $aux) {
                         echo $aws['city'];
                     } else {
                         foreach ($aws as $value) {
@@ -136,7 +136,7 @@ if (isset($_REQUEST['id']) and $_REQUEST['id'] != "") {
                 } ?></td>
 
             <td><?php if ($aws) {
-                    if (count($aws) == 23) {
+                    if (count($aws) == $aux) {
                         echo $aws['state'];
                     } else {
                         foreach ($aws as $value) {
@@ -146,7 +146,7 @@ if (isset($_REQUEST['id']) and $_REQUEST['id'] != "") {
                 } ?></td>
 
             <td><?php if ($aws) {
-                    if (count($aws) == 23) {
+                    if (count($aws) == $aux) {
                         echo $aws['complement'];
                     } else {
                         foreach ($aws as $value) {
@@ -155,7 +155,7 @@ if (isset($_REQUEST['id']) and $_REQUEST['id'] != "") {
                     }
                 } ?></td>
                 <td><?php if ($aws) {
-                    if (count($aws) == 23) {
+                    if (count($aws) == $aux) {
                         echo $aws['postal_code'];
                     } else {
                         foreach ($aws as $value) {

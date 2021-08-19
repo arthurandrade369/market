@@ -5,12 +5,14 @@ class Providers
     private int $id;
     private string $name;
     private string $cnpj;
-    private string $socialreason;
-    
+    private string $socialReason;
+
     /**
      * Get the value of id
-     */ 
-    public function getId()
+     * 
+     * @return int
+     */
+    public function getId(): int
     {
         return $this->id;
     }
@@ -18,9 +20,10 @@ class Providers
     /**
      * Set the value of id
      *
+     * @param int $id
      * @return  self
-     */ 
-    public function setId($id)
+     */
+    public function setId(int $id)
     {
         $this->id = $id;
 
@@ -29,8 +32,10 @@ class Providers
 
     /**
      * Get the value of name
-     */ 
-    public function getName()
+     * 
+     * @return string
+     */
+    public function getName(): string
     {
         return $this->name;
     }
@@ -38,9 +43,10 @@ class Providers
     /**
      * Set the value of name
      *
+     * @param string $name
      * @return  self
-     */ 
-    public function setName($name)
+     */
+    public function setName(string $name)
     {
         $this->name = $name;
 
@@ -49,18 +55,21 @@ class Providers
 
     /**
      * Get the value of cnpj
-     */ 
-    public function getCnpj()
+     * 
+     * @return string
+     */
+    public function getCnpj(): string
     {
         return $this->cnpj;
     }
 
     /**
      * Set the value of cnpj
-     *
+     * 
+     *@param string $cnpj
      * @return  self
-     */ 
-    public function setCnpj($cnpj)
+     */
+    public function setCnpj(string $cnpj)
     {
         $this->cnpj = $cnpj;
 
@@ -68,25 +77,34 @@ class Providers
     }
 
     /**
-     * Get the value of socialreason
-     */ 
-    public function getSocialreason()
+     * Get the value of socialReason
+     * 
+     * @return string
+     */
+    public function getSocialReason(): string
     {
-        return $this->socialreason;
+        return $this->socialReason;
     }
 
     /**
-     * Set the value of socialreason
+     * Set the value of socialReason
      *
+     * @param string $socialReason
      * @return  self
-     */ 
-    public function setSocialreason($socialreason)
+     */
+    public function setSocialReason(string $socialReason)
     {
-        $this->socialreason = $socialreason;
+        $this->socialReason = $socialReason;
 
         return $this;
     }
 
+    /**
+     * Set the main attributes of class
+     *
+     * @param object|array $object
+     * @return void
+     */
     public function setObject($object)
     {
         $this->setName($object['name']);
@@ -95,5 +113,4 @@ class Providers
 
         return $this;
     }
-
 }

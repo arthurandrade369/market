@@ -15,10 +15,10 @@ class ClientsController
     public function newClient(Clients $clients): void
     {
         $sql = "INSERT INTO clients(name, email) VALUES(:name, :email)";
-        $p_sql = Connection::getInstance()->prepare($sql);
-        $p_sql->bindValue('name', $clients->getName());
-        $p_sql->bindValue('email', $clients->getEmail());
-        $p_sql->execute();
+        $pSql = Connection::getInstance()->prepare($sql);
+        $pSql->bindValue('name', $clients->getName());
+        $pSql->bindValue('email', $clients->getEmail());
+        $pSql->execute();
     }
 
     /**
@@ -27,21 +27,21 @@ class ClientsController
      * @param ClientAdresses $addresses
      * @return void
      */
-    public function newClientAddress(ClientAdresses $addresses): void
+    public function newClientAddress(ClientAddresses $addresses): void
     {
         $aws = $this->getLastColumn();
         $sql = "INSERT INTO client_addresses(state,city,district,street,number,complement,postal_code,clients_id)
         VALUES(:state,:city,:district,:street,:number,:complement,:postal_code,:clients_id)";
-        $p_sql = Connection::getInstance()->prepare($sql);
-        $p_sql->bindValue('state', $addresses->getState());
-        $p_sql->bindValue('city', $addresses->getCity());
-        $p_sql->bindValue('district', $addresses->getDistrict());
-        $p_sql->bindValue('street', $addresses->getStreet());
-        $p_sql->bindValue('number', $addresses->getNumber());
-        $p_sql->bindValue('complement', $addresses->getComplement());
-        $p_sql->bindValue('postal_code', $addresses->getPostalCode());
-        $p_sql->bindValue('clients_id', $aws['id']);
-        $p_sql->execute();
+        $pSql = Connection::getInstance()->prepare($sql);
+        $pSql->bindValue('state', $addresses->getState());
+        $pSql->bindValue('city', $addresses->getCity());
+        $pSql->bindValue('district', $addresses->getDistrict());
+        $pSql->bindValue('street', $addresses->getStreet());
+        $pSql->bindValue('number', $addresses->getNumber());
+        $pSql->bindValue('complement', $addresses->getComplement());
+        $pSql->bindValue('postal_code', $addresses->getPostalCode());
+        $pSql->bindValue('clients_id', $aws['id']);
+        $pSql->execute();
     }
 
     /**
@@ -51,10 +51,15 @@ class ClientsController
      */
     public function showAllClients()
     {
-        $sql = "SELECT * FROM clients c JOIN  client_addresses a WHERE c.id = a.id";
-        $p_sql = Connection::getInstance()->prepare($sql);
-        $p_sql->execute();
-        if ($p_sql->rowCount() > 0) return $p_sql->fetchall();
+        $sql = "
+        SELECT
+            * 
+        FROM 
+            clients c 
+            INNER JOIN  client_addresses ca ON c.id = ca.clients_id";
+        $pSql = Connection::getInstance()->prepare($sql);
+        $pSql->execute();
+        if ($pSql->rowCount() > 0) return $pSql->fetchall();
 
         return false;
     }
@@ -65,13 +70,19 @@ class ClientsController
      * @param array $email
      * @return array|bool
      */
-    public function showSingleClients($id)
+    public function showSingleClients($param)
     {
-        $sql = "SELECT * FROM clients c JOIN  client_addresses a on c.id = a.id WHERE c.id = :id LIMIT 1";
-        $p_sql = Connection::getInstance()->prepare($sql);
-        $p_sql->bindValue('id',$id);
-        $p_sql->execute();
-        if ($p_sql->rowCount() > 0) return $p_sql->fetch();
+        $sql = "
+        SELECT 
+            * 
+        FROM 
+            clients c INNER JOIN  client_addresses ca ON c.id = ca.clients_id 
+        WHERE c.email LIKE CONCAT(:param,'%') OR c.name LIKE CONCAT(:param,'%')
+        LIMIT 1";
+        $pSql = Connection::getInstance()->prepare($sql);
+        $pSql->bindValue('param',$param);
+        $pSql->execute();
+        if ($pSql->rowCount() > 0) return $pSql->fetch();
 
         return false;
     }
@@ -85,11 +96,11 @@ class ClientsController
     public function checkIsEmail(string $email): bool
     {
         $sql = "SELECT email FROM clients WHERE email = :email";
-        $p_sql = Connection::getInstance()->prepare($sql);
-        $p_sql->bindValue('email', $email);
-        $p_sql->execute();
+        $pSql = Connection::getInstance()->prepare($sql);
+        $pSql->bindValue('email', $email);
+        $pSql->execute();
 
-        if ($p_sql->rowCount() > 0) return false;
+        if ($pSql->rowCount() > 0) return false;
 
         return true;
     }
@@ -102,9 +113,9 @@ class ClientsController
     public function getLastColumn()
     {
         $sql = "SELECT * FROM clients ORDER BY id DESC LIMIT 1";
-        $p_sql = Connection::getInstance()->prepare($sql);
-        $p_sql->execute();
-        if ($p_sql->rowCount() > 0) return $p_sql->fetch();
+        $pSql = Connection::getInstance()->prepare($sql);
+        $pSql->execute();
+        if ($pSql->rowCount() > 0) return $pSql->fetch();
 
         return false;
     }

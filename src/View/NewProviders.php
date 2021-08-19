@@ -51,7 +51,7 @@ if (isset($_REQUEST['send'])) {
             </label>
             <input type="text" name="cnpj" placeholder="CNPJ" id="cnpj" required>
 
-            <h2>Endereço</h2>
+            <h2>Endereço: </h2>
 
             <label for="postal_code">
                 <i class="fas fa-home"></i>

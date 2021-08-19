@@ -6,7 +6,9 @@ require_once("../Controller/ProductsController.php");
 if (isset($_REQUEST['send'])) {
     $signup = new ProductsController();
     $products = new Products();
+    $batches = new Batches();
     $products->setObject($_POST);
+    $batches->setObject($_POST);
     $signup->newProduct($products);
 
     echo "<h2>Produto cadastrado com sucesso!</h2>";
@@ -25,9 +27,9 @@ if (isset($_REQUEST['send'])) {
 <body>
     <div class="register">
         <h1>Produtos</h1>
-        <h2>Dados:</h2>
+        <h2>Dados do Produto:</h2>
 
-        <form method="post">
+        <form method="post" id="productForm">
 
             <label for="name">
                 <i class="fas fa-box"></i>
@@ -47,10 +49,39 @@ if (isset($_REQUEST['send'])) {
             <label for="discount">
                 <i class="fas fa-money-bill-alt"></i>
             </label>
-            <input type="text" name="discount" placeholder="Desconto (opcional)" id="discount">
+            <input type="number" step="0.01" name="discount" placeholder="Desconto (opcional)" id="discount">
 
+            <h2>Fornecedor:</h2>
+
+            <label for="provider">
+            </label>
+            <input type="text" name="provider" placeholder="Nome do Fornecedor" id="provider" required>
+
+            <h2>Dados do Lote:</h2>
+            <label for="fabricationDate">
+                <b>Data de Fabricação</b>
+            </label>
+            <input type="date" name="fabricationDate" placeholder="Data de fabricação" id="name" required>
+
+            <label for="expirationDate">
+                <b>Data de Validade</b>
+            </label>
+            <input type="date" name="expirationDate" placeholder="Data de validade" id="expirationDate" required>
+
+            <label for="entryDate">
+                <b>Data de Entrada</b>
+            </label>
+            <input type="date" name="entryDate" placeholder="Data de entrada" id="entryDate" required>
+
+            <label for="quantity">
+            </label>
+            <input type="number" name="quantity" placeholder="Quantitade de lotes" id="quantity" required>
+                <h2></h2>
+            <textarea name="description" id="description" cols="30" rows="4" placeholder="Descrição do produto"></textarea>
+            <h2></h2>
             <input type="submit" name="send" value="Cadastrar">
         </form>
+
         <i class="fas fa-reply"></i>
         <a href="./Products.php"><button type="button">Voltar</button></a>
     </div>

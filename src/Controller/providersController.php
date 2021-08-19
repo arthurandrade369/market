@@ -15,11 +15,11 @@ class ProvidersController
     public function newProviders(Providers $providers): void
     {
         $sql = "INSERT INTO providers(name, cnpj, social_reason) VALUES(:name, :cnpj, :social_reason)";
-        $p_sql = Connection::getInstance()->prepare($sql);
-        $p_sql->bindValue('name', $providers->getName());
-        $p_sql->bindValue('cnpj', $providers->getCnpj());
-        $p_sql->bindValue('social_reason', $providers->getSocialreason());
-        $p_sql->execute();
+        $pSql = Connection::getInstance()->prepare($sql);
+        $pSql->bindValue('name', $providers->getName());
+        $pSql->bindValue('cnpj', $providers->getCnpj());
+        $pSql->bindValue('social_reason', $providers->getSocialreason());
+        $pSql->execute();
     }
 
     /**
@@ -31,18 +31,21 @@ class ProvidersController
     public function newProvidersAddress(ProvidersAddresses $addresses): void
     {
         $aws = $this->getLastColumn();
-        $sql = "INSERT INTO providers_addresses(state,city,district,street,number,complement,postal_code,providers_id)
-        VALUES(:state,:city,:district,:street,:number,:complement,:postal_code,:providers_id)";
-        $p_sql = Connection::getInstance()->prepare($sql);
-        $p_sql->bindValue('state', $addresses->getState());
-        $p_sql->bindValue('city', $addresses->getCity());
-        $p_sql->bindValue('district', $addresses->getDistrict());
-        $p_sql->bindValue('street', $addresses->getStreet());
-        $p_sql->bindValue('number', $addresses->getNumber());
-        $p_sql->bindValue('complement', $addresses->getComplement());
-        $p_sql->bindValue('postal_code', $addresses->getPostalCode());
-        $p_sql->bindValue('providers_id', $aws['id']);
-        $p_sql->execute();
+        $sql = "
+        INSERT INTO providers_addresses
+            (state,city,district,street,number,complement,postal_code,providers_id)
+        VALUES
+            (:state,:city,:district,:street,:number,:complement,:postal_code,:providers_id)";
+        $pSql = Connection::getInstance()->prepare($sql);
+        $pSql->bindValue('state', $addresses->getState());
+        $pSql->bindValue('city', $addresses->getCity());
+        $pSql->bindValue('district', $addresses->getDistrict());
+        $pSql->bindValue('street', $addresses->getStreet());
+        $pSql->bindValue('number', $addresses->getNumber());
+        $pSql->bindValue('complement', $addresses->getComplement());
+        $pSql->bindValue('postal_code', $addresses->getPostalCode());
+        $pSql->bindValue('providers_id', $aws['id']);
+        $pSql->execute();
     }
 
     /**
@@ -53,14 +56,14 @@ class ProvidersController
     public function showAllProviders()
     {
         $sql = "
-            SELECT 
-                * 
+            SELECT
+                *
             FROM
-                providers AS p 
+                providers AS p
                 INNER JOIN providers_addresses AS pa ON p.id = pa.providers_id";
-        $p_sql = Connection::getInstance()->prepare($sql);
-        $p_sql->execute();
-        if ($p_sql->rowCount() > 0) return $p_sql->fetchall();
+        $pSql = Connection::getInstance()->prepare($sql);
+        $pSql->execute();
+        if ($pSql->rowCount() > 0) return $pSql->fetchall();
 
         return false;
     }
@@ -71,19 +74,21 @@ class ProvidersController
      * @param array $email
      * @return array|bool
      */
-    public function showSingleProviders($id)
+    public function showSingleProviders($param)
     {
         $sql = "
-        SELECT 
-            * 
-        FROM 
+        SELECT
+            *
+        FROM
             providers AS p 
-            INNER JOIN providers_addresses AS pa ON p.id = pa.providers_id AND p.id = :id
+            INNER JOIN providers_addresses AS pa ON p.id = pa.providers_id 
+        WHERE
+            p.cnpj LIKE CONCAT(:param,'%') OR p.name LIKE CONCAT(:param,'%')
         LIMIT 1";
-        $p_sql = Connection::getInstance()->prepare($sql);
-        $p_sql->bindValue('id', $id);
-        $p_sql->execute();
-        if ($p_sql->rowCount() > 0) return $p_sql->fetch();
+        $pSql = Connection::getInstance()->prepare($sql);
+        $pSql->bindValue('param', $param);
+        $pSql->execute();
+        if ($pSql->rowCount() > 0) return $pSql->fetch();
 
         return false;
     }
@@ -96,12 +101,18 @@ class ProvidersController
      */
     public function checkIsCnpj(string $cnpj): bool
     {
-        $sql = "SELECT cnpj FROM providers WHERE cnpj = :cnpj";
-        $p_sql = Connection::getInstance()->prepare($sql);
-        $p_sql->bindValue('cnpj', $cnpj);
-        $p_sql->execute();
+        $sql = "
+        SELECT
+            cnpj
+        FROM
+            providers
+        WHERE
+            cnpj = :cnpj";
+        $pSql = Connection::getInstance()->prepare($sql);
+        $pSql->bindValue('cnpj', $cnpj);
+        $pSql->execute();
 
-        if ($p_sql->rowCount() > 0) return false;
+        if ($pSql->rowCount() > 0) return false;
 
         return true;
     }
@@ -113,10 +124,17 @@ class ProvidersController
      */
     public function getLastColumn()
     {
-        $sql = "SELECT * FROM providers ORDER BY id DESC LIMIT 1";
-        $p_sql = Connection::getInstance()->prepare($sql);
-        $p_sql->execute();
-        if ($p_sql->rowCount() > 0) return $p_sql->fetch();
+        $sql = "
+        SELECT
+            *
+        FROM
+            providers
+        ORDER BY
+            id DESC
+        LIMIT 1";
+        $pSql = Connection::getInstance()->prepare($sql);
+        $pSql->execute();
+        if ($pSql->rowCount() > 0) return $pSql->fetch();
 
         return false;
     }

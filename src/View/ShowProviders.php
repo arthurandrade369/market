@@ -1,14 +1,14 @@
 <?php
 require_once("../Controller/ProvidersController.php");
 
-$aux = 25;
+$aux = 0;
 $clients = new ProvidersController();
-if (isset($_REQUEST['id']) and $_REQUEST['id'] != "") {
-    $aws = $clients->showSingleProviders($_POST['id']);
+if (isset($_REQUEST['param']) and $_REQUEST['param'] != "") {
+    $aws = $clients->showSingleProviders($_POST['param']);
     if ($aws) {
-        //
+        $aux = count($aws);
     } else {
-        echo "<h2>Id não existe!</h2>";
+        echo "<h2>Fornecedor não existe!</h2>";
     }
 } else {
     $aws = $clients->showAllProviders();
@@ -44,10 +44,10 @@ if (isset($_REQUEST['id']) and $_REQUEST['id'] != "") {
 
 <body>
     <form method="post">
-        <label for="id">
+        <label for="param">
             <i class="fas fa-user"></i>
         </label>
-        <input type="text" name="id" placeholder="Id" id="id">
+        <input type="text" name="param" placeholder="Buscar" id="param">
 
         <input type="submit" name="send" value="Confirmar">
     </form>
