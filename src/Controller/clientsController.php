@@ -47,7 +47,7 @@ class ClientsController
     /**
      * Bring the entire clients from database
      * 
-     * @return array|bool
+     * @return array|bool - Bring clients if sucess or FALSE in failure
      */
     public function showAllClients()
     {
@@ -67,8 +67,8 @@ class ClientsController
     /**
      * Bring a specify client from database
      * 
-     * @param array $email
-     * @return array|bool
+     * @param array $name|$email
+     * @return array|bool Bring the client if sucess or FALSE in failure
      */
     public function showSingleClients($param)
     {
@@ -91,7 +91,7 @@ class ClientsController
      * Verify if the entry of email already exists in database 
      * 
      * @param string $email
-     * @return boolean
+     * @return boolean TRUE if the email dont exists or FALSE if exists
      */
     public function checkIsEmail(string $email): bool
     {
@@ -108,7 +108,7 @@ class ClientsController
     /**
      * Bring the last column added in database
      * 
-     * @return array|bool
+     * @return array|bool Bring the last column if sucess or FALSE in failure
      */
     public function getLastColumn()
     {

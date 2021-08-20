@@ -51,7 +51,7 @@ class ProvidersController
     /**
      * Bring the entire providers from database
      * 
-     * @return array|bool
+     * @return array|bool Bring the providers if sucess or FALSE in failure
      */
     public function showAllProviders()
     {
@@ -72,7 +72,7 @@ class ProvidersController
      * Bring a specify provider of database
      * 
      * @param array $email
-     * @return array|bool
+     * @return array|bool Bring the provider if sucess or FALSE in failure
      */
     public function showSingleProviders($param)
     {
@@ -97,7 +97,7 @@ class ProvidersController
      * Verify if the entry of cnpj already exists in database
      * 
      * @param string $cnpj
-     * @return boolean
+     * @return boolean FALSE if the cnpj exists or TRUE if dont
      */
     public function checkIsCnpj(string $cnpj): bool
     {
@@ -120,7 +120,7 @@ class ProvidersController
     /**
      * Bring the last column added in database
      * 
-     * @return array|bool
+     * @return array|bool Bring the last column if sucess or FALSE in failure
      */
     public function getLastColumn()
     {

@@ -4,20 +4,14 @@ class Batches
 {
     private int $id;
     private string $fabricationDate;
-    private string $expirationDate;
+    private ?string $expirationDate = "0000-00-00";
     private string $entryDate;
     private int $quantity;
-    private bool $used;
-    private bool $soldOff;
+    private bool $used = false;
+    private bool $soldOff = false;
     private ?string $description;
     private int $providersId;
     private int $productsId;
-
-    public function __construct()
-    {
-        $this->setUsed(0);
-        $this->setSoldOff(0);
-    }
 
     /**
      * Get the value of id
@@ -69,9 +63,9 @@ class Batches
     /**
      * Get the value of expirationDate
      *
-     * @return string
+     * @return string|null
      */
-    public function getExpirationDate(): string
+    public function getExpirationDate(): ?string
     {
         return $this->expirationDate;
     }
@@ -79,10 +73,10 @@ class Batches
     /**
      * Set the value of expirationDate
      *
-     * @param string $expirationDate
+     * @param string|null $expirationDate
      * @return self
      */
-    public function setExpirationDate(string $expirationDate)
+    public function setExpirationDate(?string $expirationDate)
     {
         $this->expirationDate = $expirationDate;
 
@@ -138,9 +132,9 @@ class Batches
     /**
      * Get the value of used
      *
-     * @return boolean
+     * @return bool|null
      */
-    public function getUsed(): bool
+    public function getUsed(): ?bool
     {
         return $this->used;
     }
@@ -148,7 +142,7 @@ class Batches
     /**
      * Set the value of used
      *
-     * @param boolean $used
+     * @param bool $used
      * @return self
      */
     public function setUsed(bool $used)
@@ -259,10 +253,14 @@ class Batches
     public function setObject($object)
     {
         $this->setFabricationDate($object['fabricationDate']);
-        $this->setExpirationDate($object['expirationDate']);
         $this->setEntryDate($object['entryDate']);
         $this->setQuantity($object['quantity']);
         $this->setDescription($object['description']);
+        $this->setProductsId($object['product']);
+        $this->setProvidersId($object['provider']);
+        if ($object['expirationDate'] != "") {
+            $this->setExpirationDate($object['expirationDate']);
+        }
 
         return $this;
     }

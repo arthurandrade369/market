@@ -1,21 +1,21 @@
 <?php
-require_once("../Controller/ProductsController.php");
+require_once("../Controller/BatchesController.php");
 
 $aux = 0;
-$clients = new ProductsController();
+$batches = new BatchesController();
 if (isset($_REQUEST['param']) and $_REQUEST['param'] != "") {
-    $aws = $clients->showSingleProducts($_POST['param']);
+    $aws = $batches->showSingleBatch($_POST['param']);
     if ($aws) {
         $aux = count($aws);
     } else {
-        echo "<h2>Produto não existe!</h2>";
+        echo "<h2>Lote não existe!</h2>";
     }
 } else {
-    $aws = $clients->showAllProducts();
+    $aws = $batches->showAllBatches();
     if ($aws) {
         //
     } else {
-        echo "<h2>Nâo existem produtos cadastrados!</h2>";
+        echo "<h2>Nâo existem lotes cadastrados!</h2>";
     }
 }
 ?>
@@ -54,12 +54,17 @@ if (isset($_REQUEST['param']) and $_REQUEST['param'] != "") {
 
     <table style="width:100%">
         <tr>
-            <td>Id</td>
+            <td>Id do Lote</td>
+            <td>Id do Produto</td>
             <td>Nome do Produto</td>
-            <td>Preço do Produto</td>
-            <td>Quantidade em estoque</td>
-            <td>Desconto</td>
-            
+            <td>Data de Fabricação</td>
+            <td>Data de Validade</td>
+            <td>Data de Entrada</td>
+            <td>Quantidade restante</td>
+            <td>Em Uso</td>
+            <td>Esgotado</td>
+            <td>Descrição do Lote</td>
+
         </tr>
         <tr>
             <td><?php if ($aws) {
@@ -68,6 +73,16 @@ if (isset($_REQUEST['param']) and $_REQUEST['param'] != "") {
                     } else {
                         foreach ($aws as $value) {
                             echo $value['id'] . "<br>";
+                        }
+                    }
+                } ?></td>
+
+            <td><?php if ($aws) {
+                    if (count($aws) == $aux) {
+                        echo $aws['products_id'];
+                    } else {
+                        foreach ($aws as $value) {
+                            echo $value['products_id'] . "<br>";
                         }
                     }
                 } ?></td>
@@ -84,31 +99,60 @@ if (isset($_REQUEST['param']) and $_REQUEST['param'] != "") {
 
             <td><?php if ($aws) {
                     if (count($aws) == $aux) {
-                        echo "R$" . $aws['price_product'];
+                        echo $aws['fabrication_date'];
                     } else {
                         foreach ($aws as $value) {
-                            echo "R$ " . $value['price_product'] . "<br>";
+                            echo $value['fabrication_date'] . "<br>";
                         }
                     }
                 } ?></td>
 
             <td><?php if ($aws) {
                     if (count($aws) == $aux) {
-                        echo $aws['quantity_inventory'];
+                        echo $aws['expiration_date'];
                     } else {
                         foreach ($aws as $value) {
-                            echo $value['quantity_inventory'] . "<br>";
+                            echo $value['expiration_date'] . "<br>";
                         }
                     }
                 } ?></td>
 
             <td><?php if ($aws) {
                     if (count($aws) == $aux) {
-                        echo "R$ " . $aws['discount'];
-                        echo "<td>Atualizar</td>";
+                        echo $aws['entry_date'];
                     } else {
                         foreach ($aws as $value) {
-                            echo "R$ " . $value['discount'] . "<br>";
+                            echo $value['entry_date'] . "<br>";
+                        }
+                    }
+                } ?></td>
+
+            <td><?php if ($aws) {
+                    if (count($aws) == $aux) {
+                        echo $aws['quantity'];
+                    } else {
+                        foreach ($aws as $value) {
+                            echo $value['quantity'] . "<br>";
+                        }
+                    }
+                } ?></td>
+
+            <td><?php if ($aws) {
+                    if (count($aws) == $aux) {
+                        echo $aws['used'];
+                    } else {
+                        foreach ($aws as $value) {
+                            echo $value['sold_off'] . "<br>";
+                        }
+                    }
+                } ?></td>
+
+            <td><?php if ($aws) {
+                    if (count($aws) == $aux) {
+                        echo $aws['description'];
+                    } else {
+                        foreach ($aws as $value) {
+                            echo $value['description'] . "<br>";
                         }
                     }
                 } ?></td>

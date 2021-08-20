@@ -134,7 +134,7 @@ class Products
         $this->setName($object['name']);
         $this->setPriceProduct($object['priceproduct']);
         $this->setQuantityInventory($object['quantityinventory']);
-        if (!is_null($object['discount'])) {
+        if (!is_null($object['discount']) and is_float($object['discount'])) {
             $this->setDiscount($object['discount']);
         }
 

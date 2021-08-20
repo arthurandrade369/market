@@ -2,13 +2,14 @@
 
 require_once("../Entity/Products.php");
 require_once("../Controller/ProductsController.php");
+require_once("../Controller/ProvidersController.php");
 
 if (isset($_REQUEST['send'])) {
+
     $signup = new ProductsController();
     $products = new Products();
-    $batches = new Batches();
+    
     $products->setObject($_POST);
-    $batches->setObject($_POST);
     $signup->newProduct($products);
 
     echo "<h2>Produto cadastrado com sucesso!</h2>";
@@ -51,34 +52,6 @@ if (isset($_REQUEST['send'])) {
             </label>
             <input type="number" step="0.01" name="discount" placeholder="Desconto (opcional)" id="discount">
 
-            <h2>Fornecedor:</h2>
-
-            <label for="provider">
-            </label>
-            <input type="text" name="provider" placeholder="Nome do Fornecedor" id="provider" required>
-
-            <h2>Dados do Lote:</h2>
-            <label for="fabricationDate">
-                <b>Data de Fabricação</b>
-            </label>
-            <input type="date" name="fabricationDate" placeholder="Data de fabricação" id="name" required>
-
-            <label for="expirationDate">
-                <b>Data de Validade</b>
-            </label>
-            <input type="date" name="expirationDate" placeholder="Data de validade" id="expirationDate" required>
-
-            <label for="entryDate">
-                <b>Data de Entrada</b>
-            </label>
-            <input type="date" name="entryDate" placeholder="Data de entrada" id="entryDate" required>
-
-            <label for="quantity">
-            </label>
-            <input type="number" name="quantity" placeholder="Quantitade de lotes" id="quantity" required>
-                <h2></h2>
-            <textarea name="description" id="description" cols="30" rows="4" placeholder="Descrição do produto"></textarea>
-            <h2></h2>
             <input type="submit" name="send" value="Cadastrar">
         </form>
 

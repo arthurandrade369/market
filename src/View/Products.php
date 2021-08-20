@@ -13,6 +13,13 @@
     <h1></h1>
     <i class="fas fa-boxes"></i>
     <a href="./ShowProducts.php"><button type="button">Mostrar Produtos</button></a>
+    
+    <h1>Opções de Lotes</h1>
+
+    <a href="./NewBatches.php"><button type="button">Novo Lote</button></a>
+    <h1></h1>
+    <a href="./ShowBatches.php"><button type="button">Mostrar Lotes</button></a>
+
     <h1></h1>
     <i class="fas fa-reply"></i>
     <a href="../../public/index.php"><button type="button">Voltar</button></a>

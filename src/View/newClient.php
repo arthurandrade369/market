@@ -5,10 +5,16 @@ require_once(__DIR__ . "/../../src/Entity/ClientAddresses.php");
 require_once(__DIR__ . "/../../src/Controller/ClientsController.php");
 
 if (isset($_REQUEST['send'])) {
+
     $signup = new ClientsController();
+
     if ($signup->checkIsEmail($_POST['email'])) {
+
         $user = new Clients();
         $address = new ClientAddresses();
+
+        $_POST['clientId'] = $signup->showSingleClients($_POST['name'])['id'];
+        
         $user->setObject($_POST);
         $address->setObject($_POST);
         $signup->newClient($user);
@@ -67,7 +73,7 @@ if (isset($_REQUEST['send'])) {
                 <i class="fas fa-home"></i>
             </label>
             <input type="text" name="district" placeholder="Bairro" id="district" required>
-            
+
             <h1></h1>
 
             <label for="city">
@@ -85,7 +91,7 @@ if (isset($_REQUEST['send'])) {
                 <i class="fas fa-home"></i>
             </label>
             <input type="text" name="complement" placeholder="Complemento" id="complement">
-            
+
             <h1></h1>
             <input type="submit" name="send" value="Cadastrar">
         </form>

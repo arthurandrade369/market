@@ -234,6 +234,7 @@ class ClientAddresses
         $this->setNumber($object['number']);
         $this->setComplement($object['complement']);
         $this->setPostalCode($object['postal_code']);
+        $this->setClientsId($object['clientId']);
 
         return $this;
     }
