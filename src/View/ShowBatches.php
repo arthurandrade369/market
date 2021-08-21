@@ -1,5 +1,6 @@
 <?php
 require_once("../Controller/BatchesController.php");
+require_once("../Controller/ProductsController.php");
 
 $aux = 0;
 $batches = new BatchesController();
@@ -64,6 +65,7 @@ if (isset($_REQUEST['param']) and $_REQUEST['param'] != "") {
             <td>Em Uso</td>
             <td>Esgotado</td>
             <td>Descrição do Lote</td>
+            <td>Nome do Fornecedor</td>
 
         </tr>
         <tr>
@@ -89,10 +91,10 @@ if (isset($_REQUEST['param']) and $_REQUEST['param'] != "") {
 
             <td><?php if ($aws) {
                     if (count($aws) == $aux) {
-                        echo $aws['name'];
+                        echo $aws['pd_name'];
                     } else {
                         foreach ($aws as $value) {
-                            echo $value['name'] . "<br>";
+                            echo $value['pd_name'] . "<br>";
                         }
                     }
                 } ?></td>
@@ -139,10 +141,24 @@ if (isset($_REQUEST['param']) and $_REQUEST['param'] != "") {
 
             <td><?php if ($aws) {
                     if (count($aws) == $aux) {
-                        echo $aws['used'];
+                        if ($aws['used']) echo "Sim";
+                        else echo "Não";
                     } else {
                         foreach ($aws as $value) {
-                            echo $value['sold_off'] . "<br>";
+                            if ($value['used']) echo "Sim <br>";
+                            else echo "Não <br>";
+                        }
+                    }
+                } ?></td>
+
+            <td><?php if ($aws) {
+                    if (count($aws) == $aux) {
+                        if ($aws['sold_off']) echo "Sim";
+                        else echo "Não";
+                    } else {
+                        foreach ($aws as $value) {
+                            if ($value['sold_off']) echo "Sim <br>";
+                            else echo "Não <br>";
                         }
                     }
                 } ?></td>
@@ -153,6 +169,16 @@ if (isset($_REQUEST['param']) and $_REQUEST['param'] != "") {
                     } else {
                         foreach ($aws as $value) {
                             echo $value['description'] . "<br>";
+                        }
+                    }
+                } ?></td>
+
+            <td><?php if ($aws) {
+                    if (count($aws) == $aux) {
+                        echo $aws['pv_name'];
+                    } else {
+                        foreach ($aws as $value) {
+                            echo $value['pv_name'] . "<br>";
                         }
                     }
                 } ?></td>

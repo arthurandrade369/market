@@ -44,9 +44,12 @@ class BatchesController
     {
         $sql = "
         SELECT
-            *
+            b.*, pd.name AS pd_name, pv.name AS pv_name
         FROM
-            batches";
+            batches AS b
+        INNER JOIN products AS pd ON b.products_id = pd.id
+        INNER JOIN providers AS pv ON b.providers_id = pv.id
+        ";
 
         $pSql = Connection::getInstance()->prepare($sql);
         $pSql->execute();

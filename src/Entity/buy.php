@@ -4,21 +4,24 @@ class Buy
 {
     private int $id;
     private string $date;
-    private string $state;
-    private bool $wasPaid;
+    private string $state = "Pendente";
+    private bool $wasPaid = false;
     private string $paymentMethod;
     private float $finalPrice;
     private float $discount;
     private float $shipping;
 
-    
+    public function __construct()
+    {
+        $this->setDate(date('Y-m-d H:i:s'));
+    }
 
     /**
      * Get the value of id
      *
      * @return integer
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -29,7 +32,7 @@ class Buy
      * @param integer $id
      * @return self
      */
-    public function setId(int $id)
+    public function setId(?int $id)
     {
         $this->id = $id;
 
@@ -41,7 +44,7 @@ class Buy
      *
      * @return string
      */
-    public function getDate(): string
+    public function getDate(): ?string
     {
         return $this->date;
     }
@@ -52,7 +55,7 @@ class Buy
      * @param string $date
      * @return self
      */
-    public function setDate(string $date)
+    public function setDate(?string $date)
     {
         $this->date = $date;
 
@@ -64,7 +67,7 @@ class Buy
      *
      * @return string
      */
-    public function getState(): string
+    public function getState(): ?string
     {
         return $this->state;
     }
@@ -75,7 +78,7 @@ class Buy
      * @param string $state
      * @return self
      */
-    public function setState(string $state)
+    public function setState(?string $state)
     {
         $this->state = $state;
 
@@ -86,8 +89,8 @@ class Buy
      * Get the value of wasPaid
      * 
      * @return string
-     */ 
-    public function getWasPaid(): bool
+     */
+    public function getWasPaid(): ?bool
     {
         return $this->wasPaid;
     }
@@ -97,8 +100,8 @@ class Buy
      *
      * @param boolean $wasPaid
      * @return  self
-     */ 
-    public function setWasPaid(bool $wasPaid)
+     */
+    public function setWasPaid(?bool $wasPaid)
     {
         $this->wasPaid = $wasPaid;
 
@@ -109,8 +112,8 @@ class Buy
      * Get the value of paymentMethod
      * 
      * @return string
-     */ 
-    public function getPaymentMethod(): string
+     */
+    public function getPaymentMethod(): ?string
     {
         return $this->paymentMethod;
     }
@@ -120,8 +123,8 @@ class Buy
      *
      * @param string $paymentMethod
      * @return  self
-     */ 
-    public function setPaymentMethod(string $paymentMethod)
+     */
+    public function setPaymentMethod(?string $paymentMethod)
     {
         $this->paymentMethod = $paymentMethod;
 
@@ -132,8 +135,8 @@ class Buy
      * Get the value of finalPrice
      * 
      * @return float
-     */ 
-    public function getFinalPrice(): float
+     */
+    public function getFinalPrice(): ?float
     {
         return $this->finalPrice;
     }
@@ -143,8 +146,8 @@ class Buy
      *
      * @param float $name
      * @return  self
-     */ 
-    public function setFinalPrice($finalPrice)
+     */
+    public function setFinalPrice(?float $finalPrice)
     {
         $this->finalPrice = $finalPrice;
 
@@ -155,8 +158,8 @@ class Buy
      * Get the value of discount
      * 
      * @return float
-     */ 
-    public function getDiscount(): float
+     */
+    public function getDiscount(): ?float
     {
         return $this->discount;
     }
@@ -166,8 +169,8 @@ class Buy
      *
      * @param float $discount
      * @return  self
-     */ 
-    public function setDiscount($discount)
+     */
+    public function setDiscount(?float $discount)
     {
         $this->discount = $discount;
 
@@ -178,8 +181,8 @@ class Buy
      * Get the value of shipping
      * 
      * @return float
-     */ 
-    public function getShipping(): float
+     */
+    public function getShipping(): ?float
     {
         return $this->shipping;
     }
@@ -189,10 +192,28 @@ class Buy
      *
      * @param float $shipping
      * @return  self
-     */ 
-    public function setShipping(float $shipping)
+     */
+    public function setShipping(?float $shipping)
     {
         $this->shipping = $shipping;
+
+        return $this;
+    }
+
+    /**
+     * Set the main attributes of class
+     *
+     * @param object|array $object
+     * @return self
+     */
+    public function setObject($object)
+    {
+        $this->setDate($object['date']);
+        $this->setState($object['state']);
+        $this->setPaymentMethod($object['payment_method']);
+        $this->setFinalPrice($object['final_price']);
+        $this->setDiscount($object['discount']);
+        if (isset($object['was_paid'])) $this->setWasPaid($object['was_paid']);
 
         return $this;
     }

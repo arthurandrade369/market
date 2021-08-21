@@ -13,7 +13,7 @@ class Sale_items
      * 
      * @return int
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -24,7 +24,7 @@ class Sale_items
      * @param int $id
      * @return  self
      */
-    public function setId(int $id)
+    public function setId(?int $id)
     {
         $this->id = $id;
 
@@ -36,7 +36,7 @@ class Sale_items
      * 
      * @return int
      */
-    public function getQuantitySale(): int
+    public function getQuantitySale(): ?int
     {
         return $this->quantitySale;
     }
@@ -47,7 +47,7 @@ class Sale_items
      * @param int $quantitySale
      * @return  self
      */
-    public function setQuantitySale(int $quantitySale)
+    public function setQuantitySale(?int $quantitySale)
     {
         $this->quantitySale = $quantitySale;
 
@@ -59,7 +59,7 @@ class Sale_items
      * 
      * @return float
      */
-    public function getPriceTotal(): float
+    public function getPriceTotal(): ?float
     {
         return $this->priceTotal;
     }
@@ -70,7 +70,7 @@ class Sale_items
      * @param float $priceTotal
      * @return  self
      */
-    public function setPriceTotal(float $priceTotal)
+    public function setPriceTotal(?float $priceTotal)
     {
         $this->priceTotal = $priceTotal;
 
@@ -82,7 +82,7 @@ class Sale_items
      * 
      * @return int
      */
-    public function getProductsId(): int
+    public function getProductsId(): ?int
     {
         return $this->productsId;
     }
@@ -93,7 +93,7 @@ class Sale_items
      * @param int $productsId
      * @return  self
      */
-    public function setProductsId(int $productsId)
+    public function setProductsId(?int $productsId)
     {
         $this->productsId = $productsId;
 
@@ -105,7 +105,7 @@ class Sale_items
      * 
      * @return int
      */
-    public function getBuyId(): int
+    public function getBuyId(): ?int
     {
         return $this->buyId;
     }
@@ -116,7 +116,7 @@ class Sale_items
      * @param int $buyId
      * @return  self
      */
-    public function setBuyId(int $buyId)
+    public function setBuyId(?int $buyId)
     {
         $this->buyId = $buyId;
 

@@ -14,7 +14,11 @@ class ProvidersController
      */
     public function newProviders(Providers $providers): void
     {
-        $sql = "INSERT INTO providers(name, cnpj, social_reason) VALUES(:name, :cnpj, :social_reason)";
+        $sql = "
+        INSERT INTO
+            providers(name, cnpj, social_reason)
+        VALUES
+            (:name, :cnpj, :social_reason)";
         $pSql = Connection::getInstance()->prepare($sql);
         $pSql->bindValue('name', $providers->getName());
         $pSql->bindValue('cnpj', $providers->getCnpj());

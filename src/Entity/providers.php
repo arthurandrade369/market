@@ -12,7 +12,7 @@ class Providers
      * 
      * @return int
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -23,7 +23,7 @@ class Providers
      * @param int $id
      * @return  self
      */
-    public function setId(int $id)
+    public function setId(?int $id)
     {
         $this->id = $id;
 
@@ -35,7 +35,7 @@ class Providers
      * 
      * @return string
      */
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -46,7 +46,7 @@ class Providers
      * @param string $name
      * @return  self
      */
-    public function setName(string $name)
+    public function setName(?string $name)
     {
         $this->name = $name;
 
@@ -58,7 +58,7 @@ class Providers
      * 
      * @return string
      */
-    public function getCnpj(): string
+    public function getCnpj(): ?string
     {
         return $this->cnpj;
     }
@@ -69,7 +69,7 @@ class Providers
      *@param string $cnpj
      * @return  self
      */
-    public function setCnpj(string $cnpj)
+    public function setCnpj(?string $cnpj)
     {
         $this->cnpj = $cnpj;
 
@@ -81,7 +81,7 @@ class Providers
      * 
      * @return string
      */
-    public function getSocialReason(): string
+    public function getSocialReason(): ?string
     {
         return $this->socialReason;
     }
@@ -92,7 +92,7 @@ class Providers
      * @param string $socialReason
      * @return  self
      */
-    public function setSocialReason(string $socialReason)
+    public function setSocialReason(?string $socialReason)
     {
         $this->socialReason = $socialReason;
 

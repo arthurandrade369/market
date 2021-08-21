@@ -18,7 +18,7 @@ class Batches
      *
      * @return int
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -29,7 +29,7 @@ class Batches
      * @param int $id
      * @return self
      */
-    public function setId(int $id)
+    public function setId(?int $id)
     {
         $this->id = $id;
 
@@ -42,7 +42,7 @@ class Batches
      *
      * @return string
      */
-    public function getFabricationDate(): string
+    public function getFabricationDate(): ?string
     {
         return $this->fabricationDate;
     }
@@ -53,7 +53,7 @@ class Batches
      * @param string $fabricationDate
      * @return self
      */
-    public function setFabricationDate(string $fabricationDate)
+    public function setFabricationDate(?string $fabricationDate)
     {
         $this->fabricationDate = $fabricationDate;
 
@@ -88,7 +88,7 @@ class Batches
      *
      * @return string
      */
-    public function getEntryDate(): string
+    public function getEntryDate(): ?string
     {
         return $this->entryDate;
     }
@@ -99,7 +99,7 @@ class Batches
      * @param string $entryDate
      * @return self
      */
-    public function setEntryDate(string $entryDate)
+    public function setEntryDate(?string $entryDate)
     {
         $this->entryDate = $entryDate;
 
@@ -111,7 +111,7 @@ class Batches
      *
      * @return int
      */
-    public function getQuantity(): int
+    public function getQuantity(): ?int
     {
         return $this->quantity;
     }
@@ -122,7 +122,7 @@ class Batches
      * @param int $quantity
      * @return self
      */
-    public function setQuantity(int $quantity)
+    public function setQuantity(?int $quantity)
     {
         $this->quantity = $quantity;
 
@@ -145,7 +145,7 @@ class Batches
      * @param bool $used
      * @return self
      */
-    public function setUsed(bool $used)
+    public function setUsed(?bool $used)
     {
         $this->used = $used;
 
@@ -157,7 +157,7 @@ class Batches
      *
      * @return boolean
      */
-    public function getSoldOff(): bool
+    public function getSoldOff(): ?bool
     {
         return $this->soldOff;
     }
@@ -168,7 +168,7 @@ class Batches
      * @param boolean $soldOff
      * @return self
      */
-    public function setSoldOff(bool $soldOff)
+    public function setSoldOff(?bool $soldOff)
     {
         $this->soldOff = $soldOff;
 
@@ -203,7 +203,7 @@ class Batches
      *
      * @return int
      */
-    public function getProvidersId(): int
+    public function getProvidersId(): ?int
     {
         return $this->providersId;
     }
@@ -214,7 +214,7 @@ class Batches
      * @param int $providersId
      * @return self
      */
-    public function setProvidersId(int $providersId)
+    public function setProvidersId(?int $providersId)
     {
         $this->providersId = $providersId;
 
@@ -226,7 +226,7 @@ class Batches
      *
      * @return int
      */
-    public function getProductsId(): int
+    public function getProductsId(): ?int
     {
         return $this->productsId;
     }
@@ -237,7 +237,7 @@ class Batches
      * @param int $productsId
      * @return self
      */
-    public function setProductsId(int $productsId)
+    public function setProductsId(?int $productsId)
     {
         $this->productsId = $productsId;
 

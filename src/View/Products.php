@@ -22,7 +22,7 @@
 
     <h1></h1>
     <i class="fas fa-reply"></i>
-    <a href="../../public/index.php"><button type="button">Voltar</button></a>
+    <a href="./../../public/index.php"><button type="button">Voltar</button></a>
 </body>
 
 </html>

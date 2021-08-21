@@ -14,7 +14,11 @@ class ClientsController
      */
     public function newClient(Clients $clients): void
     {
-        $sql = "INSERT INTO clients(name, email) VALUES(:name, :email)";
+        $sql = "
+        INSERT INTO
+            clients(name, email)
+        VALUES
+            (:name, :email)";
         $pSql = Connection::getInstance()->prepare($sql);
         $pSql->bindValue('name', $clients->getName());
         $pSql->bindValue('email', $clients->getEmail());
@@ -30,8 +34,11 @@ class ClientsController
     public function newClientAddress(ClientAddresses $addresses): void
     {
         $aws = $this->getLastColumn();
-        $sql = "INSERT INTO client_addresses(state,city,district,street,number,complement,postal_code,clients_id)
-        VALUES(:state,:city,:district,:street,:number,:complement,:postal_code,:clients_id)";
+        $sql = "
+        INSERT INTO
+            client_addresses(state,city,district,street,number,complement,postal_code,clients_id)
+        VALUES
+            (:state,:city,:district,:street,:number,:complement,:postal_code,:clients_id)";
         $pSql = Connection::getInstance()->prepare($sql);
         $pSql->bindValue('state', $addresses->getState());
         $pSql->bindValue('city', $addresses->getCity());
@@ -80,13 +87,13 @@ class ClientsController
         WHERE c.email LIKE CONCAT(:param,'%') OR c.name LIKE CONCAT(:param,'%')
         LIMIT 1";
         $pSql = Connection::getInstance()->prepare($sql);
-        $pSql->bindValue('param',$param);
+        $pSql->bindValue('param', $param);
         $pSql->execute();
         if ($pSql->rowCount() > 0) return $pSql->fetch();
 
         return false;
     }
-    
+
     /**
      * Verify if the entry of email already exists in database 
      * 
@@ -95,7 +102,13 @@ class ClientsController
      */
     public function checkIsEmail(string $email): bool
     {
-        $sql = "SELECT email FROM clients WHERE email = :email";
+        $sql = "
+        SELECT 
+            email 
+        FROM 
+            clients 
+        WHERE  
+            email = :email";
         $pSql = Connection::getInstance()->prepare($sql);
         $pSql->bindValue('email', $email);
         $pSql->execute();
@@ -112,7 +125,13 @@ class ClientsController
      */
     public function getLastColumn()
     {
-        $sql = "SELECT * FROM clients ORDER BY id DESC LIMIT 1";
+        $sql = "
+        SELECT
+            *
+        FROM
+            clients
+        ORDER BY id DESC
+        LIMIT 1";
         $pSql = Connection::getInstance()->prepare($sql);
         $pSql->execute();
         if ($pSql->rowCount() > 0) return $pSql->fetch();

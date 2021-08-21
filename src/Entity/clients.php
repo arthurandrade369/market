@@ -11,7 +11,7 @@ class Clients
      * 
      * @return int
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -22,7 +22,7 @@ class Clients
      * @param int $id
      * @return  self
      */
-    public function setId(int $id)
+    public function setId(?int $id)
     {
         $this->id = $id;
 
@@ -34,7 +34,7 @@ class Clients
      * 
      * @return string
      */
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -45,7 +45,7 @@ class Clients
      * @param string $name
      * @return  self
      */
-    public function setName(string $name)
+    public function setName(?string $name)
     {
         $this->name = $name;
 
@@ -57,7 +57,7 @@ class Clients
      * 
      * @return string
      */
-    public function getEmail(): string
+    public function getEmail(): ?string
     {
         return $this->email;
     }
@@ -68,7 +68,7 @@ class Clients
      *@param string $email
      * @return  self
      */
-    public function setEmail(string $email)
+    public function setEmail(?string $email)
     {
         $this->email = $email;
 

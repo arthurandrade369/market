@@ -36,7 +36,7 @@ class Products
      * 
      * @return string
      */
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -47,7 +47,7 @@ class Products
      * @param string $name
      * @return  self
      */
-    public function setName(string $name)
+    public function setName(?string $name)
     {
         $this->name = $name;
 
@@ -59,7 +59,7 @@ class Products
      * 
      * @return float
      */
-    public function getPriceProduct(): float
+    public function getPriceProduct(): ?float
     {
         return $this->priceProduct;
     }
@@ -70,7 +70,7 @@ class Products
      * @param float $priceProduct
      * @return  self
      */
-    public function setPriceProduct(float $priceProduct)
+    public function setPriceProduct(?float $priceProduct)
     {
         $this->priceProduct = $priceProduct;
 
@@ -82,7 +82,7 @@ class Products
      * 
      * @return int
      */
-    public function getQuantityInventory(): int
+    public function getQuantityInventory(): ?int
     {
         return $this->quantityInventory;
     }
@@ -93,7 +93,7 @@ class Products
      * @param int $quantityInventory
      * @return  self
      */
-    public function setQuantityInventory($quantityInventory)
+    public function setQuantityInventory(?int $quantityInventory)
     {
         $this->quantityInventory = $quantityInventory;
 

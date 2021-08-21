@@ -17,7 +17,7 @@ class ProvidersAddresses
      * 
      * @return int
      */ 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -28,7 +28,7 @@ class ProvidersAddresses
      * @param int $id
      * @return  self
      */ 
-    public function setId(int $id)
+    public function setId(?int $id)
     {
         $this->id = $id;
 
@@ -40,7 +40,7 @@ class ProvidersAddresses
      * 
      * @return string
      */ 
-    public function getState(): string
+    public function getState(): ?string
     {
         return $this->state;
     }
@@ -51,7 +51,7 @@ class ProvidersAddresses
      * @param string $state
      * @return  self
      */ 
-    public function setState(string $state)
+    public function setState(?string $state)
     {
         $this->state = $state;
 
@@ -63,7 +63,7 @@ class ProvidersAddresses
      * 
      * @return string
      */ 
-    public function getCity(): string
+    public function getCity(): ?string
     {
         return $this->city;
     }
@@ -74,7 +74,7 @@ class ProvidersAddresses
      * @param string $city
      * @return  self
      */ 
-    public function setCity(string $city)
+    public function setCity(?string $city)
     {
         $this->city = $city;
 
@@ -86,7 +86,7 @@ class ProvidersAddresses
      * 
      * @return string
      */ 
-    public function getDistrict(): string
+    public function getDistrict(): ?string
     {
         return $this->district;
     }
@@ -97,7 +97,7 @@ class ProvidersAddresses
      * @param string $disctrict
      * @return  self
      */ 
-    public function setDistrict(string $district)
+    public function setDistrict(?string $district)
     {
         $this->district = $district;
 
@@ -109,7 +109,7 @@ class ProvidersAddresses
      * 
      * @return string
      */ 
-    public function getStreet(): string
+    public function getStreet(): ?string
     {
         return $this->street;
     }
@@ -120,7 +120,7 @@ class ProvidersAddresses
      * @param string $street
      * @return  self
      */ 
-    public function setStreet(string $street)
+    public function setStreet(?string $street)
     {
         $this->street = $street;
 
@@ -132,7 +132,7 @@ class ProvidersAddresses
      * 
      * @return string
      */ 
-    public function getNumber(): string
+    public function getNumber(): ?string
     {
         return $this->number;
     }
@@ -143,7 +143,7 @@ class ProvidersAddresses
      * @param string $number
      * @return  self
      */ 
-    public function setNumber(string $number)
+    public function setNumber(?string $number)
     {
         $this->number = $number;
 
@@ -155,7 +155,7 @@ class ProvidersAddresses
      * 
      * @return string
      */ 
-    public function getComplement(): string
+    public function getComplement(): ?string
     {
         return $this->complement;
     }
@@ -166,7 +166,7 @@ class ProvidersAddresses
      * @param string $complement
      * @return  self
      */ 
-    public function setComplement(string $complement)
+    public function setComplement(?string $complement)
     {
         $this->complement = $complement;
 
@@ -178,7 +178,7 @@ class ProvidersAddresses
      * 
      * @return string
      */ 
-    public function getPostalCode(): string
+    public function getPostalCode(): ?string
     {
         return $this->postalCode;
     }
@@ -189,7 +189,7 @@ class ProvidersAddresses
      * @param string $postalCode
      * @return  self
      */ 
-    public function setPostalCode(string $postalCode)
+    public function setPostalCode(?string $postalCode)
     {
         $this->postalCode = $postalCode;
 
@@ -201,7 +201,7 @@ class ProvidersAddresses
      * 
      * @return int
      */ 
-    public function getProvidersId(): int
+    public function getProvidersId(): ?int
     {
         return $this->providersId;
     }
@@ -212,7 +212,7 @@ class ProvidersAddresses
      * @param int $providersId
      * @return  self
      */ 
-    public function setProvidersId(int $providersId)
+    public function setProvidersId(?int $providersId)
     {
         $this->providersId = $providersId;
 
