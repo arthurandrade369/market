@@ -13,11 +13,11 @@ if (isset($_REQUEST['send'])) {
         $user = new Clients();
         $address = new ClientAddresses();
 
-        $_POST['clientId'] = $signup->showSingleClients($_POST['name'])['id'];
-        
         $user->setObject($_POST);
-        $address->setObject($_POST);
         $signup->newClient($user);
+        $_POST['clientId'] = $signup->getLastColumn()['id'];
+
+        $address->setObject($_POST);
         $signup->newClientAddress($address);
 
         echo "<h2>Cliente cadastrado com sucesso!</h2>";

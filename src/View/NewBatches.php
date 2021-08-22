@@ -2,30 +2,11 @@
 
 require_once("../Entity/Batches.php");
 require_once("../Controller/BatchesController.php");
-require_once("../Controller/ProvidersController.php");
-require_once("../Controller/ProductsController.php");
 
 if (isset($_REQUEST['send'])) {
 
     $signup = new BatchesController();
     $batches = new Batches();
-    $products = new ProductsController();
-    $providers = new ProvidersController();
-
-    $aws = $products->showSingleProducts($_POST['name']);
-    if ($aws) {
-        $_POST['product'] = $aws['id'];
-    } else {
-        echo "<h2>Produto não existe!</h2>";
-    }
-    unset($aws);
-
-    $aws = $providers->showSingleProviders($_POST['provider']);
-    if ($aws) {
-        $_POST['provider'] = $aws['id'];
-    } else {
-        echo "<h2>Fornecedor não existe!</h2>";
-    }
 
     $batches->setObject($_POST);
     $signup->newBatch($batches);
@@ -53,14 +34,51 @@ if (isset($_REQUEST['send'])) {
             <label for="name">
                 <i class="fas fa-box"></i>
             </label>
-            <input type="text" name="name" placeholder="Nome do Produto" id="name" required>
+
+            <select name="product" id="product">
+                <?php
+                $sql = "
+                    SELECT
+                        *
+                    FROM
+                        products
+                    ";
+                $pSql = Connection::getInstance()->prepare($sql);
+                $pSql->execute();
+                if ($pSql->rowCount() > 0) {
+                    while ($product = $pSql->fetch(PDO::FETCH_ASSOC)) {
+                        echo "<option value='{$product['id']}'>{$product['name']}</option>";
+                    }
+                }
+                ?>
+            </select>
+
+            <!-- <input type="text" name="name" placeholder="Nome do Produto" id="name" required> -->
 
             <h1></h1>
 
             <label for="provider">
                 <i class="fas fa-user"></i>
             </label>
-            <input type="text" name="provider" placeholder="Nome do Fornecedor" id="provider" required>
+            <select name="provider" id="provider">
+                <?php
+                $sql = "
+                SELECT
+                    *
+                FROM
+                    providers
+                ";
+                $pSql = Connection::getInstance()->prepare($sql);
+                $pSql->execute();
+                if ($pSql->rowCount() > 0) {
+                    while ($provider = $pSql->fetch(PDO::FETCH_ASSOC)) {
+                        echo "<option value='{$provider['id']}'>{$provider['name']}</option>";
+                    }
+                }
+                ?>
+            </select>
+
+            <!-- <input type="text" name="provider" placeholder="Nome do Fornecedor" id="provider" required> -->
 
             <h1></h1>
 

@@ -61,7 +61,7 @@ if (isset($_REQUEST['param']) and $_REQUEST['param'] != "") {
             <td>Data de Fabricação</td>
             <td>Data de Validade</td>
             <td>Data de Entrada</td>
-            <td>Quantidade restante</td>
+            <td>Quantidade por lote</td>
             <td>Em Uso</td>
             <td>Esgotado</td>
             <td>Descrição do Lote</td>

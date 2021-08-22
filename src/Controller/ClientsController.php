@@ -36,7 +36,7 @@ class ClientsController
         $aws = $this->getLastColumn();
         $sql = "
         INSERT INTO
-            client_addresses(state,city,district,street,number,complement,postal_code,clients_id)
+            clients_addresses(state,city,district,street,number,complement,postal_code,clients_id)
         VALUES
             (:state,:city,:district,:street,:number,:complement,:postal_code,:clients_id)";
         $pSql = Connection::getInstance()->prepare($sql);
@@ -63,7 +63,7 @@ class ClientsController
             * 
         FROM 
             clients c 
-            INNER JOIN  client_addresses ca ON c.id = ca.clients_id";
+            INNER JOIN  clients_addresses ca ON c.id = ca.clients_id";
         $pSql = Connection::getInstance()->prepare($sql);
         $pSql->execute();
         if ($pSql->rowCount() > 0) return $pSql->fetchall();
@@ -83,7 +83,7 @@ class ClientsController
         SELECT 
             * 
         FROM 
-            clients c INNER JOIN  client_addresses ca ON c.id = ca.clients_id 
+            clients AS c INNER JOIN  clients_addresses AS ca ON c.id = ca.clients_id 
         WHERE c.email LIKE CONCAT(:param,'%') OR c.name LIKE CONCAT(:param,'%')
         LIMIT 1";
         $pSql = Connection::getInstance()->prepare($sql);

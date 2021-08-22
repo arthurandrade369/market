@@ -30,7 +30,7 @@ class ProductsController
     /**
      * Bring the entire products from database
      *
-     * @return array|bool
+     * @return array|bool Bring products if sucess or FALSE in failure
      */
     public function showAllProducts()
     {
