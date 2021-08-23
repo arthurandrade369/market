@@ -3,20 +3,25 @@ require_once("../Controller/ClientsController.php");
 
 $aux = 0;
 $clients = new ClientsController();
+
 if (isset($_REQUEST['param']) and $_REQUEST['param'] != "") {
+
     $aws = $clients->showSingleClients($_POST['param']);
     if ($aws) {
         $aux = count($aws);
     } else {
         echo "<h2>Cliente não existe!</h2>";
     }
+
 } else {
+
     $aws = $clients->showAllClients();
     if ($aws) {
         //
     } else {
         echo "<h2>Nâo existem clientes cadastrados!</h2>";
     }
+    
 }
 ?>
 

@@ -5,11 +5,12 @@ require_once("../Controller/OrdersController.php");
 require_once("../Controller/ClientsController.php");
 require_once("../Controller/BuyController.php");
 
+$order = new Orders;
+$orderQuery = new OrdersController;
+$client = new ClientsController;
+$buy = new BuyController;
+
 if (isset($_REQUEST['send'])) {
-    $order = new Orders;
-    $orderQuery = new OrdersController;
-    $client = new ClientsController;
-    $buy = new BuyController;
 
     $_POST['buy_id'] = $buy->getLastColumn()['id'];
 
@@ -48,6 +49,7 @@ if (isset($_REQUEST['send'])) {
                     ";
                 $pSql = Connection::getInstance()->prepare($sql);
                 $pSql->execute();
+                //Getting the option through database
                 if ($pSql->rowCount() > 0) {
                     while ($client = $pSql->fetch(PDO::FETCH_ASSOC)) {
                         echo "<option value='{$client['id']}'>{$client['name']}</option>";

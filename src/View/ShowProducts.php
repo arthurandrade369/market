@@ -3,20 +3,25 @@ require_once("../Controller/ProductsController.php");
 
 $aux = 0;
 $clients = new ProductsController();
+
 if (isset($_REQUEST['param']) and $_REQUEST['param'] != "") {
+
     $aws = $clients->showSingleProducts($_POST['param']);
     if ($aws) {
         $aux = count($aws);
     } else {
         echo "<h2>Produto não existe!</h2>";
     }
+
 } else {
+
     $aws = $clients->showAllProducts();
     if ($aws) {
         //
     } else {
         echo "<h2>Nâo existem produtos cadastrados!</h2>";
     }
+    
 }
 ?>
 

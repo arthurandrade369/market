@@ -34,29 +34,6 @@ class BuyController
     }
 
     /**
-     * Signup a new sale of products in database
-     * @param Sale_items $sale
-     * @return void
-     */
-    public function newSale(Sale_items $sale)
-    {
-        $sql = "
-        INSERT INTO
-            sale_items(quantity_sale, price_total, product_id, buy_id)
-        VALUES
-            (:quantity_sale, :price_total, :product_id, :buy_id)
-        ";
-
-        $pSql = Connection::getInstance()->prepare($sql);
-        $pSql->bindValue('quantity_sale', $sale->getQuantitySale());
-        $pSql->bindValue('price_total', $sale->getPriceTotal());
-        $pSql->bindValue('product_id', $sale->getProductsId());
-        $pSql->bindValue('buy_id', $sale->getBuyId());
-
-        $pSql->execute();
-    }
-
-    /**
      * Bring the entire buies from database
      * 
      * @return array|bool - Bring buies if sucess or FALSE in failure

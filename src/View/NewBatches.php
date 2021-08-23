@@ -3,10 +3,10 @@
 require_once("../Entity/Batches.php");
 require_once("../Controller/BatchesController.php");
 
-if (isset($_REQUEST['send'])) {
+$signup = new BatchesController();
+$batches = new Batches();
 
-    $signup = new BatchesController();
-    $batches = new Batches();
+if (isset($_REQUEST['send'])) {
 
     $batches->setObject($_POST);
     $signup->newBatch($batches);
@@ -45,6 +45,8 @@ if (isset($_REQUEST['send'])) {
                     ";
                 $pSql = Connection::getInstance()->prepare($sql);
                 $pSql->execute();
+
+                //Getting the option through database
                 if ($pSql->rowCount() > 0) {
                     while ($product = $pSql->fetch(PDO::FETCH_ASSOC)) {
                         echo "<option value='{$product['id']}'>{$product['name']}</option>";
@@ -70,6 +72,8 @@ if (isset($_REQUEST['send'])) {
                 ";
                 $pSql = Connection::getInstance()->prepare($sql);
                 $pSql->execute();
+
+                //Getting the option through database
                 if ($pSql->rowCount() > 0) {
                     while ($provider = $pSql->fetch(PDO::FETCH_ASSOC)) {
                         echo "<option value='{$provider['id']}'>{$provider['name']}</option>";

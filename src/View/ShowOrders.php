@@ -3,20 +3,25 @@ require_once("../Controller/OrdersController.php");
 
 $aux = 0;
 $buy = new OrdersController();
+
 if (isset($_REQUEST['param']) and $_REQUEST['param'] != "") {
+
     $aws = $buy->showSingleOrder($_POST['param']);
     if ($aws) {
         $aux = count($aws);
     } else {
         echo "<h2>Compra não existe!</h2>";
     }
+
 } else {
+
     $aws = $buy->showAllOrders();
     if ($aws) {
         //
     } else {
         echo "<h2>Nâo existem ordens cadastrados!</h2>";
     }
+    
 }
 ?>
 

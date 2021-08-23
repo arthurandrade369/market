@@ -4,20 +4,25 @@ require_once("../Controller/ProductsController.php");
 
 $aux = 0;
 $batches = new BatchesController();
+
 if (isset($_REQUEST['param']) and $_REQUEST['param'] != "") {
+
     $aws = $batches->showSingleBatch($_POST['param']);
     if ($aws) {
         $aux = count($aws);
     } else {
         echo "<h2>Lote não existe!</h2>";
     }
+
 } else {
+    
     $aws = $batches->showAllBatches();
     if ($aws) {
         //
     } else {
         echo "<h2>Nâo existem lotes cadastrados!</h2>";
     }
+
 }
 ?>
 

@@ -7,11 +7,10 @@ require_once(__DIR__ . "/../../src/Controller/ClientsController.php");
 if (isset($_REQUEST['send'])) {
 
     $signup = new ClientsController();
+    $user = new Clients();
+    $address = new ClientAddresses();
 
     if ($signup->checkIsEmail($_POST['email'])) {
-
-        $user = new Clients();
-        $address = new ClientAddresses();
 
         $user->setObject($_POST);
         $signup->newClient($user);

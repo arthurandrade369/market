@@ -14,9 +14,14 @@ $products = new ProductsController();
 
 
 if (isset($_REQUEST['send'])) {
+
+    //Receiving the product from database
     $productQuery = $products->showSingleProducts($_POST['product']);
+
+    //Verifying if quantity desire have on inventory
     if ($_POST['quantity_sale'] <= $productQuery['quantity_inventory']) {
 
+        //Posting datas
         $_POST['product_id'] = $productQuery['id'];
         $_POST['final_price'] = strval(($productQuery['price_product'] * $_POST['quantity_sale']) + $_POST['shipping'] - $_POST['discount']);
 
@@ -25,6 +30,7 @@ if (isset($_REQUEST['send'])) {
 
         $buyQuery = $signupBuy->getLastColumn();
 
+        //Posting datas
         $_POST['price_total'] = $productQuery['price_product'] - $productQuery['discount'];
         $_POST['buy_id'] = $buyQuery['id'];
         $_POST['product_id'] = $productQuery['id'];
@@ -33,6 +39,7 @@ if (isset($_REQUEST['send'])) {
 
         echo "<h2>Compra registrada com sucesso</h2>";
 
+        //Forwarding to create a order
         if ($_POST['was_paid']) header("Location: ./NewOrder.php");
     } else {
         echo "<h2>Quantidade desejada superior ao que temos em estoque!</h2>";

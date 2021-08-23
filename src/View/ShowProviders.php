@@ -3,20 +3,25 @@ require_once("../Controller/ProvidersController.php");
 
 $aux = 0;
 $clients = new ProvidersController();
+
 if (isset($_REQUEST['param']) and $_REQUEST['param'] != "") {
+
     $aws = $clients->showSingleProviders($_POST['param']);
     if ($aws) {
         $aux = count($aws);
     } else {
         echo "<h2>Fornecedor não existe!</h2>";
     }
+
 } else {
+
     $aws = $clients->showAllProviders();
     if ($aws) {
         //
     } else {
         echo "<h2>Nâo existem fornecedores cadastrados!</h2>";
     }
+    
 }
 ?>
 

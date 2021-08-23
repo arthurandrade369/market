@@ -4,13 +4,16 @@ require_once("../Entity/Providers.php");
 require_once("../Entity/ProvidersAddresses.php");
 require_once("../Controller/ProvidersController.php");
 
+$signup = new ProvidersController();
+$providers = new Providers();
+$address = new ProvidersAddresses();
+
 if (isset($_REQUEST['send'])) {
-    $signup = new ProvidersController();
     if ($signup->checkIsCnpj($_POST['cnpj'])) {
-        $providers = new Providers();
-        $address = new ProvidersAddresses();
+
         $providers->setObject($_POST);
         $address->setObject($_POST);
+
         $signup->newProviders($providers);
         $signup->newProvidersAddress($address);
 
