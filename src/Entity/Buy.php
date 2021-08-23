@@ -208,11 +208,11 @@ class Buy
      */
     public function setObject($object)
     {
-        $this->setDate($object['date']);
         $this->setState($object['state']);
         $this->setPaymentMethod($object['payment_method']);
         $this->setFinalPrice($object['final_price']);
         $this->setDiscount($object['discount']);
+        $this->setShipping($object['shipping']);
         if (isset($object['was_paid'])) $this->setWasPaid($object['was_paid']);
 
         return $this;

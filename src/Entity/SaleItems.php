@@ -122,4 +122,20 @@ class Sale_items
 
         return $this;
     }
+
+    /**
+     * Set the main attributes of class
+     *
+     * @param object|array $object
+     * @return void
+     */
+    public function setObject($object)
+    {
+        $this->setQuantitySale($object['quantity_sale']);
+        $this->setPriceTotal($object['price_total']);
+        $this->setProductsId($object['product_id']);
+        $this->setBuyId($object['buy_id']);
+
+        return $this;
+    }
 }

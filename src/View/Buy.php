@@ -2,7 +2,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Compra</title>
+    <title>Compras</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
 </head>
 
@@ -14,6 +14,10 @@
     <h2></h2>
 
     <a href="ShowBuy.php"><button type="button">Mostrar Compras</button></a>
+
+    <h2></h2>
+
+    <a href="ShowOrders.php"><button type="button">Mostrar Ordens</button></a>
 
     <h2></h2>
 

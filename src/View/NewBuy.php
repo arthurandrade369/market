@@ -1,13 +1,43 @@
 <?php
 
 require_once("../Entity/Buy.php");
+require_once('../Entity/SaleItems.php');
 require_once("../Controller/BuyController.php");
+require_once("../Controller/ProductsController.php");
+require_once("../Controller/SaleController.php");
 
-$signup = new BuyController;
-$buy = new Buy;
+$buy = new Buy();
+$sale = new Sale_items();
+$signupBuy = new BuyController();
+$signupSale = new SaleController();
+$products = new ProductsController();
 
-$buy->setObject($_POST);
-$signup->newBuy($buy);
+
+if (isset($_REQUEST['send'])) {
+    $productQuery = $products->showSingleProducts($_POST['product']);
+    if ($_POST['quantity_sale'] <= $productQuery['quantity_inventory']) {
+
+        $_POST['product_id'] = $productQuery['id'];
+        $_POST['final_price'] = strval(($productQuery['price_product'] * $_POST['quantity_sale']) + $_POST['shipping'] - $_POST['discount']);
+
+        $buy->setObject($_POST);
+        $signupBuy->newBuy($buy);
+
+        $buyQuery = $signupBuy->getLastColumn();
+
+        $_POST['price_total'] = $productQuery['price_product'] - $productQuery['discount'];
+        $_POST['buy_id'] = $buyQuery['id'];
+        $_POST['product_id'] = $productQuery['id'];
+        $sale->setObject($_POST);
+        $signupSale->newSale($sale);
+
+        echo "<h2>Compra registrada com sucesso</h2>";
+
+        if ($_POST['was_paid']) header("Location: ./NewOrder.php");
+    } else {
+        echo "<h2>Quantidade desejada superior ao que temos em estoque!</h2>";
+    }
+}
 
 ?>
 
@@ -26,6 +56,35 @@ $signup->newBuy($buy);
 
         <form method="post" id="productForm">
 
+
+            <label for="product">
+                <strong>Produto</strong>
+            </label>
+            <select name="product" id="product">
+                <?php
+                $sql = "
+                    SELECT
+                        *
+                    FROM
+                        products
+                    ";
+                $pSql = Connection::getInstance()->prepare($sql);
+                $pSql->execute();
+                if ($pSql->rowCount() > 0) {
+                    while ($product = $pSql->fetch(PDO::FETCH_ASSOC)) {
+                        echo "<option value='{$product['id']}'>{$product['name']}</option>";
+                    }
+                }
+                ?>
+            </select>
+
+            <label for="quantity_sale">
+                <strong>Quantidade</strong>
+            </label>
+            <input type="number" name="quantity_sale" placeholder="Quantidade do produto" id="quantity_sale">
+
+            <h2></h2>
+
             <label for="state">
                 <strong>Situação</strong>
             </label>
@@ -43,10 +102,10 @@ $signup->newBuy($buy);
                 <option value="1">Sim</option>
             </select>
 
-            <label for="state">
+            <label for="payment_method">
                 <strong>Método de pagamento</strong>
             </label>
-            <select name="state" id="state">
+            <select name="payment_method" id="payment_method">
                 <option value="Boleto Bancário">Boleto Bancário</option>
                 <option value="Cartao de Crédito">Cartão de Crédito</option>
                 <option value="Cartão de Débito">Cartão de Débito</option>

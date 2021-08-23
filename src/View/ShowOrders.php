@@ -1,21 +1,21 @@
 <?php
-require_once("../Controller/BuyController.php");
+require_once("../Controller/OrdersController.php");
 
 $aux = 0;
-$buy = new BuyController();
+$buy = new OrdersController();
 if (isset($_REQUEST['param']) and $_REQUEST['param'] != "") {
-    $aws = $buy->showSingleBuy($_POST['param']);
+    $aws = $buy->showSingleOrder($_POST['param']);
     if ($aws) {
         $aux = count($aws);
     } else {
         echo "<h2>Compra não existe!</h2>";
     }
 } else {
-    $aws = $buy->showAllBuies();
+    $aws = $buy->showAllOrders();
     if ($aws) {
         //
     } else {
-        echo "<h2>Nâo existem compras cadastrados!</h2>";
+        echo "<h2>Nâo existem ordens cadastrados!</h2>";
     }
 }
 ?>
@@ -54,33 +54,52 @@ if (isset($_REQUEST['param']) and $_REQUEST['param'] != "") {
 
     <table style="width:100%">
         <tr>
-            <td>Data</td>
-            <td>Id da Compra</td>
-            <td>Produto</td>
+            <td>ID</td>
+            <td>Tipo de Ordem</td>
+            <td>Previsão de Entrega</td>
+            <td>Data do Recebimento</td>
+            <td>Nome do Cliente</td>
             <td>Situação</td>
-            <td>Foi Pago</td>
-            <td>Metodo de Pagamento</td>
             <td>Valor da Compra</td>
-            <td>Quantidade Vendida</td>
 
         </tr>
         <tr>
             <td><?php if ($aws) {
                     if (count($aws) == $aux) {
-                        echo $aws['date'];
+                        echo $aws['oid'];
                     } else {
                         foreach ($aws as $value) {
-                            echo $value['date'] . "<br>";
+                            echo $value['oid'] . "<br>";
                         }
                     }
                 } ?></td>
 
             <td><?php if ($aws) {
                     if (count($aws) == $aux) {
-                        echo $aws['buy_id'];
+                        echo $aws['type'];
                     } else {
                         foreach ($aws as $value) {
-                            echo $value['buy_id'] . "<br>";
+                            echo $value['type'] . "<br>";
+                        }
+                    }
+                } ?></td>
+
+            <td><?php if ($aws) {
+                    if (count($aws) == $aux) {
+                        echo $aws['forecast'];
+                    } else {
+                        foreach ($aws as $value) {
+                            echo $value['forecast'] . "<br>";
+                        }
+                    }
+                } ?></td>
+
+            <td><?php if ($aws) {
+                    if (count($aws) == $aux) {
+                        echo $aws['receipt'];
+                    } else {
+                        foreach ($aws as $value) {
+                            echo $value['receipt'] . "<br>";
                         }
                     }
                 } ?></td>
@@ -107,42 +126,10 @@ if (isset($_REQUEST['param']) and $_REQUEST['param'] != "") {
 
             <td><?php if ($aws) {
                     if (count($aws) == $aux) {
-                        if ($aws['was_paid']) echo "Sim";
-                        else echo "Não";
-                    } else {
-                        foreach ($aws as $value) {
-                            if ($value['was_paid']) echo "Sim <br>";
-                            else echo "Não <br>";
-                        }
-                    }
-                } ?></td>
-
-            <td><?php if ($aws) {
-                    if (count($aws) == $aux) {
-                        echo $aws['payment_method'];
-                    } else {
-                        foreach ($aws as $value) {
-                            echo $value['payment_method'] . "<br>";
-                        }
-                    }
-                } ?></td>
-
-            <td><?php if ($aws) {
-                    if (count($aws) == $aux) {
                         echo $aws['final_price'];
                     } else {
                         foreach ($aws as $value) {
                             echo $value['final_price'] . "<br>";
-                        }
-                    }
-                } ?></td>
-
-            <td><?php if ($aws) {
-                    if (count($aws) == $aux) {
-                        echo $aws['quantity_sale'];
-                    } else {
-                        foreach ($aws as $value) {
-                            echo $value['quantity_sale'] . "<br>";
                         }
                     }
                 } ?></td>
