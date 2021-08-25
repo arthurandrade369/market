@@ -41,8 +41,8 @@ class OrdersController
             *, o.id AS oid
         FROM 
             orders AS o
-        INNER JOIN sale AS s ON o.sale_id = s.id
-        INNER JOIN clients AS c ON o.clients_id = c.id
+            INNER JOIN sale AS s ON o.sale_id = s.id
+            INNER JOIN clients AS c ON o.clients_id = c.id
         ";
         $pSql = Connection::getInstance()->prepare($sql);
         $pSql->execute();

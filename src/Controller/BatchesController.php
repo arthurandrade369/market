@@ -14,10 +14,10 @@ class BatchesController
     public function newBatch(Batches $batch): void
     {
         $sql = "
-        INSERT INTO
-            batches(fabrication_date, expiration_date, entry_date, quantity, used, sold_off, description, providers_id, products_id)
-        VALUES
-            (:fabrication_date, :expiration_date, :entry_date, :quantity, :used, :sold_off , :description, :providers_id, :products_id)
+            INSERT INTO
+                batches(fabrication_date, expiration_date, entry_date, quantity, used, sold_off, description, providers_id, products_id)
+            VALUES
+                (:fabrication_date, :expiration_date, :entry_date, :quantity, :used, :sold_off , :description, :providers_id, :products_id)
         ";
 
         $test = $batch->getUsed();
@@ -36,19 +36,19 @@ class BatchesController
     }
 
     /**
-     * Bring the entire batches from database
+     * Bring all the batches from database
      *
-     * @return array|bool Bring the batches if sucess or FALSE in failure
+     * @return array|bool Bring the batches if have something or FALSE if dont have nothing
      */
-    public function showAllBatches()
+    public function catchAllBatches()
     {
         $sql = "
-        SELECT
-            b.*, pd.name AS pd_name, pv.name AS pv_name
-        FROM
-            batches AS b
-            INNER JOIN products AS pd ON b.products_id = pd.id
-            INNER JOIN providers AS pv ON b.providers_id = pv.id
+            SELECT
+                b.*, pd.name AS pd_name, pv.name AS pv_name
+            FROM
+                batches AS b
+                INNER JOIN products AS pd ON b.products_id = pd.id
+                INNER JOIN providers AS pv ON b.providers_id = pv.id
         ";
 
         $pSql = Connection::getInstance()->prepare($sql);
@@ -60,25 +60,100 @@ class BatchesController
     }
 
     /**
-     * Bring a specify batch from database
+     * Bring all of batches by a search from database
      * 
-     * @param int $id
-     * @return array|bool Bring the batch if sucess or FALSE in failure
+     * @param string $productName
+     * @return array|bool Bring the batches if sucess or FALSE in failure
      */
-    public function showSingleBatch($param)
+    public function catchBatchesByProductName(string $productName)
     {
         $sql = "
-        SELECT
-            b.*, pd.name AS pd_name, pv.name AS pv_name
-        FROM
-            batches AS b
-            INNER JOIN products AS pd ON b.products_id = pd.id
-            INNER JOIN providers AS pv ON b.providers_id = pv.id
-        WHERE 
-            b.id = :param
-        LIMIT 1";
+            SELECT
+                b.*, pd.name AS pd_name, pv.name AS pv_name
+            FROM
+                batches AS b
+                INNER JOIN products AS pd ON b.products_id = pd.id
+                INNER JOIN providers AS pv ON b.providers_id = pv.id AND pd.name LIKE CONCAT('%',:productname,'%')
+        ";
         $pSql = Connection::getInstance()->prepare($sql);
-        $pSql->bindValue('param', $param);
+        $pSql->bindValue('productname', $productName);
+        $pSql->execute();
+        if ($pSql->rowCount() > 0) return $pSql->fetchAll();
+
+        return false;
+    }
+
+    /**
+     * Bring all of batches by a search from database
+     * 
+     * @param string $providerName
+     * @return array|bool Bring the batches if sucess or FALSE in failure
+     */
+    public function catchBatchesByProviderName(string $providerName)
+    {
+        $sql = "
+            SELECT
+                b.*, pd.name AS pd_name, pv.name AS pv_name
+            FROM
+                batches AS b
+                INNER JOIN products AS pd ON b.products_id = pd.id
+                INNER JOIN providers AS pv ON b.providers_id = pv.id AND pv.name LIKE CONCAT('%',:providername,'%')
+        ";
+        $pSql = Connection::getInstance()->prepare($sql);
+        $pSql->bindValue('providername', $providerName);
+        $pSql->execute();
+        if ($pSql->rowCount() > 0) return $pSql->fetchAll();
+
+        return false;
+    }
+
+    /**
+     * Bring all of batches by a search from database
+     * 
+     * @param string $productName
+     * @param string $providerName
+     * @return array|bool Bring the batches if sucess or FALSE in failure
+     */
+    public function catchBatchesByProviderNameAndProductName(string $productName, string $providerName)
+    {
+        $sql = "
+            SELECT
+                b.*, pd.name AS pd_name, pv.name AS pv_name
+            FROM
+                batches AS b
+                INNER JOIN products AS pd ON b.products_id = pd.id
+                INNER JOIN providers AS pv ON b.providers_id = pv.id 
+            WHERE 
+                pd.name LIKE CONCAT('%',:productname,'%') AND pv.name LIKE CONCAT('%',:providername,'%')
+        ";
+        $pSql = Connection::getInstance()->prepare($sql);
+        $pSql->bindValue('productname', $productName);
+        $pSql->bindValue('providername', $providerName);
+        $pSql->execute();
+        if ($pSql->rowCount() > 0) return $pSql->fetchAll();
+
+        return false;
+    }
+
+    /**
+     * Bring a specify batch from database
+     *
+     * @param integer $id
+     * @return array|false
+     */
+    public function catchABatchById(int $id)
+    {
+        $sql = "
+            SELECT
+                b.*, pd.name AS pd_name, pv.name AS pv_name
+            FROM
+                batches AS b
+                INNER JOIN products AS pd ON b.products_id = pd.id
+                INNER JOIN providers AS pv ON b.providers_id = pv.id AND b.id = :id
+            LIMIT 1
+        ";
+        $pSql = Connection::getInstance()->prepare($sql);
+        $pSql->bindValue('param', $id);
         $pSql->execute();
         if ($pSql->rowCount() > 0) return $pSql->fetch();
 

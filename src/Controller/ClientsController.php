@@ -58,14 +58,15 @@ class ClientsController
      * 
      * @return array|bool - Bring clients if sucess or FALSE in failure
      */
-    public function showAllClients()
+    public function catchAllClients()
     {
         $sql = "
-        SELECT
-            c.*, ca.* 
-        FROM 
-            clients AS c 
-            INNER JOIN client_addresses AS ca ON c.id = ca.clients_id";
+            SELECT
+                c.*, ca.* 
+            FROM 
+                clients AS c 
+                INNER JOIN client_addresses AS ca ON c.id = ca.clients_id
+        ";
         $pSql = Connection::getInstance()->prepare($sql);
         $pSql->execute();
         if ($pSql->rowCount() > 0) return $pSql->fetchall();
@@ -74,23 +75,71 @@ class ClientsController
     }
 
     /**
-     * Bring a specify client from database
-     * 
-     * @param array $name|$email
-     * @return array|bool Bring the client if sucess or FALSE in failure
+     * Bring all of clients by a search from database
+     *
+     * @param int $id
+     * @return array|false Bring the clients if sucess or FALSE in failure
      */
-    public function showSingleClients($param)
+    public function catchClientById(int $id)
     {
         $sql = "
-        SELECT
-            c.*, ca.*
-        FROM
-            clients AS c INNER JOIN  clients_addresses AS ca ON c.id = ca.clients_id
-        WHERE
-            c.email LIKE CONCAT(:param,'%') OR c.name LIKE CONCAT(:param,'%')
-        LIMIT 1";
+            SELECT
+                c.*, ca.*
+            FROM
+                clients AS c 
+                INNER JOIN  clients_addresses AS ca ON c.id = ca.clients_id AND c.id = :id
+            LIMIT 1
+        ";
         $pSql = Connection::getInstance()->prepare($sql);
-        $pSql->bindValue('param', $param);
+        $pSql->bindValue('id', $id);
+        $pSql->execute();
+        if ($pSql->rowCount() > 0) return $pSql->fetch();
+
+        return false;
+    }
+
+    /**
+     * Bring all of clients by a search from database
+     *
+     * @param string $name
+     * @return array|false Bring the clients if sucess or FALSE in failure
+     */
+    public function catchClientByName(string $name)
+    {
+        $sql = "
+            SELECT
+                c.*, ca.*
+            FROM
+                clients AS c 
+                INNER JOIN  clients_addresses AS ca ON c.id = ca.clients_id AND c.name LIKE CONCAT(:name,'%')
+            LIMIT 1
+        ";
+        $pSql = Connection::getInstance()->prepare($sql);
+        $pSql->bindValue('name', $name);
+        $pSql->execute();
+        if ($pSql->rowCount() > 0) return $pSql->fetch();
+
+        return false;
+    }
+
+    /**
+     * Bring all of clients by a search from database
+     *
+     * @param string $email
+     * @return array|false Bring the clients if sucess or FALSE in failure
+     */
+    public function catchClientByEmail(string $email)
+    {
+        $sql = "
+            SELECT
+                c.*, ca.*
+            FROM
+                clients AS c 
+                INNER JOIN  clients_addresses AS ca ON c.id = ca.clients_id AND c.name LIKE CONCAT(:email,'%')
+            LIMIT 1
+        ";
+        $pSql = Connection::getInstance()->prepare($sql);
+        $pSql->bindValue('email', $email);
         $pSql->execute();
         if ($pSql->rowCount() > 0) return $pSql->fetch();
 
@@ -103,15 +152,16 @@ class ClientsController
      * @param string $email
      * @return boolean TRUE if the email dont exists or FALSE if exists
      */
-    public function checkIsEmail(string $email): bool
+    public function checkIsEmail(string $email)
     {
         $sql = "
-        SELECT 
-            c.email 
-        FROM 
-            clients AS c 
-        WHERE  
-            c.email = :email";
+            SELECT 
+                c.email 
+            FROM 
+                clients AS c 
+            WHERE  
+                c.email = :email
+        ";
         $pSql = Connection::getInstance()->prepare($sql);
         $pSql->bindValue('email', $email);
         $pSql->execute();
@@ -120,5 +170,4 @@ class ClientsController
 
         return true;
     }
-
 }

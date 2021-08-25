@@ -2,27 +2,40 @@
 require_once("../Controller/BatchesController.php");
 require_once("../Controller/ProductsController.php");
 
-$aux = 0;
 $batches = new BatchesController();
 
-if (isset($_REQUEST['param']) and $_REQUEST['param'] != "") {
+if (
+    isset($_REQUEST['providers_name']) and isset($_REQUEST['product_name']) and !empty($_REQUEST['product_name']) and !empty($_REQUEST['product_name'])
+) {
+    $aws = $batches->catchBatchesByProviderNameAndProductName($_REQUEST['product_name'], $_REQUEST['provider_name']);
+    if($aws){
 
-    $aws = $batches->showSingleBatch($_POST['param']);
+    } else {
+        echo "<h2>Lote não existe</h2>";
+    } 
+} else if (isset($_REQUEST['product_name']) and !empty($_REQUEST['product_name'])) {
+
+    $aws = $batches->catchBatchesByProductName($_POST['product_name']);
     if ($aws) {
-        $aux = count($aws);
+        //
     } else {
         echo "<h2>Lote não existe!</h2>";
     }
-
+} else if (isset($_REQUEST['provider_name']) and !empty($_REQUEST['product_name'])) {
+    $aws = $batches->catchBatchesByProviderName($_REQUEST['provider_name']);
+    if ($aws) {
+        //
+    } else {
+        echo "<h2>Fornecedor não existe!</h2>";
+    }
 } else {
-    
-    $aws = $batches->showAllBatches();
+
+    $aws = $batches->catchAllBatches();
     if ($aws) {
         //
     } else {
         echo "<h2>Nâo existem lotes cadastrados!</h2>";
     }
-
 }
 ?>
 
@@ -50,10 +63,15 @@ if (isset($_REQUEST['param']) and $_REQUEST['param'] != "") {
 
 <body>
     <form method="post">
-        <label for="param">
+        <label for="product_name">
             <i class="fas fa-user"></i>
         </label>
-        <input type="text" name="param" placeholder="Buscar" id="param">
+        <input type="text" name="product_name" placeholder="Buscar Produto" id="product_name">
+
+        <label for="provider_name">
+            <i class="fas fa-user"></i>
+        </label>
+        <input type="text" name="provider_name" placeholder="Buscar Fornecedor" id="provider_name">
 
         <input type="submit" name="send" value="Confirmar">
     </form>
@@ -75,116 +93,70 @@ if (isset($_REQUEST['param']) and $_REQUEST['param'] != "") {
         </tr>
         <tr>
             <td><?php if ($aws) {
-                    if (count($aws) == $aux) {
-                        echo $aws['id'];
-                    } else {
-                        foreach ($aws as $value) {
-                            echo $value['id'] . "<br>";
-                        }
+                    foreach ($aws as $value) {
+                        echo $value['id'] . "<br>";
                     }
                 } ?></td>
 
             <td><?php if ($aws) {
-                    if (count($aws) == $aux) {
-                        echo $aws['products_id'];
-                    } else {
-                        foreach ($aws as $value) {
-                            echo $value['products_id'] . "<br>";
-                        }
+                    foreach ($aws as $value) {
+                        echo $value['products_id'] . "<br>";
                     }
                 } ?></td>
 
             <td><?php if ($aws) {
-                    if (count($aws) == $aux) {
-                        echo $aws['pd_name'];
-                    } else {
-                        foreach ($aws as $value) {
-                            echo $value['pd_name'] . "<br>";
-                        }
+                    foreach ($aws as $value) {
+                        echo $value['pd_name'] . "<br>";
                     }
                 } ?></td>
 
             <td><?php if ($aws) {
-                    if (count($aws) == $aux) {
-                        echo $aws['fabrication_date'];
-                    } else {
-                        foreach ($aws as $value) {
-                            echo $value['fabrication_date'] . "<br>";
-                        }
+                    foreach ($aws as $value) {
+                        echo $value['fabrication_date'] . "<br>";
                     }
                 } ?></td>
 
             <td><?php if ($aws) {
-                    if (count($aws) == $aux) {
-                        echo $aws['expiration_date'];
-                    } else {
-                        foreach ($aws as $value) {
-                            echo $value['expiration_date'] . "<br>";
-                        }
+                    foreach ($aws as $value) {
+                        echo $value['expiration_date'] . "<br>";
                     }
                 } ?></td>
 
             <td><?php if ($aws) {
-                    if (count($aws) == $aux) {
-                        echo $aws['entry_date'];
-                    } else {
-                        foreach ($aws as $value) {
-                            echo $value['entry_date'] . "<br>";
-                        }
+                    foreach ($aws as $value) {
+                        echo $value['entry_date'] . "<br>";
                     }
                 } ?></td>
 
             <td><?php if ($aws) {
-                    if (count($aws) == $aux) {
-                        echo $aws['quantity'];
-                    } else {
-                        foreach ($aws as $value) {
-                            echo $value['quantity'] . "<br>";
-                        }
+                    foreach ($aws as $value) {
+                        echo $value['quantity'] . "<br>";
                     }
                 } ?></td>
 
             <td><?php if ($aws) {
-                    if (count($aws) == $aux) {
-                        if ($aws['used']) echo "Sim";
-                        else echo "Não";
-                    } else {
-                        foreach ($aws as $value) {
-                            if ($value['used']) echo "Sim <br>";
-                            else echo "Não <br>";
-                        }
+                    foreach ($aws as $value) {
+                        if ($value['used']) echo "Sim <br>";
+                        else echo "Não <br>";
                     }
                 } ?></td>
 
             <td><?php if ($aws) {
-                    if (count($aws) == $aux) {
-                        if ($aws['sold_off']) echo "Sim";
-                        else echo "Não";
-                    } else {
-                        foreach ($aws as $value) {
-                            if ($value['sold_off']) echo "Sim <br>";
-                            else echo "Não <br>";
-                        }
+                    foreach ($aws as $value) {
+                        if ($value['sold_off']) echo "Sim <br>";
+                        else echo "Não <br>";
                     }
                 } ?></td>
 
             <td><?php if ($aws) {
-                    if (count($aws) == $aux) {
-                        echo $aws['description'];
-                    } else {
-                        foreach ($aws as $value) {
-                            echo $value['description'] . "<br>";
-                        }
+                    foreach ($aws as $value) {
+                        echo $value['description'] . "<br>";
                     }
                 } ?></td>
 
             <td><?php if ($aws) {
-                    if (count($aws) == $aux) {
-                        echo $aws['pv_name'];
-                    } else {
-                        foreach ($aws as $value) {
-                            echo $value['pv_name'] . "<br>";
-                        }
+                    foreach ($aws as $value) {
+                        echo $value['pv_name'] . "<br>";
                     }
                 } ?></td>
 
