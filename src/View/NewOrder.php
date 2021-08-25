@@ -3,16 +3,16 @@
 require_once("../Entity/Orders.php");
 require_once("../Controller/OrdersController.php");
 require_once("../Controller/ClientsController.php");
-require_once("../Controller/BuyController.php");
+require_once("../Controller/SaleController.php");
 
 $order = new Orders;
 $orderQuery = new OrdersController;
 $client = new ClientsController;
-$buy = new BuyController;
+$sale = new SaleController;
 
 if (isset($_REQUEST['send'])) {
 
-    $_POST['buy_id'] = $buy->getLastColumn()['id'];
+    $_POST['sale_id'] = $_GET['sale_id'];
 
     $order->setObject($_POST);
     $orderQuery->newOrder($order);
@@ -43,9 +43,9 @@ if (isset($_REQUEST['send'])) {
                 <?php
                 $sql = "
                     SELECT
-                        *
+                        c.*
                     FROM
-                        clients
+                        clients AS c
                     ";
                 $pSql = Connection::getInstance()->prepare($sql);
                 $pSql->execute();
@@ -77,7 +77,7 @@ if (isset($_REQUEST['send'])) {
             <input type="submit" name="send" value="Cadastrar">
         </form>
         <i class="fas fa-reply"></i>
-        <a href="./Buy.php"><button type="button">Voltar</button></a>
+        <a href="./Sale.php"><button type="button">Voltar</button></a>
     </div>
 
 </body>

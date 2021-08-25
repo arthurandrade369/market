@@ -9,11 +9,11 @@
 <body>
     <h1>Opções de Compra</h1>
 
-    <a href="NewBuy.php"><button type="button">Nova Compra</button></a>
+    <a href="NewSale.php"><button type="button">Nova Compra</button></a>
 
     <h2></h2>
 
-    <a href="ShowBuy.php"><button type="button">Mostrar Compras</button></a>
+    <a href="ShowSale.php"><button type="button">Mostrar Compras</button></a>
 
     <h2></h2>
 

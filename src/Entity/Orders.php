@@ -7,7 +7,7 @@ class Orders
     private string $receipt;
     private string $forecast;
     private int $clientsId;
-    private int $buyId;
+    private int $SaleId;
 
     /**
      * Get the value of id
@@ -125,24 +125,24 @@ class Orders
     }
 
     /**
-     * Get the value of buyId
+     * Get the value of saleId
      * 
      * @return int
      */
-    public function getBuyId(): ?int
+    public function getSaleId(): ?int
     {
-        return $this->buyId;
+        return $this->saleId;
     }
 
     /**
-     * Set the value of buyId
+     * Set the value of saleId
      *
-     * @param int $buyId
+     * @param int $saleId
      * @return  self
      */
-    public function setBuyId(?int $buyId)
+    public function setSaleId(?int $saleId)
     {
-        $this->buyId = $buyId;
+        $this->saleId = $saleId;
 
         return $this;
     }
@@ -159,7 +159,7 @@ class Orders
         $this->setReceipt($object['receipt']);
         $this->setForecast($object['forecast']);
         $this->setClientsId($object['clients_id']);
-        $this->setBuyId($object['buy_id']);
+        $this->setSaleId($object['sale_id']);
 
         return $this;
     }

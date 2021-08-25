@@ -1,46 +1,42 @@
 <?php
 
-require_once("../Entity/Buy.php");
+require_once("../Entity/Sale.php");
 require_once('../Entity/SaleItems.php');
-require_once("../Controller/BuyController.php");
-require_once("../Controller/ProductsController.php");
 require_once("../Controller/SaleController.php");
+require_once("../Controller/ProductsController.php");
+require_once("../Controller/SaleItemController.php");
 
-$buy = new Buy();
-$sale = new Sale_items();
-$signupBuy = new BuyController();
+$sale = new Sale();
+$saleItems = new SaleItems();
 $signupSale = new SaleController();
+$signupSaleItems = new SaleItemController();
 $products = new ProductsController();
 
 
 if (isset($_REQUEST['send'])) {
 
     //Receiving the product from database
-    $productQuery = $products->showSingleProducts($_POST['product']);
+    $productQuerySingle = $products->showSingleProducts($_POST['product_id']);
 
     //Verifying if quantity desire have on inventory
     if ($_POST['quantity_sale'] <= $productQuery['quantity_inventory']) {
 
-        //Posting datas
-        $_POST['product_id'] = $productQuery['id'];
-        $_POST['final_price'] = strval(($productQuery['price_product'] * $_POST['quantity_sale']) + $_POST['shipping'] - $_POST['discount']);
+        //Posting datas in Sale
+        $_POST['final_price'] = strval(($productQuery['price_product'] * $_POST['quantity_sale']) + $_POST['shipping'] - floatval($_POST['discount']));
 
-        $buy->setObject($_POST);
-        $signupBuy->newBuy($buy);
-
-        $buyQuery = $signupBuy->getLastColumn();
-
-        //Posting datas
-        $_POST['price_total'] = $productQuery['price_product'] - $productQuery['discount'];
-        $_POST['buy_id'] = $buyQuery['id'];
-        $_POST['product_id'] = $productQuery['id'];
         $sale->setObject($_POST);
-        $signupSale->newSale($sale);
+        $saleQuery = $signupSale->newSale($sale);
+
+        //Posting datas in SaleItem
+        $_POST['price_total'] = $productQuery['price_product'] - $productQuery['discount'];
+        $_POST['sale_id'] = $saleQuery;
+        $saleItems->setObject($_POST);
+        $signupSaleItems->newSale($saleItems);
 
         echo "<h2>Compra registrada com sucesso</h2>";
 
         //Forwarding to create a order
-        if ($_POST['was_paid']) header("Location: ./NewOrder.php");
+        if ($_POST['was_paid']) header("Location: ./NewOrder.php?sale_id=" . $saleQuery);
     } else {
         echo "<h2>Quantidade desejada superior ao que temos em estoque!</h2>";
     }
@@ -69,17 +65,11 @@ if (isset($_REQUEST['send'])) {
             </label>
             <select name="product" id="product">
                 <?php
-                $sql = "
-                    SELECT
-                        *
-                    FROM
-                        products
-                    ";
-                $pSql = Connection::getInstance()->prepare($sql);
-                $pSql->execute();
-                if ($pSql->rowCount() > 0) {
-                    while ($product = $pSql->fetch(PDO::FETCH_ASSOC)) {
-                        echo "<option value='{$product['id']}'>{$product['name']}</option>";
+                $productsQueryAll = $products->showAllProducts();
+
+                if ($productsQueryAll) {
+                    foreach ($productsQueryAll as $values) {
+                        echo "<option value='{$values['id']}'>{$values['name']}</option>";
                     }
                 }
                 ?>
@@ -137,7 +127,7 @@ if (isset($_REQUEST['send'])) {
         </form>
 
         <i class="fas fa-reply"></i>
-        <a href="./Buy.php"><button type="button">Voltar</button></a>
+        <a href="./Sale.php"><button type="button">Voltar</button></a>
     </div>
 
 </body>

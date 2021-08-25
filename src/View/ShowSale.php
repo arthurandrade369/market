@@ -1,12 +1,12 @@
 <?php
-require_once("../Controller/BuyController.php");
+require_once("../Controller/SaleController.php");
 
 $aux = 0;
-$buy = new BuyController();
+$sale = new SaleController();
 
 if (isset($_REQUEST['param']) and $_REQUEST['param'] != "") {
 
-    $aws = $buy->showSingleBuy($_POST['param']);
+    $aws = $sale->showSingleSales($_POST['param']);
     if ($aws) {
         $aux = count($aws);
     } else {
@@ -15,7 +15,7 @@ if (isset($_REQUEST['param']) and $_REQUEST['param'] != "") {
 
 } else {
 
-    $aws = $buy->showAllBuies();
+    $aws = $sale->showAllSales();
     if ($aws) {
         //
     } else {
@@ -82,10 +82,10 @@ if (isset($_REQUEST['param']) and $_REQUEST['param'] != "") {
 
             <td><?php if ($aws) {
                     if (count($aws) == $aux) {
-                        echo $aws['buy_id'];
+                        echo $aws['sale_id'];
                     } else {
                         foreach ($aws as $value) {
-                            echo $value['buy_id'] . "<br>";
+                            echo $value['sale_id'] . "<br>";
                         }
                     }
                 } ?></td>
@@ -156,7 +156,7 @@ if (isset($_REQUEST['param']) and $_REQUEST['param'] != "") {
     </table>
     <h2></h2>
     <i class="fas fa-reply"></i>
-    <a href="./Buy.php"><button type="button">Voltar</button></a>
+    <a href="./Sale.php"><button type="button">Voltar</button></a>
 </body>
 
 </html>

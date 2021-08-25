@@ -2,9 +2,13 @@
 
 require_once("../Entity/Batches.php");
 require_once("../Controller/BatchesController.php");
+require_once("../Controller/ProvidersController.php");
+require_once("../Controller/ProductsController.php");
 
 $signup = new BatchesController();
 $batches = new Batches();
+$product = new ProductsController();
+$provider = new ProvidersController();
 
 if (isset($_REQUEST['send'])) {
 
@@ -37,25 +41,16 @@ if (isset($_REQUEST['send'])) {
 
             <select name="product" id="product">
                 <?php
-                $sql = "
-                    SELECT
-                        *
-                    FROM
-                        products
-                    ";
-                $pSql = Connection::getInstance()->prepare($sql);
-                $pSql->execute();
+                $products = $product->showAllProducts();
 
                 //Getting the option through database
-                if ($pSql->rowCount() > 0) {
-                    while ($product = $pSql->fetch(PDO::FETCH_ASSOC)) {
-                        echo "<option value='{$product['id']}'>{$product['name']}</option>";
+                if ($products) {
+                    foreach($products as $values){
+                        echo "<option value='{$values['id']}'>{$values['name']}</option>";
                     }
                 }
                 ?>
             </select>
-
-            <!-- <input type="text" name="name" placeholder="Nome do Produto" id="name" required> -->
 
             <h1></h1>
 
@@ -64,25 +59,16 @@ if (isset($_REQUEST['send'])) {
             </label>
             <select name="provider" id="provider">
                 <?php
-                $sql = "
-                SELECT
-                    *
-                FROM
-                    providers
-                ";
-                $pSql = Connection::getInstance()->prepare($sql);
-                $pSql->execute();
+                $providers = $provider->showAllProviders();
 
                 //Getting the option through database
-                if ($pSql->rowCount() > 0) {
-                    while ($provider = $pSql->fetch(PDO::FETCH_ASSOC)) {
-                        echo "<option value='{$provider['id']}'>{$provider['name']}</option>";
+                if ($providers) {
+                    foreach ($providers as $values) {
+                        echo "<option value='{$values['id']}'>{$values['name']}</option>";
                     }
                 }
                 ?>
             </select>
-
-            <!-- <input type="text" name="provider" placeholder="Nome do Fornecedor" id="provider" required> -->
 
             <h1></h1>
 

@@ -1,12 +1,12 @@
 <?php
 
-class Sale_items
+class SaleItems
 {
     private int $id;
     private int $quantitySale;
     private float $priceTotal;
     private int $productsId;
-    private int $buyId;
+    private int $saleId;
 
     /**
      * Get the value of id
@@ -101,24 +101,24 @@ class Sale_items
     }
 
     /**
-     * Get the value of buyId
+     * Get the value of saleId
      * 
      * @return int
      */
-    public function getBuyId(): ?int
+    public function getSaleId(): ?int
     {
-        return $this->buyId;
+        return $this->saleId;
     }
 
     /**
-     * Set the value of buyId
+     * Set the value of saleId
      *
-     * @param int $buyId
+     * @param int $saleId
      * @return  self
      */
-    public function setBuyId(?int $buyId)
+    public function setSaleId(?int $saleId)
     {
-        $this->buyId = $buyId;
+        $this->saleId = $saleId;
 
         return $this;
     }
@@ -134,7 +134,7 @@ class Sale_items
         $this->setQuantitySale($object['quantity_sale']);
         $this->setPriceTotal($object['price_total']);
         $this->setProductsId($object['product_id']);
-        $this->setBuyId($object['buy_id']);
+        $this->setSaleId($object['sale_id']);
 
         return $this;
     }

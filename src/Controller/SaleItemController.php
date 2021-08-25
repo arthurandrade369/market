@@ -1,48 +1,46 @@
 <?php
 
 require_once("../../config/connection-db.php");
-require_once("../Entity/Orders.php");
+require_once("../Entity/Sale.php");
+require_once("../Entity/SaleItems.php");
 
-class OrdersController
+class SaleItemController
 {
     /**
      * Signup a new sale of products in database
-     * @param Orders $sale
+     * @param Sale_items $sale
      * @return void
      */
-    public function newOrder(Orders $order)
+    public function newSale(SaleItems $sale)
     {
         $sql = "
         INSERT INTO
-            orders(type, receipt, forecast, clients_id, sale_id)
+            sale_items(quantity_sale, price_total, products_id, sale_id)
         VALUES
-            (:type, :receipt, :forecast, :clients_id, :sale_id)
+            (:quantity_sale, :price_total, :products_id, :sale_id)
         ";
 
         $pSql = Connection::getInstance()->prepare($sql);
-        $pSql->bindValue('type', $order->getType());
-        $pSql->bindValue('receipt', $order->getReceipt());
-        $pSql->bindValue('forecast', $order->getForecast());
-        $pSql->bindValue('clients_id', $order->getClientsId());
-        $pSql->bindValue('sale_id', $order->getSaleId());
+        $pSql->bindValue('quantity_sale', $sale->getQuantitySale());
+        $pSql->bindValue('price_total', $sale->getPriceTotal());
+        $pSql->bindValue('products_id', $sale->getProductsId());
+        $pSql->bindValue('sale_id', $sale->getSaleId());
 
         $pSql->execute();
     }
 
     /**
-     * Bring the entire orders from database
+     * Bring the entire sales from database
      * 
-     * @return array|bool - Bring orders if sucess or FALSE in failure
+     * @return array|bool - Bring sales if sucess or FALSE in failure
      */
-    public function showAllOrders()
+    public function showAllSales()
     {
         $sql = "
         SELECT
-            *, o.id AS oid
+            * 
         FROM 
-            orders AS o
-        INNER JOIN sale AS s ON o.sale_id = s.id
-        INNER JOIN clients AS c ON o.clients_id = c.id
+            sale_item
         ";
         $pSql = Connection::getInstance()->prepare($sql);
         $pSql->execute();
@@ -52,18 +50,18 @@ class OrdersController
     }
 
     /**
-     * Bring a specify order from database
+     * Bring a specify sale from database
      *
      * @param mixed $id
      * @return array|bool 
      */
-    public function showSingleOrder($param)
+    public function showSingleSale($param)
     {
         $sql = "
         SELECT
             *
         FROM
-            orders
+            sale_item
         WHERE
             id = :param
         LIMIT 1";

@@ -1,6 +1,6 @@
 <?php
 
-class Buy
+class Sale
 {
     private int $id;
     private string $date;
@@ -8,7 +8,7 @@ class Buy
     private bool $wasPaid = false;
     private string $paymentMethod;
     private float $finalPrice;
-    private float $discount;
+    private ?float $discount = 0;
     private float $shipping;
 
     public function __construct()
@@ -32,7 +32,7 @@ class Buy
      * @param integer $id
      * @return self
      */
-    public function setId(?int $id)
+    public function setId(int $id)
     {
         $this->id = $id;
 
@@ -55,7 +55,7 @@ class Buy
      * @param string $date
      * @return self
      */
-    public function setDate(?string $date)
+    public function setDate(string $date)
     {
         $this->date = $date;
 
@@ -78,7 +78,7 @@ class Buy
      * @param string $state
      * @return self
      */
-    public function setState(?string $state)
+    public function setState(string $state)
     {
         $this->state = $state;
 
@@ -101,7 +101,7 @@ class Buy
      * @param boolean $wasPaid
      * @return  self
      */
-    public function setWasPaid(?bool $wasPaid)
+    public function setWasPaid(bool $wasPaid)
     {
         $this->wasPaid = $wasPaid;
 
@@ -124,7 +124,7 @@ class Buy
      * @param string $paymentMethod
      * @return  self
      */
-    public function setPaymentMethod(?string $paymentMethod)
+    public function setPaymentMethod(string $paymentMethod)
     {
         $this->paymentMethod = $paymentMethod;
 
@@ -147,7 +147,7 @@ class Buy
      * @param float $name
      * @return  self
      */
-    public function setFinalPrice(?float $finalPrice)
+    public function setFinalPrice(float $finalPrice)
     {
         $this->finalPrice = $finalPrice;
 
@@ -193,7 +193,7 @@ class Buy
      * @param float $shipping
      * @return  self
      */
-    public function setShipping(?float $shipping)
+    public function setShipping(float $shipping)
     {
         $this->shipping = $shipping;
 
@@ -211,7 +211,7 @@ class Buy
         $this->setState($object['state']);
         $this->setPaymentMethod($object['payment_method']);
         $this->setFinalPrice($object['final_price']);
-        $this->setDiscount($object['discount']);
+        if (!is_null($object['discount']) and is_float($object['discount'])) $this->setDiscount($object['discount']);
         $this->setShipping($object['shipping']);
         if (isset($object['was_paid'])) $this->setWasPaid($object['was_paid']);
 

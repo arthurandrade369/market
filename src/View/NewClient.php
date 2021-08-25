@@ -13,8 +13,7 @@ if (isset($_REQUEST['send'])) {
     if ($signup->checkIsEmail($_POST['email'])) {
 
         $user->setObject($_POST);
-        $signup->newClient($user);
-        $_POST['clientId'] = $signup->getLastColumn()['id'];
+        $_POST['clientId'] = $signup->newClient($user);
 
         $address->setObject($_POST);
         $signup->newClientAddress($address);

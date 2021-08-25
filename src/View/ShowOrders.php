@@ -2,26 +2,24 @@
 require_once("../Controller/OrdersController.php");
 
 $aux = 0;
-$buy = new OrdersController();
+$order = new OrdersController();
 
 if (isset($_REQUEST['param']) and $_REQUEST['param'] != "") {
 
-    $aws = $buy->showSingleOrder($_POST['param']);
+    $aws = $order->showSingleOrder($_POST['param']);
     if ($aws) {
         $aux = count($aws);
     } else {
         echo "<h2>Compra não existe!</h2>";
     }
-
 } else {
 
-    $aws = $buy->showAllOrders();
+    $aws = $order->showAllOrders();
     if ($aws) {
         //
     } else {
         echo "<h2>Nâo existem ordens cadastrados!</h2>";
     }
-    
 }
 ?>
 
@@ -143,7 +141,7 @@ if (isset($_REQUEST['param']) and $_REQUEST['param'] != "") {
     </table>
     <h2></h2>
     <i class="fas fa-reply"></i>
-    <a href="./Buy.php"><button type="button">Voltar</button></a>
+    <a href="./Sale.php"><button type="button">Voltar</button></a>
 </body>
 
 </html>

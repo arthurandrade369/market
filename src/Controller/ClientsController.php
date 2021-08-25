@@ -10,9 +10,9 @@ class ClientsController
      * Signup a new client in database
      * 
      * @param Clients $clients
-     * @return void
+     * @return string|false Return the id if sucess or FALSE if failure
      */
-    public function newClient(Clients $clients): void
+    public function newClient(Clients $clients): string
     {
         $sql = "
         INSERT INTO
@@ -23,6 +23,9 @@ class ClientsController
         $pSql->bindValue('name', $clients->getName());
         $pSql->bindValue('email', $clients->getEmail());
         $pSql->execute();
+
+        $lastId = Connection::getInstance()->lastInsertId();
+        return $lastId;
     }
 
     /**
@@ -33,10 +36,9 @@ class ClientsController
      */
     public function newClientAddress(ClientAddresses $addresses): void
     {
-        $aws = $this->getLastColumn();
         $sql = "
         INSERT INTO
-            clients_addresses(state,city,district,street,number,complement,postal_code,clients_id)
+            client_addresses(state,city,district,street,number,complement,postal_code,clients_id)
         VALUES
             (:state,:city,:district,:street,:number,:complement,:postal_code,:clients_id)";
         $pSql = Connection::getInstance()->prepare($sql);
@@ -47,7 +49,7 @@ class ClientsController
         $pSql->bindValue('number', $addresses->getNumber());
         $pSql->bindValue('complement', $addresses->getComplement());
         $pSql->bindValue('postal_code', $addresses->getPostalCode());
-        $pSql->bindValue('clients_id', $aws['id']);
+        $pSql->bindValue('clients_id', $addresses->getClientsId());
         $pSql->execute();
     }
 
@@ -60,10 +62,10 @@ class ClientsController
     {
         $sql = "
         SELECT
-            * 
+            c.*, ca.* 
         FROM 
-            clients c 
-            INNER JOIN  clients_addresses ca ON c.id = ca.clients_id";
+            clients AS c 
+            INNER JOIN clients_addresses AS ca ON c.id = ca.clients_id";
         $pSql = Connection::getInstance()->prepare($sql);
         $pSql->execute();
         if ($pSql->rowCount() > 0) return $pSql->fetchall();
@@ -80,11 +82,12 @@ class ClientsController
     public function showSingleClients($param)
     {
         $sql = "
-        SELECT 
-            * 
-        FROM 
-            clients AS c INNER JOIN  clients_addresses AS ca ON c.id = ca.clients_id 
-        WHERE c.email LIKE CONCAT(:param,'%') OR c.name LIKE CONCAT(:param,'%')
+        SELECT
+            c.*, ca.*
+        FROM
+            clients AS c INNER JOIN  clients_addresses AS ca ON c.id = ca.clients_id
+        WHERE
+            c.email LIKE CONCAT(:param,'%') OR c.name LIKE CONCAT(:param,'%')
         LIMIT 1";
         $pSql = Connection::getInstance()->prepare($sql);
         $pSql->bindValue('param', $param);
@@ -104,11 +107,11 @@ class ClientsController
     {
         $sql = "
         SELECT 
-            email 
+            c.email 
         FROM 
-            clients 
+            clients AS c 
         WHERE  
-            email = :email";
+            c.email = :email";
         $pSql = Connection::getInstance()->prepare($sql);
         $pSql->bindValue('email', $email);
         $pSql->execute();
@@ -118,24 +121,4 @@ class ClientsController
         return true;
     }
 
-    /**
-     * Bring the last column added in database
-     * 
-     * @return array|bool Bring the last column if sucess or FALSE in failure
-     */
-    public function getLastColumn()
-    {
-        $sql = "
-        SELECT
-            *
-        FROM
-            clients
-        ORDER BY id DESC
-        LIMIT 1";
-        $pSql = Connection::getInstance()->prepare($sql);
-        $pSql->execute();
-        if ($pSql->rowCount() > 0) return $pSql->fetch();
-
-        return false;
-    }
 }

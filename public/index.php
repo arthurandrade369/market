@@ -24,7 +24,7 @@
     <h2></h2>
 
     <i class="fas fa-money-check-alt"></i>
-    <a href="../src/View//Buy.php"><button type="button">Opções de Compra</button></a>
+    <a href="../src/View/Sale.php"><button type="button">Opções de Compra</button></a>
 
 </body>
 

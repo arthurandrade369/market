@@ -10,9 +10,9 @@ class ProvidersController
      * Signup a new provider
      * 
      * @param Providers $providers
-     * @return void
+     * @return string|false Return the id if sucess or FALSE if failure
      */
-    public function newProviders(Providers $providers): void
+    public function newProviders(Providers $providers): string
     {
         $sql = "
         INSERT INTO
@@ -24,6 +24,9 @@ class ProvidersController
         $pSql->bindValue('cnpj', $providers->getCnpj());
         $pSql->bindValue('social_reason', $providers->getSocialreason());
         $pSql->execute();
+
+        $lastId = Connection::getInstance()->lastInsertId();
+        return $lastId;
     }
 
     /**
@@ -34,7 +37,6 @@ class ProvidersController
      */
     public function newProvidersAddress(ProvidersAddresses $addresses): void
     {
-        $aws = $this->getLastColumn();
         $sql = "
         INSERT INTO providers_addresses
             (state,city,district,street,number,complement,postal_code,providers_id)
@@ -48,7 +50,7 @@ class ProvidersController
         $pSql->bindValue('number', $addresses->getNumber());
         $pSql->bindValue('complement', $addresses->getComplement());
         $pSql->bindValue('postal_code', $addresses->getPostalCode());
-        $pSql->bindValue('providers_id', $aws['id']);
+        $pSql->bindValue('providers_id', $addresses->getProvidersId());
         $pSql->execute();
     }
 
@@ -61,10 +63,10 @@ class ProvidersController
     {
         $sql = "
             SELECT
-                *
+                p.*, pa.*
             FROM
                 providers AS p
-                INNER JOIN providers_addresses AS pa ON p.id = pa.providers_id";
+                INNER JOIN provider_addresses AS pa ON p.id = pa.providers_id";
         $pSql = Connection::getInstance()->prepare($sql);
         $pSql->execute();
         if ($pSql->rowCount() > 0) return $pSql->fetchall();

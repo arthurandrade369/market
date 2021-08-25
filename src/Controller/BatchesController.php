@@ -47,8 +47,8 @@ class BatchesController
             b.*, pd.name AS pd_name, pv.name AS pv_name
         FROM
             batches AS b
-        INNER JOIN products AS pd ON b.products_id = pd.id
-        INNER JOIN providers AS pv ON b.providers_id = pv.id
+            INNER JOIN products AS pd ON b.products_id = pd.id
+            INNER JOIN providers AS pv ON b.providers_id = pv.id
         ";
 
         $pSql = Connection::getInstance()->prepare($sql);
@@ -72,9 +72,10 @@ class BatchesController
             b.*, pd.name AS pd_name, pv.name AS pv_name
         FROM
             batches AS b
-        INNER JOIN products AS pd ON b.products_id = pd.id
-        INNER JOIN providers AS pv ON b.providers_id = pv.id
-        WHERE b.id = :param
+            INNER JOIN products AS pd ON b.products_id = pd.id
+            INNER JOIN providers AS pv ON b.providers_id = pv.id
+        WHERE 
+            b.id = :param
         LIMIT 1";
         $pSql = Connection::getInstance()->prepare($sql);
         $pSql->bindValue('param', $param);

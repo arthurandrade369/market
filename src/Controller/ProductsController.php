@@ -56,11 +56,11 @@ class ProductsController
     {
         $sql = "
         SELECT
-            *
+            p.*
         FROM
-            products
+            products AS p
         WHERE
-            id LIKE CONCAT(:param,'%') OR name LIKE CONCAT('%',:param,'%')
+            p.id LIKE CONCAT(:param,'%') OR p.name LIKE CONCAT('%',:param,'%')
         LIMIT 1";
         $pSql = Connection::getInstance()->prepare($sql);
         $pSql->bindValue('param', $param);
