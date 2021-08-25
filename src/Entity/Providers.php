@@ -10,7 +10,7 @@ class Providers
     /**
      * Get the value of id
      * 
-     * @return int
+     * @return int|null
      */
     public function getId(): ?int
     {
@@ -18,22 +18,9 @@ class Providers
     }
 
     /**
-     * Set the value of id
-     *
-     * @param int $id
-     * @return  self
-     */
-    public function setId(?int $id)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    /**
      * Get the value of name
      * 
-     * @return string
+     * @return string|null
      */
     public function getName(): ?string
     {
@@ -46,7 +33,7 @@ class Providers
      * @param string $name
      * @return  self
      */
-    public function setName(?string $name)
+    public function setName(string $name): self
     {
         $this->name = $name;
 
@@ -56,7 +43,7 @@ class Providers
     /**
      * Get the value of cnpj
      * 
-     * @return string
+     * @return string|null
      */
     public function getCnpj(): ?string
     {
@@ -69,7 +56,7 @@ class Providers
      *@param string $cnpj
      * @return  self
      */
-    public function setCnpj(?string $cnpj)
+    public function setCnpj(string $cnpj): self
     {
         $this->cnpj = $cnpj;
 
@@ -79,7 +66,7 @@ class Providers
     /**
      * Get the value of socialReason
      * 
-     * @return string
+     * @return string|null
      */
     public function getSocialReason(): ?string
     {
@@ -92,7 +79,7 @@ class Providers
      * @param string $socialReason
      * @return  self
      */
-    public function setSocialReason(?string $socialReason)
+    public function setSocialReason(string $socialReason): self
     {
         $this->socialReason = $socialReason;
 
@@ -103,9 +90,9 @@ class Providers
      * Set the main attributes of class
      *
      * @param object|array $object
-     * @return void
+     * @return self
      */
-    public function setObject($object)
+    public function setObject($object): self
     {
         $this->setName($object['name']);
         $this->setCnpj($object['cnpj']);

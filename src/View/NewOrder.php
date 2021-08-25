@@ -41,18 +41,12 @@ if (isset($_REQUEST['send'])) {
             </label>
             <select name="clients_id" id="clients_id">
                 <?php
-                $sql = "
-                    SELECT
-                        c.*
-                    FROM
-                        clients AS c
-                    ";
-                $pSql = Connection::getInstance()->prepare($sql);
-                $pSql->execute();
+                $clients = $client->showAllClients();
+                
                 //Getting the option through database
-                if ($pSql->rowCount() > 0) {
-                    while ($client = $pSql->fetch(PDO::FETCH_ASSOC)) {
-                        echo "<option value='{$client['id']}'>{$client['name']}</option>";
+                if ($clients) {
+                    foreach ($clients as $values) {
+                        echo "<option value='{$values['id']}'>{$values['name']}</option>";
                     }
                 }
                 ?>

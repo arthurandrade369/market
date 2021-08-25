@@ -9,7 +9,7 @@ class Clients
     /**
      * Get the value of id
      * 
-     * @return int
+     * @return int|null
      */
     public function getId(): ?int
     {
@@ -17,22 +17,9 @@ class Clients
     }
 
     /**
-     * Set the value of id
-     *
-     * @param int $id
-     * @return  self
-     */
-    public function setId(?int $id)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    /**
      * Get the value of name
      * 
-     * @return string
+     * @return string|null
      */
     public function getName(): ?string
     {
@@ -45,7 +32,7 @@ class Clients
      * @param string $name
      * @return  self
      */
-    public function setName(?string $name)
+    public function setName(string $name): self
     {
         $this->name = $name;
 
@@ -55,7 +42,7 @@ class Clients
     /**
      * Get the value of email
      * 
-     * @return string
+     * @return string|null
      */
     public function getEmail(): ?string
     {
@@ -68,7 +55,7 @@ class Clients
      *@param string $email
      * @return  self
      */
-    public function setEmail(?string $email)
+    public function setEmail(string $email): self
     {
         $this->email = $email;
 
@@ -81,7 +68,7 @@ class Clients
      * @param object|array $object
      * @return self
      */
-    public function setObject($object)
+    public function setObject($object): self
     {
         $this->setName($object['name']);
         $this->setEmail($object['email']);

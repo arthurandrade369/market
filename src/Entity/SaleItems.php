@@ -11,7 +11,7 @@ class SaleItems
     /**
      * Get the value of id
      * 
-     * @return int
+     * @return int|null
      */
     public function getId(): ?int
     {
@@ -19,22 +19,9 @@ class SaleItems
     }
 
     /**
-     * Set the value of id
-     *
-     * @param int $id
-     * @return  self
-     */
-    public function setId(?int $id)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    /**
      * Get the value of quantitySale
      * 
-     * @return int
+     * @return int|null
      */
     public function getQuantitySale(): ?int
     {
@@ -47,7 +34,7 @@ class SaleItems
      * @param int $quantitySale
      * @return  self
      */
-    public function setQuantitySale(?int $quantitySale)
+    public function setQuantitySale(int $quantitySale): self
     {
         $this->quantitySale = $quantitySale;
 
@@ -57,7 +44,7 @@ class SaleItems
     /**
      * Get the value of priceTotal
      * 
-     * @return float
+     * @return float|null
      */
     public function getPriceTotal(): ?float
     {
@@ -70,7 +57,7 @@ class SaleItems
      * @param float $priceTotal
      * @return  self
      */
-    public function setPriceTotal(?float $priceTotal)
+    public function setPriceTotal(float $priceTotal): self
     {
         $this->priceTotal = $priceTotal;
 
@@ -80,7 +67,7 @@ class SaleItems
     /**
      * Get the value of productsId
      * 
-     * @return int
+     * @return int|null
      */
     public function getProductsId(): ?int
     {
@@ -93,7 +80,7 @@ class SaleItems
      * @param int $productsId
      * @return  self
      */
-    public function setProductsId(?int $productsId)
+    public function setProductsId(int $productsId): self
     {
         $this->productsId = $productsId;
 
@@ -103,7 +90,7 @@ class SaleItems
     /**
      * Get the value of saleId
      * 
-     * @return int
+     * @return int|null
      */
     public function getSaleId(): ?int
     {
@@ -116,7 +103,7 @@ class SaleItems
      * @param int $saleId
      * @return  self
      */
-    public function setSaleId(?int $saleId)
+    public function setSaleId(int $saleId): self
     {
         $this->saleId = $saleId;
 
@@ -127,9 +114,9 @@ class SaleItems
      * Set the main attributes of class
      *
      * @param object|array $object
-     * @return void
+     * @return self
      */
-    public function setObject($object)
+    public function setObject($object): self
     {
         $this->setQuantitySale($object['quantity_sale']);
         $this->setPriceTotal($object['price_total']);

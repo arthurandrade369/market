@@ -16,7 +16,7 @@ class Batches
     /**
      * Get the value of id
      *
-     * @return int
+     * @return int|null
      */
     public function getId(): ?int
     {
@@ -24,23 +24,9 @@ class Batches
     }
 
     /**
-     * Set the value of id
-     *
-     * @param int $id
-     * @return self
-     */
-    public function setId(int $id)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
-
-    /**
      * Get the value of fabricationDate
      *
-     * @return string
+     * @return string|null
      */
     public function getFabricationDate(): ?string
     {
@@ -53,7 +39,7 @@ class Batches
      * @param string $fabricationDate
      * @return self
      */
-    public function setFabricationDate(string $fabricationDate)
+    public function setFabricationDate(string $fabricationDate): self
     {
         $this->fabricationDate = $fabricationDate;
 
@@ -76,7 +62,7 @@ class Batches
      * @param string|null $expirationDate
      * @return self
      */
-    public function setExpirationDate(?string $expirationDate)
+    public function setExpirationDate(?string $expirationDate): self
     {
         $this->expirationDate = $expirationDate;
 
@@ -86,7 +72,7 @@ class Batches
     /**
      * Get the value of entryDate
      *
-     * @return string
+     * @return string|null
      */
     public function getEntryDate(): ?string
     {
@@ -99,7 +85,7 @@ class Batches
      * @param string $entryDate
      * @return self
      */
-    public function setEntryDate(string $entryDate)
+    public function setEntryDate(string $entryDate): self
     {
         $this->entryDate = $entryDate;
 
@@ -109,7 +95,7 @@ class Batches
     /**
      * Get the value of quantity
      *
-     * @return int
+     * @return int|null
      */
     public function getQuantity(): ?int
     {
@@ -122,7 +108,7 @@ class Batches
      * @param int $quantity
      * @return self
      */
-    public function setQuantity(int $quantity)
+    public function setQuantity(int $quantity): self
     {
         $this->quantity = $quantity;
 
@@ -145,7 +131,7 @@ class Batches
      * @param bool $used
      * @return self
      */
-    public function setUsed(bool $used)
+    public function setUsed(bool $used): self
     {
         $this->used = $used;
 
@@ -155,7 +141,7 @@ class Batches
     /**
      * Get the value of soldOff
      *
-     * @return boolean
+     * @return boolean|null
      */
     public function getSoldOff(): ?bool
     {
@@ -168,7 +154,7 @@ class Batches
      * @param boolean $soldOff
      * @return self
      */
-    public function setSoldOff(bool $soldOff)
+    public function setSoldOff(bool $soldOff): self
     {
         $this->soldOff = $soldOff;
 
@@ -191,7 +177,7 @@ class Batches
      * @param string|null $description
      * @return self
      */
-    public function setDescription(?string $description)
+    public function setDescription(?string $description): self
     {
         $this->description = $description;
 
@@ -201,7 +187,7 @@ class Batches
     /**
      * Get the value of providersId
      *
-     * @return int
+     * @return int|null
      */
     public function getProvidersId(): ?int
     {
@@ -214,7 +200,7 @@ class Batches
      * @param int $providersId
      * @return self
      */
-    public function setProvidersId(int $providersId)
+    public function setProvidersId(int $providersId): self
     {
         $this->providersId = $providersId;
 
@@ -224,7 +210,7 @@ class Batches
     /**
      * Get the value of productsId
      *
-     * @return int
+     * @return int|null
      */
     public function getProductsId(): ?int
     {
@@ -237,7 +223,7 @@ class Batches
      * @param int $productsId
      * @return self
      */
-    public function setProductsId(int $productsId)
+    public function setProductsId(int $productsId): self
     {
         $this->productsId = $productsId;
 
@@ -250,17 +236,15 @@ class Batches
      * @param object|array $object
      * @return void
      */
-    public function setObject($object)
+    public function setObject($object): self
     {
         $this->setFabricationDate($object['fabricationDate']);
         $this->setEntryDate($object['entryDate']);
         $this->setQuantity($object['quantity']);
-        $this->setDescription($object['description']);
+        if (!is_null($object['description'])) $this->setDescription($object['description']);
         $this->setProductsId($object['product']);
         $this->setProvidersId($object['provider']);
-        if ($object['expirationDate'] != "") {
-            $this->setExpirationDate($object['expirationDate']);
-        }
+        if (!is_null($object['expirationDate'])) $this->setExpirationDate($object['expirationDate']);
 
         return $this;
     }

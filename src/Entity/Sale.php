@@ -27,22 +27,9 @@ class Sale
     }
 
     /**
-     * Set the value of id
-     *
-     * @param integer $id
-     * @return self
-     */
-    public function setId(int $id)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    /**
      * Get the value of date
      *
-     * @return string
+     * @return string|null
      */
     public function getDate(): ?string
     {
@@ -55,7 +42,7 @@ class Sale
      * @param string $date
      * @return self
      */
-    public function setDate(string $date)
+    public function setDate(string $date): self
     {
         $this->date = $date;
 
@@ -65,7 +52,7 @@ class Sale
     /**
      * Get the value of state
      *
-     * @return string
+     * @return string|null
      */
     public function getState(): ?string
     {
@@ -78,7 +65,7 @@ class Sale
      * @param string $state
      * @return self
      */
-    public function setState(string $state)
+    public function setState(string $state): self
     {
         $this->state = $state;
 
@@ -88,7 +75,7 @@ class Sale
     /**
      * Get the value of wasPaid
      * 
-     * @return string
+     * @return string|null
      */
     public function getWasPaid(): ?bool
     {
@@ -101,7 +88,7 @@ class Sale
      * @param boolean $wasPaid
      * @return  self
      */
-    public function setWasPaid(bool $wasPaid)
+    public function setWasPaid(bool $wasPaid): self
     {
         $this->wasPaid = $wasPaid;
 
@@ -111,7 +98,7 @@ class Sale
     /**
      * Get the value of paymentMethod
      * 
-     * @return string
+     * @return string|null
      */
     public function getPaymentMethod(): ?string
     {
@@ -124,7 +111,7 @@ class Sale
      * @param string $paymentMethod
      * @return  self
      */
-    public function setPaymentMethod(string $paymentMethod)
+    public function setPaymentMethod(string $paymentMethod): self
     {
         $this->paymentMethod = $paymentMethod;
 
@@ -134,7 +121,7 @@ class Sale
     /**
      * Get the value of finalPrice
      * 
-     * @return float
+     * @return float|null
      */
     public function getFinalPrice(): ?float
     {
@@ -147,7 +134,7 @@ class Sale
      * @param float $name
      * @return  self
      */
-    public function setFinalPrice(float $finalPrice)
+    public function setFinalPrice(float $finalPrice): self
     {
         $this->finalPrice = $finalPrice;
 
@@ -157,7 +144,7 @@ class Sale
     /**
      * Get the value of discount
      * 
-     * @return float
+     * @return float|null
      */
     public function getDiscount(): ?float
     {
@@ -167,10 +154,10 @@ class Sale
     /**
      * Set the value of discount
      *
-     * @param float $discount
+     * @param float|null $discount
      * @return  self
      */
-    public function setDiscount(?float $discount)
+    public function setDiscount(?float $discount): self
     {
         $this->discount = $discount;
 
@@ -180,7 +167,7 @@ class Sale
     /**
      * Get the value of shipping
      * 
-     * @return float
+     * @return float|null
      */
     public function getShipping(): ?float
     {
@@ -193,7 +180,7 @@ class Sale
      * @param float $shipping
      * @return  self
      */
-    public function setShipping(float $shipping)
+    public function setShipping(float $shipping): self
     {
         $this->shipping = $shipping;
 
@@ -206,7 +193,7 @@ class Sale
      * @param object|array $object
      * @return self
      */
-    public function setObject($object)
+    public function setObject($object): self
     {
         $this->setState($object['state']);
         $this->setPaymentMethod($object['payment_method']);

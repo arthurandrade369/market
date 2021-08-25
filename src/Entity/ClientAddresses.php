@@ -8,38 +8,25 @@ class ClientAddresses
     private string $district;
     private string $street;
     private string $number;
-    private string $complement;
+    private ?string $complement;
     private string $postalCode;
     private int $clientsId;
 
     /**
      * Get the value of id
      * 
-     * @return int
-     */ 
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
     /**
-     * Set the value of id
-     *
-     * @param int $id
-     * @return  self
-     */ 
-    public function setId(?int $id)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    /**
      * Get the value of state
      * 
-     * @return string
-     */ 
+     * @return string|null
+     */
     public function getState(): ?string
     {
         return $this->state;
@@ -50,8 +37,8 @@ class ClientAddresses
      *
      * @param string $state
      * @return  self
-     */ 
-    public function setState(?string $state)
+     */
+    public function setState(string $state): self
     {
         $this->state = $state;
 
@@ -61,8 +48,8 @@ class ClientAddresses
     /**
      * Get the value of city
      * 
-     * @return string
-     */ 
+     * @return string|null
+     */
     public function getCity(): ?string
     {
         return $this->city;
@@ -73,8 +60,8 @@ class ClientAddresses
      *
      * @param string $city
      * @return  self
-     */ 
-    public function setCity(?string $city)
+     */
+    public function setCity(string $city): self
     {
         $this->city = $city;
 
@@ -84,8 +71,8 @@ class ClientAddresses
     /**
      * Get the value of district
      * 
-     * @return string
-     */ 
+     * @return string|null
+     */
     public function getDistrict(): ?string
     {
         return $this->district;
@@ -96,8 +83,8 @@ class ClientAddresses
      *
      * @param string $disctrict
      * @return  self
-     */ 
-    public function setDistrict(?string $district)
+     */
+    public function setDistrict(string $district): self
     {
         $this->district = $district;
 
@@ -107,8 +94,8 @@ class ClientAddresses
     /**
      * Get the value of street
      * 
-     * @return string
-     */ 
+     * @return string|null
+     */
     public function getStreet(): ?string
     {
         return $this->street;
@@ -119,8 +106,8 @@ class ClientAddresses
      *
      * @param string $street
      * @return  self
-     */ 
-    public function setStreet(?string $street)
+     */
+    public function setStreet(string $street): self
     {
         $this->street = $street;
 
@@ -130,8 +117,8 @@ class ClientAddresses
     /**
      * Get the value of number
      * 
-     * @return string
-     */ 
+     * @return string|null
+     */
     public function getNumber(): ?string
     {
         return $this->number;
@@ -142,8 +129,8 @@ class ClientAddresses
      *
      * @param string $number
      * @return  self
-     */ 
-    public function setNumber(?string $number)
+     */
+    public function setNumber(string $number): self
     {
         $this->number = $number;
 
@@ -153,8 +140,8 @@ class ClientAddresses
     /**
      * Get the value of complement
      * 
-     * @return string
-     */ 
+     * @return string|null
+     */
     public function getComplement(): ?string
     {
         return $this->complement;
@@ -163,10 +150,10 @@ class ClientAddresses
     /**
      * Set the value of complement
      *
-     * @param string $complement
+     * @param string|null $complement
      * @return  self
-     */ 
-    public function setComplement(?string $complement)
+     */
+    public function setComplement(?string $complement): self
     {
         $this->complement = $complement;
 
@@ -176,8 +163,8 @@ class ClientAddresses
     /**
      * Get the value of postalCode
      * 
-     * @return string
-     */ 
+     * @return string|null
+     */
     public function getPostalCode(): ?string
     {
         return $this->postalCode;
@@ -188,8 +175,8 @@ class ClientAddresses
      *
      * @param string $postalCode
      * @return  self
-     */ 
-    public function setPostalCode(?string $postalCode)
+     */
+    public function setPostalCode(string $postalCode): self
     {
         $this->postalCode = $postalCode;
 
@@ -199,8 +186,8 @@ class ClientAddresses
     /**
      * Get the value of clientsId
      * 
-     * @return int
-     */ 
+     * @return int|null
+     */
     public function getClientsId(): ?int
     {
         return $this->clientsId;
@@ -211,8 +198,8 @@ class ClientAddresses
      *
      * @param int $clientsId
      * @return  self
-     */ 
-    public function setClientsId(?int $clientsId)
+     */
+    public function setClientsId(int $clientsId): self
     {
         $this->clientsId = $clientsId;
 
@@ -223,16 +210,16 @@ class ClientAddresses
      * Set the main attributes of class
      *
      * @param object|array $object
-     * @return void
+     * @return self
      */
-    public function setObject($object)
+    public function setObject($object): self
     {
         $this->setState($object['state']);
         $this->setCity($object['city']);
         $this->setDistrict($object['district']);
         $this->setStreet($object['street']);
         $this->setNumber($object['number']);
-        $this->setComplement($object['complement']);
+        if (!is_null($object['complement'])) $this->setComplement($object['complement']);
         $this->setPostalCode($object['postal_code']);
         $this->setClientsId($object['clientId']);
 

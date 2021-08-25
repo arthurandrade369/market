@@ -11,30 +11,17 @@ class Products
     /**
      * Get the value of id
      * 
-     * @return int
+     * @return int|null
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
 
     /**
-     * Set the value of id
-     *
-     * @param int $id
-     * @return  self
-     */
-    public function setId(int $id)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    /**
      * Get the value of name
      * 
-     * @return string
+     * @return string|null
      */
     public function getName(): ?string
     {
@@ -47,7 +34,7 @@ class Products
      * @param string $name
      * @return  self
      */
-    public function setName(?string $name)
+    public function setName(string $name): self
     {
         $this->name = $name;
 
@@ -57,7 +44,7 @@ class Products
     /**
      * Get the value of priceProduct
      * 
-     * @return float
+     * @return float|null
      */
     public function getPriceProduct(): ?float
     {
@@ -70,7 +57,7 @@ class Products
      * @param float $priceProduct
      * @return  self
      */
-    public function setPriceProduct(?float $priceProduct)
+    public function setPriceProduct(float $priceProduct): self
     {
         $this->priceProduct = $priceProduct;
 
@@ -80,7 +67,7 @@ class Products
     /**
      * Get the value of quantityInventory
      * 
-     * @return int
+     * @return int|null
      */
     public function getQuantityInventory(): ?int
     {
@@ -93,7 +80,7 @@ class Products
      * @param int $quantityInventory
      * @return  self
      */
-    public function setQuantityInventory(?int $quantityInventory)
+    public function setQuantityInventory(int $quantityInventory): self
     {
         $this->quantityInventory = $quantityInventory;
 
@@ -116,7 +103,7 @@ class Products
      * @param float|null $discount
      * @return void
      */
-    public function setDiscount(?float $discount)
+    public function setDiscount(?float $discount): self
     {
         $this->discount = $discount;
 
@@ -129,7 +116,7 @@ class Products
      * @param object|array $object
      * @return self
      */
-    public function setObject($object)
+    public function setObject($object): self
     {
         $this->setName($object['name']);
         $this->setPriceProduct($object['priceproduct']);

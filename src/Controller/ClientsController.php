@@ -65,7 +65,7 @@ class ClientsController
             c.*, ca.* 
         FROM 
             clients AS c 
-            INNER JOIN clients_addresses AS ca ON c.id = ca.clients_id";
+            INNER JOIN client_addresses AS ca ON c.id = ca.clients_id";
         $pSql = Connection::getInstance()->prepare($sql);
         $pSql->execute();
         if ($pSql->rowCount() > 0) return $pSql->fetchall();

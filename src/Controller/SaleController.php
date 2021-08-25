@@ -61,7 +61,7 @@ class SaleController
     /**
      * Bring a specify sale from database
      *
-     * @param mixed $id
+     * @param mixed $param
      * @return array|bool 
      */
     public function showSingleSales($param)
@@ -74,7 +74,7 @@ class SaleController
             INNER JOIN sale_items AS si ON s.id = si.sale_id
             INNER JOIN products AS p ON p.id = si.products_id
         WHERE
-            s.id LIKE CONCAT(:param,'%') OR p.name LIKE CONCAT('%',:param,'%')
+            s.id = :param
         LIMIT 1";
         $pSql = Connection::getInstance()->prepare($sql);
         $pSql->bindValue('param', $param);
