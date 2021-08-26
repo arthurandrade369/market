@@ -41,7 +41,7 @@ if (isset($_REQUEST['send'])) {
 
             <select name="product" id="product">
                 <?php
-                $products = $product->showAllProducts();
+                $products = $product->getAllProducts();
 
                 //Getting the option through database
                 if ($products) {
@@ -59,7 +59,7 @@ if (isset($_REQUEST['send'])) {
             </label>
             <select name="provider" id="provider">
                 <?php
-                $providers = $provider->showAllProviders();
+                $providers = $provider->getAllProviders();
 
                 //Getting the option through database
                 if ($providers) {

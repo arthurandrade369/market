@@ -37,15 +37,15 @@ class SaleController
     }
 
     /**
-     * Bring the entire buies from database
+     * Bring the entire sales from database
      * 
-     * @return array|bool - Bring buies if sucess or FALSE in failure
+     * @return array|bool - Bring the sale if have something or FALSE if dont have nothing
      */
-    public function showAllSales()
+    public function getAllSales()
     {
         $sql = "
         SELECT
-            *
+            s.*, p.*, si.*
         FROM
             sale AS s
             INNER JOIN sale_items AS si ON s.id = si.sale_id
@@ -59,12 +59,12 @@ class SaleController
     }
 
     /**
-     * Bring a specify sale from database
+     * Bring the sale by a search of id from database
      *
-     * @param mixed $param
-     * @return array|bool 
+     * @param int $int
+     * @return array|bool Bring the sale if have something or FALSE if dont have nothing
      */
-    public function showSingleSales($param)
+    public function searchSaleById(int $id)
     {
         $sql = "
         SELECT
@@ -72,12 +72,10 @@ class SaleController
         FROM
             sale AS s
             INNER JOIN sale_items AS si ON s.id = si.sale_id
-            INNER JOIN products AS p ON p.id = si.products_id
-        WHERE
-            s.id = :param
+            INNER JOIN products AS p ON p.id = si.products_id AND s.id = :id
         LIMIT 1";
         $pSql = Connection::getInstance()->prepare($sql);
-        $pSql->bindValue('param', $param);
+        $pSql->bindValue('id', $id);
         $pSql->execute();
         if ($pSql->rowCount() > 0) return $pSql->fetch();
 

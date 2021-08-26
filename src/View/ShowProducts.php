@@ -4,24 +4,22 @@ require_once("../Controller/ProductsController.php");
 $aux = 0;
 $clients = new ProductsController();
 
-if (isset($_REQUEST['param']) and $_REQUEST['param'] != "") {
+if (isset($_REQUEST['name']) and !empty($_REQUEST['name'])) {
 
-    $aws = $clients->showSingleProducts($_POST['param']);
+    $aws = $clients->searchProductsByName($_POST['name']);
     if ($aws) {
         $aux = count($aws);
     } else {
         echo "<h2>Produto não existe!</h2>";
     }
-
 } else {
 
-    $aws = $clients->showAllProducts();
+    $aws = $clients->getAllProducts();
     if ($aws) {
         //
     } else {
         echo "<h2>Nâo existem produtos cadastrados!</h2>";
     }
-    
 }
 ?>
 
@@ -49,76 +47,43 @@ if (isset($_REQUEST['param']) and $_REQUEST['param'] != "") {
 
 <body>
     <form method="post">
-        <label for="param">
+        <label for="name">
             <i class="fas fa-user"></i>
         </label>
-        <input type="text" name="param" placeholder="Buscar" id="param">
+        <input type="text" name="name" placeholder="Buscar por Nome" id="name">
 
         <input type="submit" name="send" value="Confirmar">
     </form>
 
     <table style="width:100%">
-        <tr>
-            <td>Id</td>
-            <td>Nome do Produto</td>
-            <td>Preço do Produto</td>
-            <td>Quantidade em estoque</td>
-            <td>Desconto</td>
-            
-        </tr>
-        <tr>
-            <td><?php if ($aws) {
-                    if (count($aws) == $aux) {
-                        echo $aws['id'];
-                    } else {
-                        foreach ($aws as $value) {
-                            echo $value['id'] . "<br>";
-                        }
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nome do Produto</th>
+                <th>Preço do Produto</th>
+                <th>Quantidade em estoque</th>
+                <th>Desconto</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            if ($aws) {
+                if (count($aws) == $aux) {
+                    echo $aws['id'];
+                } else {
+                    foreach ($aws as $value) {
+                        echo "
+                            <tr>
+                                <td>" . $value['id'] . "</td>
+                                <td>" . $value['name'] . "</td>
+                                <td>" . $value['price_product'] . "</td>
+                                <td>" . $value['quantity_inventory'] . "</td>
+                                <td>" . $value['discount'] . "</td>
+                            </tr>";
                     }
-                } ?></td>
-
-            <td><?php if ($aws) {
-                    if (count($aws) == $aux) {
-                        echo $aws['name'];
-                    } else {
-                        foreach ($aws as $value) {
-                            echo $value['name'] . "<br>";
-                        }
-                    }
-                } ?></td>
-
-            <td><?php if ($aws) {
-                    if (count($aws) == $aux) {
-                        echo "R$" . $aws['price_product'];
-                    } else {
-                        foreach ($aws as $value) {
-                            echo "R$ " . $value['price_product'] . "<br>";
-                        }
-                    }
-                } ?></td>
-
-            <td><?php if ($aws) {
-                    if (count($aws) == $aux) {
-                        echo $aws['quantity_inventory'];
-                    } else {
-                        foreach ($aws as $value) {
-                            echo $value['quantity_inventory'] . "<br>";
-                        }
-                    }
-                } ?></td>
-
-            <td><?php if ($aws) {
-                    if (count($aws) == $aux) {
-                        echo "R$ " . $aws['discount'];
-                        echo "<td>Atualizar</td>";
-                    } else {
-                        foreach ($aws as $value) {
-                            echo "R$ " . $value['discount'] . "<br>";
-                        }
-                    }
-                } ?></td>
-
-        </tr>
+                }
+            } ?>
+        </tbody>
     </table>
     <h2></h2>
     <i class="fas fa-reply"></i>

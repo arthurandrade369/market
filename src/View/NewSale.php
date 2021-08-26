@@ -16,22 +16,22 @@ $products = new ProductsController();
 if (isset($_REQUEST['send'])) {
 
     //Receiving the product from database
-    $productQuerySingle = $products->showSingleProducts($_POST['product_id']);
+    $productQuerySingle = $products->searchProductsById($_POST['product_id']);
 
     //Verifying if quantity desire have on inventory
-    if ($_POST['quantity_sale'] <= $productQuery['quantity_inventory']) {
+    if ($_POST['quantity_sale'] <= $productQuerySingle['quantity_inventory']) {
 
         //Posting datas in Sale
-        $_POST['final_price'] = strval(($productQuery['price_product'] * $_POST['quantity_sale']) + $_POST['shipping'] - floatval($_POST['discount']));
+        $_POST['final_price'] = strval(($productQuerySingle['price_product'] * $_POST['quantity_sale']) + $_POST['shipping'] - floatval($_POST['discount']));
 
         $sale->setObject($_POST);
         $saleQuery = $signupSale->newSale($sale);
 
         //Posting datas in SaleItem
-        $_POST['price_total'] = $productQuery['price_product'] - $productQuery['discount'];
+        $_POST['price_total'] = $productQuerySingle['price_product'] - $productQuerySingle['discount'];
         $_POST['sale_id'] = $saleQuery;
         $saleItems->setObject($_POST);
-        $signupSaleItems->newSale($saleItems);
+        $signupSaleItems->newSaleItem($saleItems);
 
         echo "<h2>Compra registrada com sucesso</h2>";
 
@@ -60,12 +60,12 @@ if (isset($_REQUEST['send'])) {
         <form method="post" id="productForm">
 
 
-            <label for="product">
+            <label for="product_id">
                 <strong>Produto</strong>
             </label>
-            <select name="product" id="product">
+            <select name="product_id" id="product_id">
                 <?php
-                $productsQueryAll = $products->showAllProducts();
+                $productsQueryAll = $products->getAllProducts();
 
                 if ($productsQueryAll) {
                     foreach ($productsQueryAll as $values) {

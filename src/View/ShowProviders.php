@@ -4,24 +4,22 @@ require_once("../Controller/ProvidersController.php");
 $aux = 0;
 $clients = new ProvidersController();
 
-if (isset($_REQUEST['param']) and $_REQUEST['param'] != "") {
+if (isset($_REQUEST['name']) and !empty($_REQUEST['name'])) {
 
-    $aws = $clients->showSingleProviders($_POST['param']);
+    $aws = $clients->searchProvidersByName($_POST['name']);
     if ($aws) {
         $aux = count($aws);
     } else {
         echo "<h2>Fornecedor não existe!</h2>";
     }
-
 } else {
 
-    $aws = $clients->showAllProviders();
+    $aws = $clients->getAllProviders();
     if ($aws) {
         //
     } else {
         echo "<h2>Nâo existem fornecedores cadastrados!</h2>";
     }
-    
 }
 ?>
 
@@ -49,7 +47,7 @@ if (isset($_REQUEST['param']) and $_REQUEST['param'] != "") {
 
 <body>
     <form method="post">
-        <label for="param">
+        <label for="name">
             <i class="fas fa-user"></i>
         </label>
         <input type="text" name="param" placeholder="Buscar" id="param">
@@ -57,133 +55,48 @@ if (isset($_REQUEST['param']) and $_REQUEST['param'] != "") {
         <input type="submit" name="send" value="Confirmar">
     </form>
 
-    <table style="width:105%">
-        <tr>
-            <td>Id</td>
-            <td>Nome da Empresa</td>
-            <td>Razão Social</td>
-            <td>CNPJ</td>
-            <td>Rua</td>
-            <td>Número</td>
-            <td>Bairro</td>
-            <td>Cidade</td>
-            <td>Estado</td>
-            <td>Complemento</td>
-            <td>Codigo postal</td>
-        </tr>
-        <tr>
-            <td><?php if ($aws) {
+    <table style="width:100%">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nome da Empresa</th>
+                <th>Razão Social</th>
+                <th>CNPJ</th>
+                <th>Rua</th>
+                <th>Número</th>
+                <th>Bairro</th>
+                <th>Cidade</th>
+                <th>Estado</th>
+                <th>Complemento</th>
+                <th>Codigo postal</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <?php if ($aws) {
                     if (count($aws) == $aux) {
                         echo $aws['id'];
                     } else {
                         foreach ($aws as $value) {
-                            echo $value['id'] . "<br>";
+                            echo "
+                            <tr>
+                                <td>" . $value['id'] . "</td>
+                                <td>" . $value['name'] . "</td>
+                                <td>" . $value['social_reason'] . "</td>
+                                <td>" . $value['cnpj'] . "</td>
+                                <td>" . $value['street'] . "</td>
+                                <td>" . $value['number'] . "</td>
+                                <td>" . $value['district'] . "</td>
+                                <td>" . $value['city'] . "</td>
+                                <td>" . $value['state'] . "</td>
+                                <td>" . $value['complement'] . "</td>
+                                <td>" . $value['postal_code'] . "</td>
+                            </tr>";
                         }
                     }
-                } ?></td>
-
-            <td><?php if ($aws) {
-                    if (count($aws) == $aux) {
-                        echo $aws['name'];
-                    } else {
-                        foreach ($aws as $value) {
-                            echo $value['name'] . "<br>";
-                        }
-                    }
-                } ?></td>
-
-            <td><?php if ($aws) {
-                    if (count($aws) == $aux) {
-                        echo $aws['social_reason'];
-                    } else {
-                        foreach ($aws as $value) {
-                            echo $value['social_reason'] . "<br>";
-                        }
-                    }
-                } ?></td>
-
-            <td><?php if ($aws) {
-                    if (count($aws) == $aux) {
-                        echo $aws['cnpj'];
-                    } else {
-                        foreach ($aws as $value) {
-                            echo $value['cnpj'] . "<br>";
-                        }
-                    }
-                } ?></td>
-
-            <td><?php if ($aws) {
-                    if (count($aws) == $aux) {
-                        echo $aws['street'];
-                    } else {
-                        foreach ($aws as $value) {
-                            echo $value['street'] . "<br>";
-                        }
-                    }
-                } ?></td>
-
-            <td><?php if ($aws) {
-                    if (count($aws) == $aux) {
-                        echo $aws['number'];
-                    } else {
-                        foreach ($aws as $value) {
-                            echo $value['number'] . "<br>";
-                        }
-                    }
-                } ?></td>
-
-            <td><?php if ($aws) {
-                    if (count($aws) == $aux) {
-                        echo $aws['district'];
-                    } else {
-                        foreach ($aws as $value) {
-                            echo $value['district'] . "<br>";
-                        }
-                    }
-                } ?></td>
-
-            <td><?php if ($aws) {
-                    if (count($aws) == $aux) {
-                        echo $aws['city'];
-                    } else {
-                        foreach ($aws as $value) {
-                            echo $value['city'] . "<br>";
-                        }
-                    }
-                } ?></td>
-
-            <td><?php if ($aws) {
-                    if (count($aws) == $aux) {
-                        echo $aws['state'];
-                    } else {
-                        foreach ($aws as $value) {
-                            echo $value['state'] . "<br>";
-                        }
-                    }
-                } ?></td>
-
-            <td><?php if ($aws) {
-                    if (count($aws) == $aux) {
-                        echo $aws['complement'];
-                    } else {
-                        foreach ($aws as $value) {
-                            echo $value['complement'] . "<br>";
-                        }
-                    }
-                } ?></td>
-
-            <td><?php if ($aws) {
-                    if (count($aws) == $aux) {
-                        echo $aws['postal_code'];
-                    } else {
-                        foreach ($aws as $value) {
-                            echo $value['postal_code'] . "<br>";
-                        }
-                    }
-                } ?></td>
-
-
-        </tr>
+                }
+                ?>
+        </tbody>
     </table>
     <h2></h2>
     <i class="fas fa-reply"></i>

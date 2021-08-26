@@ -7,22 +7,21 @@ $batches = new BatchesController();
 if (
     isset($_REQUEST['providers_name']) and isset($_REQUEST['product_name']) and !empty($_REQUEST['product_name']) and !empty($_REQUEST['product_name'])
 ) {
-    $aws = $batches->catchBatchesByProviderNameAndProductName($_REQUEST['product_name'], $_REQUEST['provider_name']);
-    if($aws){
-
+    $aws = $batches->searchBatchesByProviderNameAndProductName($_REQUEST['product_name'], $_REQUEST['provider_name']);
+    if ($aws) {
     } else {
         echo "<h2>Lote não existe</h2>";
-    } 
+    }
 } else if (isset($_REQUEST['product_name']) and !empty($_REQUEST['product_name'])) {
 
-    $aws = $batches->catchBatchesByProductName($_POST['product_name']);
+    $aws = $batches->searchBatchesByProductName($_POST['product_name']);
     if ($aws) {
         //
     } else {
         echo "<h2>Lote não existe!</h2>";
     }
 } else if (isset($_REQUEST['provider_name']) and !empty($_REQUEST['product_name'])) {
-    $aws = $batches->catchBatchesByProviderName($_REQUEST['provider_name']);
+    $aws = $batches->searchBatchesByProviderName($_REQUEST['provider_name']);
     if ($aws) {
         //
     } else {
@@ -30,7 +29,7 @@ if (
     }
 } else {
 
-    $aws = $batches->catchAllBatches();
+    $aws = $batches->getAllBatches();
     if ($aws) {
         //
     } else {
@@ -77,90 +76,46 @@ if (
     </form>
 
     <table style="width:100%">
-        <tr>
-            <td>Id do Lote</td>
-            <td>Id do Produto</td>
-            <td>Nome do Produto</td>
-            <td>Data de Fabricação</td>
-            <td>Data de Validade</td>
-            <td>Data de Entrada</td>
-            <td>Quantidade por lote</td>
-            <td>Em Uso</td>
-            <td>Esgotado</td>
-            <td>Descrição do Lote</td>
-            <td>Nome do Fornecedor</td>
+        <thead>
+            <tr>
+                <th>Id do Lote</th>
+                <th>Id do Produto</th>
+                <th>Nome do Produto</th>
+                <th>Data de Fabricação</th>
+                <th>Data de Validade</th>
+                <th>Data de Entrada</th>
+                <th>Quantidade por lote</th>
+                <th>Em Uso</th>
+                <th>Esgotado</th>
+                <th>Descrição do Lote</th>
+                <th>Nome do Fornecedor</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            if ($aws) {
+                foreach ($aws as $value) {
+                    $used = $value['used'] == 1 ? 'Sim' : 'Não';
+                    $soldOff = $value['sold_off'] == 1 ? 'Sim' : 'Não';
 
-        </tr>
-        <tr>
-            <td><?php if ($aws) {
-                    foreach ($aws as $value) {
-                        echo $value['id'] . "<br>";
-                    }
-                } ?></td>
-
-            <td><?php if ($aws) {
-                    foreach ($aws as $value) {
-                        echo $value['products_id'] . "<br>";
-                    }
-                } ?></td>
-
-            <td><?php if ($aws) {
-                    foreach ($aws as $value) {
-                        echo $value['pd_name'] . "<br>";
-                    }
-                } ?></td>
-
-            <td><?php if ($aws) {
-                    foreach ($aws as $value) {
-                        echo $value['fabrication_date'] . "<br>";
-                    }
-                } ?></td>
-
-            <td><?php if ($aws) {
-                    foreach ($aws as $value) {
-                        echo $value['expiration_date'] . "<br>";
-                    }
-                } ?></td>
-
-            <td><?php if ($aws) {
-                    foreach ($aws as $value) {
-                        echo $value['entry_date'] . "<br>";
-                    }
-                } ?></td>
-
-            <td><?php if ($aws) {
-                    foreach ($aws as $value) {
-                        echo $value['quantity'] . "<br>";
-                    }
-                } ?></td>
-
-            <td><?php if ($aws) {
-                    foreach ($aws as $value) {
-                        if ($value['used']) echo "Sim <br>";
-                        else echo "Não <br>";
-                    }
-                } ?></td>
-
-            <td><?php if ($aws) {
-                    foreach ($aws as $value) {
-                        if ($value['sold_off']) echo "Sim <br>";
-                        else echo "Não <br>";
-                    }
-                } ?></td>
-
-            <td><?php if ($aws) {
-                    foreach ($aws as $value) {
-                        echo $value['description'] . "<br>";
-                    }
-                } ?></td>
-
-            <td><?php if ($aws) {
-                    foreach ($aws as $value) {
-                        echo $value['pv_name'] . "<br>";
-                    }
-                } ?></td>
-
-        </tr>
+                    echo "
+                            <tr>    
+                                <td>" . $value['id'] . "</td>
+                                <td>" . $value['products_id'] . "</td>
+                                <td>" . $value['pd_name'] . "</td>
+                                <td>" . $value['fabrication_date'] . "</td>
+                                <td>" . $value['expiration_date'] . "</td>
+                                <td>" . $value['entry_date'] . "</td>
+                                <td>" . $value['quantity'] . "</td>
+                                <td>" . $used . "</td>
+                                <td>" . $soldOff . "</td>
+                                <td>" . $value['description'] . "</td>
+                                <td>" . $value['pv_name'] . "</td>
+                            </tr>";
+                }
+            }
+            ?>
+        </tbody>
     </table>
     <h2></h2>
     <i class="fas fa-reply"></i>

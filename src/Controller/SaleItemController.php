@@ -11,7 +11,7 @@ class SaleItemController
      * @param Sale_items $sale
      * @return void
      */
-    public function newSale(SaleItems $sale)
+    public function newSaleItem(SaleItems $sale)
     {
         $sql = "
         INSERT INTO
@@ -34,13 +34,14 @@ class SaleItemController
      * 
      * @return array|bool - Bring sales if sucess or FALSE in failure
      */
-    public function showAllSales()
+    public function getAllSaleItem()
     {
         $sql = "
         SELECT
-            * 
+            si.*, p.*
         FROM 
-            sale_item
+            sale_item AS si
+            INNER JOIN products AS p ON p.id = si.product_id
         ";
         $pSql = Connection::getInstance()->prepare($sql);
         $pSql->execute();
@@ -50,23 +51,45 @@ class SaleItemController
     }
 
     /**
-     * Bring a specify sale from database
+     * Bring the sale item by a search of id from database
      *
-     * @param mixed $id
-     * @return array|bool 
+     * @param int $id
+     * @return array|bool Bring the sale item if have something or FALSE if dont have nothing
      */
-    public function showSingleSale($param)
+    public function searchSaleItemsById(int $id)
     {
         $sql = "
         SELECT
-            *
+            si.*, p.*
         FROM
-            sale_item
-        WHERE
-            id = :param
+            sale_item AS si
+            INNER JOIN products AS p ON p.id = si.products_id AND si.id = :id
         LIMIT 1";
         $pSql = Connection::getInstance()->prepare($sql);
-        $pSql->bindValue('param', $param);
+        $pSql->bindValue('id', $id);
+        $pSql->execute();
+        if ($pSql->rowCount() > 0) return $pSql->fetch();
+
+        return false;
+    }
+
+    /**
+     * Bring the sale item by a search of products name from database
+     *
+     * @param string $name
+     * @return array|bool Bring the sale item if have something or FALSE if dont have nothing
+     */
+    public function searchSaleItemsByProductName(string $name)
+    {
+        $sql = "
+        SELECT
+            si.*, p.*
+        FROM
+            sale_item AS si
+            INNER JOIN products AS p ON p.id = si.products_id AND p.name = :name
+        ";
+        $pSql = Connection::getInstance()->prepare($sql);
+        $pSql->bindValue('name', $name);
         $pSql->execute();
         if ($pSql->rowCount() > 0) return $pSql->fetch();
 

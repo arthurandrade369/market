@@ -4,9 +4,9 @@ require_once("../Controller/OrdersController.php");
 $aux = 0;
 $order = new OrdersController();
 
-if (isset($_REQUEST['param']) and $_REQUEST['param'] != "") {
+if (isset($_REQUEST['client']) and !empty($_REQUEST['client'])) {
 
-    $aws = $order->showSingleOrder($_POST['param']);
+    $aws = $order->searchOrderByClient($_POST['client']);
     if ($aws) {
         $aux = count($aws);
     } else {
@@ -14,7 +14,7 @@ if (isset($_REQUEST['param']) and $_REQUEST['param'] != "") {
     }
 } else {
 
-    $aws = $order->showAllOrders();
+    $aws = $order->getAllOrders();
     if ($aws) {
         //
     } else {
@@ -47,97 +47,48 @@ if (isset($_REQUEST['param']) and $_REQUEST['param'] != "") {
 
 <body>
     <form method="post">
-        <label for="param">
+        <label for="client">
             <i class="fas fa-user"></i>
         </label>
-        <input type="text" name="param" placeholder="Buscar" id="param">
+        <input type="text" name="client" placeholder="Buscar Cliente" id="client">
 
         <input type="submit" name="send" value="Confirmar">
     </form>
 
     <table style="width:100%">
-        <tr>
-            <td>ID</td>
-            <td>Tipo de Ordem</td>
-            <td>Previsão de Entrega</td>
-            <td>Data do Recebimento</td>
-            <td>Nome do Cliente</td>
-            <td>Situação</td>
-            <td>Valor da Compra</td>
-
-        </tr>
-        <tr>
-            <td><?php if ($aws) {
-                    if (count($aws) == $aux) {
-                        echo $aws['oid'];
-                    } else {
-                        foreach ($aws as $value) {
-                            echo $value['oid'] . "<br>";
-                        }
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tipo de Ordem</th>
+                <th>Previsão de Entrega</th>
+                <th>Data do Recebimento</th>
+                <th>Nome do Cliente</th>
+                <th>Situação</th>
+                <th>Valor da Compra</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            if ($aws) {
+                if (count($aws) == $aux) {
+                    echo $aws['oid'];
+                } else {
+                    foreach ($aws as $value) {
+                        echo "
+                            <tr>    
+                                <td>" . $value['order_id'] . "</td>
+                                <td>" . $value['type'] . "</td>
+                                <td>" . $value['forecast'] . "</td>
+                                <td>" . $value['receipt'] . "</td>
+                                <td>" . $value['name'] . "</td>
+                                <td>" . $value['state'] . "</td>
+                                <td>" . $value['final_price'] . "</td>
+                            </tr>";
                     }
-                } ?></td>
-
-            <td><?php if ($aws) {
-                    if (count($aws) == $aux) {
-                        echo $aws['type'];
-                    } else {
-                        foreach ($aws as $value) {
-                            echo $value['type'] . "<br>";
-                        }
-                    }
-                } ?></td>
-
-            <td><?php if ($aws) {
-                    if (count($aws) == $aux) {
-                        echo $aws['forecast'];
-                    } else {
-                        foreach ($aws as $value) {
-                            echo $value['forecast'] . "<br>";
-                        }
-                    }
-                } ?></td>
-
-            <td><?php if ($aws) {
-                    if (count($aws) == $aux) {
-                        echo $aws['receipt'];
-                    } else {
-                        foreach ($aws as $value) {
-                            echo $value['receipt'] . "<br>";
-                        }
-                    }
-                } ?></td>
-
-            <td><?php if ($aws) {
-                    if (count($aws) == $aux) {
-                        echo $aws['name'];
-                    } else {
-                        foreach ($aws as $value) {
-                            echo $value['name'] . "<br>";
-                        }
-                    }
-                } ?></td>
-
-            <td><?php if ($aws) {
-                    if (count($aws) == $aux) {
-                        echo $aws['state'];
-                    } else {
-                        foreach ($aws as $value) {
-                            echo $value['state'] . "<br>";
-                        }
-                    }
-                } ?></td>
-
-            <td><?php if ($aws) {
-                    if (count($aws) == $aux) {
-                        echo $aws['final_price'];
-                    } else {
-                        foreach ($aws as $value) {
-                            echo $value['final_price'] . "<br>";
-                        }
-                    }
-                } ?></td>
-
-        </tr>
+                }
+            }
+            ?>
+        </tbody>
     </table>
     <h2></h2>
     <i class="fas fa-reply"></i>

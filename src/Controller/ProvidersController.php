@@ -35,7 +35,7 @@ class ProvidersController
      * @param ProvidersAddresses $addresses
      * @return void
      */
-    public function newProvidersAddress(ProvidersAddresses $addresses): void
+    public function newProvidersAddress(ProvidersAddresses $addresses)
     {
         $sql = "
         INSERT INTO providers_addresses
@@ -57,9 +57,9 @@ class ProvidersController
     /**
      * Bring the entire providers from database
      * 
-     * @return array|bool Bring the providers if sucess or FALSE in failure
+     * @return array|bool Bring the providers if have something or FALSE if dont have nothing
      */
-    public function showAllProviders()
+    public function getAllProviders()
     {
         $sql = "
             SELECT
@@ -75,24 +75,44 @@ class ProvidersController
     }
 
     /**
-     * Bring a specify provider of database
+     * Bring the providers by a serach of name from database
      * 
-     * @param array $email
-     * @return array|bool Bring the provider if sucess or FALSE in failure
+     * @param string $name
+     * @return array|bool Bring the providers if have something or FALSE if dont have nothing
      */
-    public function showSingleProviders($param)
+    public function searchProvidersByName(string $name)
     {
         $sql = "
         SELECT
-            *
+            p.*
         FROM
             providers AS p 
-            INNER JOIN providers_addresses AS pa ON p.id = pa.providers_id 
-        WHERE
-            p.cnpj LIKE CONCAT(:param,'%') OR p.name LIKE CONCAT(:param,'%')
-        LIMIT 1";
+            INNER JOIN providers_addresses AS pa ON p.id = pa.providers_id AND p.name LIKE CONCAT(:name,'%')";
         $pSql = Connection::getInstance()->prepare($sql);
-        $pSql->bindValue('param', $param);
+        $pSql->bindValue('name', $name);
+        $pSql->execute();
+        if ($pSql->rowCount() > 0) return $pSql->fetch();
+
+        return false;
+    }
+
+    /**
+     * Bring a specify provider of database
+     * 
+     * @param string $cnpj
+     * @return array|bool Bring the provider if have something or FALSE if dont have nothing
+     */
+    public function searchProvidersByCnpj(string $cnpj)
+    {
+        $sql = "
+        SELECT
+            p.*
+        FROM
+            providers AS p 
+            INNER JOIN providers_addresses AS pa ON p.id = pa.providers_id AND p.cnpj = :cnpj
+        ";
+        $pSql = Connection::getInstance()->prepare($sql);
+        $pSql->bindValue('cnpj', $cnpj);
         $pSql->execute();
         if ($pSql->rowCount() > 0) return $pSql->fetch();
 
@@ -123,25 +143,4 @@ class ProvidersController
         return true;
     }
 
-    /**
-     * Bring the last column added in database
-     * 
-     * @return array|bool Bring the last column if sucess or FALSE in failure
-     */
-    public function getLastColumn()
-    {
-        $sql = "
-        SELECT
-            *
-        FROM
-            providers
-        ORDER BY
-            id DESC
-        LIMIT 1";
-        $pSql = Connection::getInstance()->prepare($sql);
-        $pSql->execute();
-        if ($pSql->rowCount() > 0) return $pSql->fetch();
-
-        return false;
-    }
 }

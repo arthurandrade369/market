@@ -32,13 +32,13 @@ class OrdersController
     /**
      * Bring the entire orders from database
      * 
-     * @return array|bool - Bring orders if sucess or FALSE in failure
+     * @return array|bool - Bring the orders if have something or FALSE if dont have nothing
      */
-    public function showAllOrders()
+    public function getAllOrders()
     {
         $sql = "
         SELECT
-            *, o.id AS oid
+            o.*, c.*, s.*, o.id AS order_id
         FROM 
             orders AS o
             INNER JOIN sale AS s ON o.sale_id = s.id
@@ -52,26 +52,49 @@ class OrdersController
     }
 
     /**
-     * Bring a specify order from database
+     * Bring a specify order by id from database
      *
-     * @param mixed $id
-     * @return array|bool 
+     * @param int $id
+     * @return array|bool Bring the order if have something or FALSE if dont have nothing
      */
-    public function showSingleOrder($param)
+    public function searchOrderById(int $id)
     {
         $sql = "
         SELECT
-            *
+            o.*, c.*
         FROM
-            orders
-        WHERE
-            id = :param
+            orders AS o
+            INNER JOIN clients AS c ON o.clients_id = c.id AND o.id = :id
         LIMIT 1";
         $pSql = Connection::getInstance()->prepare($sql);
-        $pSql->bindValue('param', $param);
+        $pSql->bindValue('id', $id);
         $pSql->execute();
         if ($pSql->rowCount() > 0) return $pSql->fetch();
 
         return false;
     }
+
+    /**
+     * Bring the order by a search for client name from database
+     *
+     * @param string $clientName
+     * @return array|bool Bring the orders if have something or FALSE if dont have nothing
+     */
+    public function searchOrderByClient(string $clientName)
+    {
+        $sql = "
+        SELECT
+            o.*, c.*
+        FROM
+            orders AS o
+            INNER JOIN clients AS c ON o.clients_id = c.id AND c.name LIKE CONCAT(:client_name,'%')
+        ";
+        $pSql = Connection::getInstance()->prepare($sql);
+        $pSql->bindValue('client_name', $clientName);
+        $pSql->execute();
+        if ($pSql->rowCount() > 0) return $pSql->fetch();
+
+        return false;
+    }
+    
 }

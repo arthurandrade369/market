@@ -56,9 +56,9 @@ class ClientsController
     /**
      * Bring the entire clients from database
      * 
-     * @return array|bool - Bring clients if sucess or FALSE in failure
+     * @return array|bool - Bring the client if have something or FALSE if dont have nothing
      */
-    public function catchAllClients()
+    public function getAllClients()
     {
         $sql = "
             SELECT
@@ -75,12 +75,12 @@ class ClientsController
     }
 
     /**
-     * Bring all of clients by a search from database
+     * Bring all of clients by a search of id from database
      *
      * @param int $id
-     * @return array|false Bring the clients if sucess or FALSE in failure
+     * @return array|false Bring the client if have something or FALSE if dont have nothing
      */
-    public function catchClientById(int $id)
+    public function searchClientById(int $id)
     {
         $sql = "
             SELECT
@@ -99,20 +99,19 @@ class ClientsController
     }
 
     /**
-     * Bring all of clients by a search from database
+     * Bring all of clients by a search of name from database
      *
      * @param string $name
-     * @return array|false Bring the clients if sucess or FALSE in failure
+     * @return array|false Bring the client if have something or FALSE if dont have nothing
      */
-    public function catchClientByName(string $name)
+    public function searchClientByName(string $name)
     {
         $sql = "
             SELECT
                 c.*, ca.*
             FROM
                 clients AS c 
-                INNER JOIN  clients_addresses AS ca ON c.id = ca.clients_id AND c.name LIKE CONCAT(:name,'%')
-            LIMIT 1
+                INNER JOIN  client_addresses AS ca ON c.id = ca.clients_id AND c.name LIKE CONCAT(:name,'%')
         ";
         $pSql = Connection::getInstance()->prepare($sql);
         $pSql->bindValue('name', $name);
@@ -123,19 +122,19 @@ class ClientsController
     }
 
     /**
-     * Bring all of clients by a search from database
+     * Bring all of clients by a search of email from database
      *
      * @param string $email
-     * @return array|false Bring the clients if sucess or FALSE in failure
+     * @return array|false Bring the client if have something or FALSE if dont have nothing
      */
-    public function catchClientByEmail(string $email)
+    public function searchClientByEmail(string $email)
     {
         $sql = "
             SELECT
                 c.*, ca.*
             FROM
                 clients AS c 
-                INNER JOIN  clients_addresses AS ca ON c.id = ca.clients_id AND c.name LIKE CONCAT(:email,'%')
+                INNER JOIN  clients_addresses AS ca ON c.id = ca.clients_id AND c.email = :email
             LIMIT 1
         ";
         $pSql = Connection::getInstance()->prepare($sql);

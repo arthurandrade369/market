@@ -41,7 +41,7 @@ if (isset($_REQUEST['send'])) {
             </label>
             <select name="clients_id" id="clients_id">
                 <?php
-                $clients = $client->showAllClients();
+                $clients = $client->getAllClients();
                 
                 //Getting the option through database
                 if ($clients) {

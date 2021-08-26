@@ -30,15 +30,16 @@ class ProductsController
     /**
      * Bring the entire products from database
      *
-     * @return array|bool Bring products if sucess or FALSE in failure
+     * @return array|bool Bring the products if have something or FALSE if dont have nothing
      */
-    public function showAllProducts()
+    public function getAllProducts()
     {
         $sql = "
         SELECT 
-            * 
+            p.* 
         FROM 
-            products";
+            products AS p
+        ";
         $pSql = Connection::getInstance()->prepare($sql);
         $pSql->execute();
         if ($pSql->rowCount() > 0) return $pSql->fetchall();
@@ -47,12 +48,12 @@ class ProductsController
     }
 
     /**
-     * Bring a specify product from database
+     * Bring the products by a search of name from database
      *
-     * @param mixed $id
-     * @return array|bool 
+     * @param string $name
+     * @return array|bool Bring the products if have something or FALSE if dont have nothing
      */
-    public function showSingleProducts($param)
+    public function searchProductsByName(string $name)
     {
         $sql = "
         SELECT
@@ -60,10 +61,34 @@ class ProductsController
         FROM
             products AS p
         WHERE
-            p.id LIKE CONCAT(:param,'%') OR p.name LIKE CONCAT('%',:param,'%')
+            p.name LIKE CONCAT('%',:name,'%')
+        ";
+        $pSql = Connection::getInstance()->prepare($sql);
+        $pSql->bindValue('name', $name);
+        $pSql->execute();
+        if ($pSql->rowCount() > 0) return $pSql->fetch();
+
+        return false;
+    }
+    
+    /**
+     * Bring a specify product from database
+     *
+     * @param int $id
+     * @return array|bool Bring the product if have something or FALSE if dont have nothing
+     */
+    public function searchProductsById(int $id)
+    {
+        $sql = "
+        SELECT
+            p.*
+        FROM
+            products AS p
+        WHERE
+            p.id = :id
         LIMIT 1";
         $pSql = Connection::getInstance()->prepare($sql);
-        $pSql->bindValue('param', $param);
+        $pSql->bindValue('id', $id);
         $pSql->execute();
         if ($pSql->rowCount() > 0) return $pSql->fetch();
 

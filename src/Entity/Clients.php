@@ -30,7 +30,7 @@ class Clients
      * Set the value of name
      *
      * @param string $name
-     * @return  self
+     * @return self
      */
     public function setName(string $name): self
     {
@@ -53,7 +53,7 @@ class Clients
      * Set the value of email
      * 
      *@param string $email
-     * @return  self
+     * @return self
      */
     public function setEmail(string $email): self
     {

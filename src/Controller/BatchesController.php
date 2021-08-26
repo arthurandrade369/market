@@ -40,7 +40,7 @@ class BatchesController
      *
      * @return array|bool Bring the batches if have something or FALSE if dont have nothing
      */
-    public function catchAllBatches()
+    public function getAllBatches()
     {
         $sql = "
             SELECT
@@ -60,12 +60,12 @@ class BatchesController
     }
 
     /**
-     * Bring all of batches by a search from database
+     * Bring all of batches by a search of product name from database
      * 
      * @param string $productName
-     * @return array|bool Bring the batches if sucess or FALSE in failure
+     * @return array|bool Bring the batches if have something or FALSE if dont have nothing
      */
-    public function catchBatchesByProductName(string $productName)
+    public function searchBatchesByProductName(string $productName)
     {
         $sql = "
             SELECT
@@ -84,12 +84,12 @@ class BatchesController
     }
 
     /**
-     * Bring all of batches by a search from database
+     * Bring all of batches by a search of provider name from database
      * 
      * @param string $providerName
-     * @return array|bool Bring the batches if sucess or FALSE in failure
+     * @return array|bool Bring the batches if have something or FALSE if dont have nothing
      */
-    public function catchBatchesByProviderName(string $providerName)
+    public function searchBatchesByProviderName(string $providerName)
     {
         $sql = "
             SELECT
@@ -108,13 +108,13 @@ class BatchesController
     }
 
     /**
-     * Bring all of batches by a search from database
+     * Bring all of batches by a search of product name and provider name from database
      * 
      * @param string $productName
      * @param string $providerName
-     * @return array|bool Bring the batches if sucess or FALSE in failure
+     * @return array|bool Bring the batches if have something or FALSE if dont have nothing
      */
-    public function catchBatchesByProviderNameAndProductName(string $productName, string $providerName)
+    public function searchBatchesByProviderNameAndProductName(string $productName, string $providerName)
     {
         $sql = "
             SELECT
@@ -136,12 +136,12 @@ class BatchesController
     }
 
     /**
-     * Bring a specify batch from database
+     * Bring a specify batch by id from database
      *
      * @param integer $id
-     * @return array|false
+     * @return array|false Bring the batches if have something or FALSE if dont have nothing
      */
-    public function catchABatchById(int $id)
+    public function searchABatchById(int $id)
     {
         $sql = "
             SELECT

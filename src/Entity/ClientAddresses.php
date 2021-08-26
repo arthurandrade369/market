@@ -174,7 +174,7 @@ class ClientAddresses
      * Set the value of postalCode
      *
      * @param string $postalCode
-     * @return  self
+     * @return self
      */
     public function setPostalCode(string $postalCode): self
     {
@@ -197,7 +197,7 @@ class ClientAddresses
      * Set the value of clientsId
      *
      * @param int $clientsId
-     * @return  self
+     * @return self
      */
     public function setClientsId(int $clientsId): self
     {
