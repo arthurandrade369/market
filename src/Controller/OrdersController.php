@@ -30,11 +30,11 @@ class OrdersController
     }
 
     /**
-     * Bring the entire orders from database
+     * Returns a array containing the entire orders from database
      * 
-     * @return array|bool - Bring the orders if have something or FALSE if dont have nothing
+     * @return array - Returns the orders if have something or an empty array
      */
-    public function getAllOrders()
+    public function getAllOrders(): array
     {
         $sql = "
         SELECT
@@ -46,55 +46,56 @@ class OrdersController
         ";
         $pSql = Connection::getInstance()->prepare($sql);
         $pSql->execute();
-        if ($pSql->rowCount() > 0) return $pSql->fetchall();
 
-        return false;
+        return $pSql->fetchAll();
     }
 
     /**
-     * Bring a specify order by id from database
+     * Returns a array containing a specify order by id from database
      *
      * @param int $id
-     * @return array|bool Bring the order if have something or FALSE if dont have nothing
+     * @return array Returns the order if have or NULL if dont
      */
-    public function searchOrderById(int $id)
+    public function searchOrderById(int $id): ?array
     {
         $sql = "
         SELECT
-            o.*, c.*
+            o.*, c.*, s.*, o.id AS order_id
         FROM
             orders AS o
+            INNER JOIN sale AS s ON o.sale_id = s.id
             INNER JOIN clients AS c ON o.clients_id = c.id AND o.id = :id
         LIMIT 1";
         $pSql = Connection::getInstance()->prepare($sql);
         $pSql->bindValue('id', $id);
         $pSql->execute();
-        if ($pSql->rowCount() > 0) return $pSql->fetch();
+        if ($pSql->rowCount() > 0) return $pSql->fetchAll();
 
-        return false;
+        return null;
     }
 
     /**
-     * Bring the order by a search for client name from database
+     * Returns a array containing the orders by a search for client name from database
      *
      * @param string $clientName
-     * @return array|bool Bring the orders if have something or FALSE if dont have nothing
+     * @return array Returns the orders if have something or an empty array
      */
-    public function searchOrderByClient(string $clientName)
+    public function searchOrderByClient(string $clientName): array
     {
         $sql = "
         SELECT
-            o.*, c.*
+            o.*, c.*, s.*, o.id AS order_id
         FROM
             orders AS o
-            INNER JOIN clients AS c ON o.clients_id = c.id AND c.name LIKE CONCAT(:client_name,'%')
+            INNER JOIN sale AS s ON o.sale_id = s.id
+            INNER JOIN clients AS c ON o.clients_id = c.id
+        WHERE
+            c.name LIKE CONCAT(:client_name,'%')
         ";
         $pSql = Connection::getInstance()->prepare($sql);
         $pSql->bindValue('client_name', $clientName);
         $pSql->execute();
-        if ($pSql->rowCount() > 0) return $pSql->fetch();
 
-        return false;
+        return $pSql->fetchAll();
     }
-    
 }

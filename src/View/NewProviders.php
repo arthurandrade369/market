@@ -9,12 +9,14 @@ $providers = new Providers();
 $address = new ProvidersAddresses();
 
 if (isset($_REQUEST['send'])) {
-    if ($signup->checkIsCnpj($_POST['cnpj'])) {
+    $isProvider = $signup->checkIsCnpj($_POST['cnpj']);
+    if (!$isProvider) {
 
         $providers->setObject($_POST);
-        $address->setObject($_POST);
+        $providerId = $signup->newProviders($providers);
 
-        $signup->newProviders($providers);
+        $_POST['provider_id'] = $providerId;
+        $address->setObject($_POST);
         $signup->newProvidersAddress($address);
 
         echo "<h2>Fornecedor cadastrado com sucesso!</h2>";

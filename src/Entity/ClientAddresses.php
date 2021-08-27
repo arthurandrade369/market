@@ -1,6 +1,7 @@
 <?php
+require_once("../Interface/InterfaceSetter.php");
 
-class ClientAddresses
+class ClientAddresses implements setObject
 {
     private int $id;
     private string $state;

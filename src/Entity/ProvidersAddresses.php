@@ -1,6 +1,7 @@
 <?php
+require_once("../Interface/InterfaceSetter.php");
 
-class ProvidersAddresses
+class ProvidersAddresses implements setObject
 {
     private int $id;
     private string $state;
@@ -221,6 +222,7 @@ class ProvidersAddresses
         $this->setNumber($object['number']);
         if (!is_null($object['complement'])) $this->setComplement($object['complement']);
         $this->setPostalCode($object['postal_code']);
+        $this->setProvidersId($object['provider_id']);
 
         return $this;
     }

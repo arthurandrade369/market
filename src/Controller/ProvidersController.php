@@ -55,11 +55,11 @@ class ProvidersController
     }
 
     /**
-     * Bring the entire providers from database
+     * Returns a array containing the entire providers from database
      * 
-     * @return array|bool Bring the providers if have something or FALSE if dont have nothing
+     * @return array Returns the providers if have something or an empty array
      */
-    public function getAllProviders()
+    public function getAllProviders(): array
     {
         $sql = "
             SELECT
@@ -69,40 +69,41 @@ class ProvidersController
                 INNER JOIN provider_addresses AS pa ON p.id = pa.providers_id";
         $pSql = Connection::getInstance()->prepare($sql);
         $pSql->execute();
-        if ($pSql->rowCount() > 0) return $pSql->fetchall();
 
-        return false;
+        return $pSql->fetchAll();
     }
 
     /**
-     * Bring the providers by a serach of name from database
+     * Returns a array containing the providers by a serach of name from database
      * 
      * @param string $name
-     * @return array|bool Bring the providers if have something or FALSE if dont have nothing
+     * @return array Returns the providers if have something or an empty array
      */
-    public function searchProvidersByName(string $name)
+    public function searchProvidersByName(string $name): array
     {
         $sql = "
         SELECT
-            p.*
+            p.*, pa.*
         FROM
             providers AS p 
-            INNER JOIN providers_addresses AS pa ON p.id = pa.providers_id AND p.name LIKE CONCAT(:name,'%')";
+            INNER JOIN provider_addresses AS pa ON p.id = pa.providers_id
+        WHERE
+            p.name LIKE CONCAT(:name,'%')
+        ";
         $pSql = Connection::getInstance()->prepare($sql);
         $pSql->bindValue('name', $name);
         $pSql->execute();
-        if ($pSql->rowCount() > 0) return $pSql->fetch();
 
-        return false;
+        return $pSql->fetchAll();
     }
 
     /**
-     * Bring a specify provider of database
+     * Returns a array containing a specify provider of database
      * 
      * @param string $cnpj
-     * @return array|bool Bring the provider if have something or FALSE if dont have nothing
+     * @return array|null Returns the provider if have or NULL if dont
      */
-    public function searchProvidersByCnpj(string $cnpj)
+    public function searchProvidersByCnpj(string $cnpj): ?array
     {
         $sql = "
         SELECT
@@ -110,37 +111,38 @@ class ProvidersController
         FROM
             providers AS p 
             INNER JOIN providers_addresses AS pa ON p.id = pa.providers_id AND p.cnpj = :cnpj
-        ";
+        LIMIT 1";
         $pSql = Connection::getInstance()->prepare($sql);
         $pSql->bindValue('cnpj', $cnpj);
         $pSql->execute();
-        if ($pSql->rowCount() > 0) return $pSql->fetch();
+        if ($pSql->rowCount() > 0) return $pSql->fetchAll();
 
-        return false;
+        return null;
     }
 
     /**
-     * Verify if the entry of cnpj already exists in database
+     * Checks if the cnpj exists and returns provider data
      * 
      * @param string $cnpj
-     * @return boolean FALSE if the cnpj exists or TRUE if dont
+     * @return array|null Return a array containing the provider or NULL if dont exist
      */
-    public function checkIsCnpj(string $cnpj): bool
+    public function checkIsCnpj(string $cnpj): ?array
     {
         $sql = "
         SELECT
-            cnpj
+            p.*
         FROM
-            providers
+            providers AS p
         WHERE
-            cnpj = :cnpj";
+            cnpj = :cnpj
+        LIMIT 1";
         $pSql = Connection::getInstance()->prepare($sql);
         $pSql->bindValue('cnpj', $cnpj);
         $pSql->execute();
 
-        if ($pSql->rowCount() > 0) return false;
+        if ($pSql->rowCount() > 0) return $pSql->fetchAll();
 
-        return true;
+        return null;
     }
 
 }

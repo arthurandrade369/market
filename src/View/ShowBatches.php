@@ -4,37 +4,12 @@ require_once("../Controller/ProductsController.php");
 
 $batches = new BatchesController();
 
-if (
-    isset($_REQUEST['providers_name']) and isset($_REQUEST['product_name']) and !empty($_REQUEST['product_name']) and !empty($_REQUEST['product_name'])
-) {
-    $aws = $batches->searchBatchesByProviderNameAndProductName($_REQUEST['product_name'], $_REQUEST['provider_name']);
-    if ($aws) {
-    } else {
-        echo "<h2>Lote não existe</h2>";
-    }
-} else if (isset($_REQUEST['product_name']) and !empty($_REQUEST['product_name'])) {
+if (isset($_REQUEST['product_name']) and !empty($_REQUEST['product_name'])) {
 
     $aws = $batches->searchBatchesByProductName($_POST['product_name']);
-    if ($aws) {
-        //
-    } else {
-        echo "<h2>Lote não existe!</h2>";
-    }
-} else if (isset($_REQUEST['provider_name']) and !empty($_REQUEST['product_name'])) {
-    $aws = $batches->searchBatchesByProviderName($_REQUEST['provider_name']);
-    if ($aws) {
-        //
-    } else {
-        echo "<h2>Fornecedor não existe!</h2>";
-    }
 } else {
 
     $aws = $batches->getAllBatches();
-    if ($aws) {
-        //
-    } else {
-        echo "<h2>Nâo existem lotes cadastrados!</h2>";
-    }
 }
 ?>
 
@@ -67,11 +42,6 @@ if (
         </label>
         <input type="text" name="product_name" placeholder="Buscar Produto" id="product_name">
 
-        <label for="provider_name">
-            <i class="fas fa-user"></i>
-        </label>
-        <input type="text" name="provider_name" placeholder="Buscar Fornecedor" id="provider_name">
-
         <input type="submit" name="send" value="Confirmar">
     </form>
 
@@ -93,26 +63,24 @@ if (
         </thead>
         <tbody>
             <?php
-            if ($aws) {
-                foreach ($aws as $value) {
-                    $used = $value['used'] == 1 ? 'Sim' : 'Não';
-                    $soldOff = $value['sold_off'] == 1 ? 'Sim' : 'Não';
+            foreach ($aws as $value) {
+                $used = $value['used'] == 1 ? 'Sim' : 'Não';
+                $soldOff = $value['sold_off'] == 1 ? 'Sim' : 'Não';
 
-                    echo "
-                            <tr>    
-                                <td>" . $value['id'] . "</td>
-                                <td>" . $value['products_id'] . "</td>
-                                <td>" . $value['pd_name'] . "</td>
-                                <td>" . $value['fabrication_date'] . "</td>
-                                <td>" . $value['expiration_date'] . "</td>
-                                <td>" . $value['entry_date'] . "</td>
-                                <td>" . $value['quantity'] . "</td>
-                                <td>" . $used . "</td>
-                                <td>" . $soldOff . "</td>
-                                <td>" . $value['description'] . "</td>
-                                <td>" . $value['pv_name'] . "</td>
-                            </tr>";
-                }
+                echo "
+                    <tr>    
+                        <td>" . $value['id'] . "</td>
+                        <td>" . $value['products_id'] . "</td>
+                        <td>" . $value['pd_name'] . "</td>
+                        <td>" . $value['fabrication_date'] . "</td>
+                        <td>" . $value['expiration_date'] . "</td>
+                        <td>" . $value['entry_date'] . "</td>
+                        <td>" . $value['quantity'] . "</td>
+                        <td>" . $used . "</td>
+                        <td>" . $soldOff . "</td>
+                        <td>" . $value['description'] . "</td>
+                        <td>" . $value['pv_name'] . "</td>
+                    </tr>";
             }
             ?>
         </tbody>

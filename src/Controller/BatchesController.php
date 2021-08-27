@@ -19,8 +19,6 @@ class BatchesController
             VALUES
                 (:fabrication_date, :expiration_date, :entry_date, :quantity, :used, :sold_off , :description, :providers_id, :products_id)
         ";
-
-        $test = $batch->getUsed();
         $pSql = Connection::getInstance()->prepare($sql);
         $pSql->bindValue('fabrication_date', $batch->getFabricationDate());
         $pSql->bindValue('expiration_date', $batch->getExpirationDate());
@@ -36,11 +34,11 @@ class BatchesController
     }
 
     /**
-     * Bring all the batches from database
+     * Returns a array containing all batches from database
      *
-     * @return array|bool Bring the batches if have something or FALSE if dont have nothing
+     * @return array Returns the batches if have something or a empty array
      */
-    public function getAllBatches()
+    public function getAllBatches() :array
     {
         $sql = "
             SELECT
@@ -54,67 +52,16 @@ class BatchesController
         $pSql = Connection::getInstance()->prepare($sql);
         $pSql->execute();
 
-        if ($pSql->rowCount() > 0) return $pSql->fetchAll();
-
-        return false;
+        return $pSql->fetchAll();
     }
 
     /**
-     * Bring all of batches by a search of product name from database
+     * Returns a array containing all batches by a search of product name from database
      * 
      * @param string $productName
-     * @return array|bool Bring the batches if have something or FALSE if dont have nothing
+     * @return array Returns the batches if have something or an empty array
      */
-    public function searchBatchesByProductName(string $productName)
-    {
-        $sql = "
-            SELECT
-                b.*, pd.name AS pd_name, pv.name AS pv_name
-            FROM
-                batches AS b
-                INNER JOIN products AS pd ON b.products_id = pd.id
-                INNER JOIN providers AS pv ON b.providers_id = pv.id AND pd.name LIKE CONCAT('%',:productname,'%')
-        ";
-        $pSql = Connection::getInstance()->prepare($sql);
-        $pSql->bindValue('productname', $productName);
-        $pSql->execute();
-        if ($pSql->rowCount() > 0) return $pSql->fetchAll();
-
-        return false;
-    }
-
-    /**
-     * Bring all of batches by a search of provider name from database
-     * 
-     * @param string $providerName
-     * @return array|bool Bring the batches if have something or FALSE if dont have nothing
-     */
-    public function searchBatchesByProviderName(string $providerName)
-    {
-        $sql = "
-            SELECT
-                b.*, pd.name AS pd_name, pv.name AS pv_name
-            FROM
-                batches AS b
-                INNER JOIN products AS pd ON b.products_id = pd.id
-                INNER JOIN providers AS pv ON b.providers_id = pv.id AND pv.name LIKE CONCAT('%',:providername,'%')
-        ";
-        $pSql = Connection::getInstance()->prepare($sql);
-        $pSql->bindValue('providername', $providerName);
-        $pSql->execute();
-        if ($pSql->rowCount() > 0) return $pSql->fetchAll();
-
-        return false;
-    }
-
-    /**
-     * Bring all of batches by a search of product name and provider name from database
-     * 
-     * @param string $productName
-     * @param string $providerName
-     * @return array|bool Bring the batches if have something or FALSE if dont have nothing
-     */
-    public function searchBatchesByProviderNameAndProductName(string $productName, string $providerName)
+    public function searchBatchesByProductName(string $productName): array
     {
         $sql = "
             SELECT
@@ -123,25 +70,47 @@ class BatchesController
                 batches AS b
                 INNER JOIN products AS pd ON b.products_id = pd.id
                 INNER JOIN providers AS pv ON b.providers_id = pv.id 
-            WHERE 
-                pd.name LIKE CONCAT('%',:productname,'%') AND pv.name LIKE CONCAT('%',:providername,'%')
+            WHERE    
+                pd.name LIKE CONCAT('%',:productname,'%')
         ";
         $pSql = Connection::getInstance()->prepare($sql);
         $pSql->bindValue('productname', $productName);
-        $pSql->bindValue('providername', $providerName);
         $pSql->execute();
-        if ($pSql->rowCount() > 0) return $pSql->fetchAll();
 
-        return false;
+        return $pSql->fetchAll();
     }
 
     /**
-     * Bring a specify batch by id from database
-     *
-     * @param integer $id
-     * @return array|false Bring the batches if have something or FALSE if dont have nothing
+     * Returns a array containing all batches by a search of provider name from database
+     * 
+     * @param string $providerName
+     * @return array Returns the batches if have something or an empty array
      */
-    public function searchABatchById(int $id)
+    public function searchBatchesByProviderName(string $providerName): array
+    {
+        $sql = "
+            SELECT
+                b.*, pd.name AS pd_name, pv.name AS pv_name
+            FROM
+                batches AS b
+                INNER JOIN products AS pd ON b.products_id = pd.id
+                INNER JOIN providers AS pv ON b.providers_id = pv.id 
+            WHERE
+                pv.name LIKE CONCAT('%',:providername,'%')
+        ";
+        $pSql = Connection::getInstance()->prepare($sql);
+        $pSql->bindValue('providername', $providerName);
+        $pSql->execute();
+        return $pSql->fetchAll();
+    }
+
+    /**
+     * Returns a array containing a specific batch by a search of id from database
+     *
+     * @param integer $id Id of the wanted batch
+     * @return array|null Returns the batch if have or NULL if dont
+     */
+    public function searchABatchById(int $id): ?array
     {
         $sql = "
             SELECT
@@ -155,8 +124,8 @@ class BatchesController
         $pSql = Connection::getInstance()->prepare($sql);
         $pSql->bindValue('param', $id);
         $pSql->execute();
-        if ($pSql->rowCount() > 0) return $pSql->fetch();
+        if ($pSql->rowCount() > 0) return $pSql->fetchAll();
 
-        return false;
+        return null;
     }
 }

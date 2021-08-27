@@ -28,11 +28,11 @@ class ProductsController
     }
 
     /**
-     * Bring the entire products from database
+     * Returns a array containing the entire products from database
      *
-     * @return array|bool Bring the products if have something or FALSE if dont have nothing
+     * @return array Returns the products if have something or an empty array
      */
-    public function getAllProducts()
+    public function getAllProducts(): array
     {
         $sql = "
         SELECT 
@@ -42,18 +42,17 @@ class ProductsController
         ";
         $pSql = Connection::getInstance()->prepare($sql);
         $pSql->execute();
-        if ($pSql->rowCount() > 0) return $pSql->fetchall();
 
-        return false;
+        return $pSql->fetchAll();
     }
 
     /**
-     * Bring the products by a search of name from database
+     * Returns a array containing the products by a search of name from database
      *
      * @param string $name
-     * @return array|bool Bring the products if have something or FALSE if dont have nothing
+     * @return array Returns the products if have something or an empty array
      */
-    public function searchProductsByName(string $name)
+    public function searchProductsByName(string $name): array
     {
         $sql = "
         SELECT
@@ -66,18 +65,17 @@ class ProductsController
         $pSql = Connection::getInstance()->prepare($sql);
         $pSql->bindValue('name', $name);
         $pSql->execute();
-        if ($pSql->rowCount() > 0) return $pSql->fetch();
 
-        return false;
+        return $pSql->fetchAll();
     }
-    
+
     /**
-     * Bring a specify product from database
+     * Returns a array containing a specify product from database
      *
      * @param int $id
-     * @return array|bool Bring the product if have something or FALSE if dont have nothing
+     * @return array|null Returns the product if have or NULL if dont
      */
-    public function searchProductsById(int $id)
+    public function searchProductsById(int $id): ?array
     {
         $sql = "
         SELECT
@@ -90,8 +88,8 @@ class ProductsController
         $pSql = Connection::getInstance()->prepare($sql);
         $pSql->bindValue('id', $id);
         $pSql->execute();
-        if ($pSql->rowCount() > 0) return $pSql->fetch();
+        if ($pSql->rowCount() > 0) return $pSql->fetchAll();
 
-        return false;
+        return null;
     }
 }

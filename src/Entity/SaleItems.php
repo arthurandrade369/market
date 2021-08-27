@@ -1,6 +1,7 @@
 <?php
+require_once("../Interface/InterfaceSetter.php");
 
-class SaleItems
+class SaleItems implements setObject
 {
     private int $id;
     private int $quantitySale;

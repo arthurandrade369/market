@@ -1,6 +1,7 @@
 <?php
+require_once("../Interface/InterfaceSetter.php");
 
-class Batches
+class Batches implements setObject
 {
     private int $id;
     private string $fabricationDate;
@@ -234,7 +235,7 @@ class Batches
      * Set the main attributes of class
      *
      * @param object|array $object
-     * @return void
+     * @return self
      */
     public function setObject($object): self
     {
@@ -244,7 +245,7 @@ class Batches
         if (!is_null($object['description'])) $this->setDescription($object['description']);
         $this->setProductsId($object['product']);
         $this->setProvidersId($object['provider']);
-        if (!is_null($object['expirationDate'])) $this->setExpirationDate($object['expirationDate']);
+        if (!is_null($object['expirationDate']) and !empty($object['expirationDate'])) $this->setExpirationDate($object['expirationDate']);
 
         return $this;
     }

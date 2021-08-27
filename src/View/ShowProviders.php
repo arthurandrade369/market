@@ -1,25 +1,14 @@
 <?php
 require_once("../Controller/ProvidersController.php");
 
-$aux = 0;
 $clients = new ProvidersController();
 
 if (isset($_REQUEST['name']) and !empty($_REQUEST['name'])) {
 
     $aws = $clients->searchProvidersByName($_POST['name']);
-    if ($aws) {
-        $aux = count($aws);
-    } else {
-        echo "<h2>Fornecedor não existe!</h2>";
-    }
 } else {
 
     $aws = $clients->getAllProviders();
-    if ($aws) {
-        //
-    } else {
-        echo "<h2>Nâo existem fornecedores cadastrados!</h2>";
-    }
 }
 ?>
 
@@ -50,7 +39,7 @@ if (isset($_REQUEST['name']) and !empty($_REQUEST['name'])) {
         <label for="name">
             <i class="fas fa-user"></i>
         </label>
-        <input type="text" name="param" placeholder="Buscar" id="param">
+        <input type="text" name="name" placeholder="Buscar" id="name">
 
         <input type="submit" name="send" value="Confirmar">
     </form>
@@ -73,27 +62,22 @@ if (isset($_REQUEST['name']) and !empty($_REQUEST['name'])) {
         </thead>
         <tbody>
             <tr>
-                <?php if ($aws) {
-                    if (count($aws) == $aux) {
-                        echo $aws['id'];
-                    } else {
-                        foreach ($aws as $value) {
-                            echo "
-                            <tr>
-                                <td>" . $value['id'] . "</td>
-                                <td>" . $value['name'] . "</td>
-                                <td>" . $value['social_reason'] . "</td>
-                                <td>" . $value['cnpj'] . "</td>
-                                <td>" . $value['street'] . "</td>
-                                <td>" . $value['number'] . "</td>
-                                <td>" . $value['district'] . "</td>
-                                <td>" . $value['city'] . "</td>
-                                <td>" . $value['state'] . "</td>
-                                <td>" . $value['complement'] . "</td>
-                                <td>" . $value['postal_code'] . "</td>
-                            </tr>";
-                        }
-                    }
+                <?php
+                foreach ($aws as $value) {
+                    echo "
+                        <tr>
+                            <td>" . $value['id'] . "</td>
+                            <td>" . $value['name'] . "</td>
+                            <td>" . $value['social_reason'] . "</td>
+                            <td>" . $value['cnpj'] . "</td>
+                            <td>" . $value['street'] . "</td>
+                            <td>" . $value['number'] . "</td>
+                            <td>" . $value['district'] . "</td>
+                            <td>" . $value['city'] . "</td>
+                            <td>" . $value['state'] . "</td>
+                            <td>" . $value['complement'] . "</td>
+                            <td>" . $value['postal_code'] . "</td>
+                        </tr>";
                 }
                 ?>
         </tbody>

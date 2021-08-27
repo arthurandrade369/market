@@ -37,15 +37,15 @@ class SaleController
     }
 
     /**
-     * Bring the entire sales from database
+     * Returns a array containing the entire sales from database
      * 
-     * @return array|bool - Bring the sale if have something or FALSE if dont have nothing
+     * @return array - Returns the sale if have something or an empty array
      */
-    public function getAllSales()
+    public function getAllSales(): array
     {
         $sql = "
         SELECT
-            s.*, p.*, si.*
+            s.*, p.name AS product_name, si.quantity_sale, s.id AS sale_id
         FROM
             sale AS s
             INNER JOIN sale_items AS si ON s.id = si.sale_id
@@ -53,22 +53,21 @@ class SaleController
         ";
         $pSql = Connection::getInstance()->prepare($sql);
         $pSql->execute();
-        if ($pSql->rowCount() > 0) return $pSql->fetchall();
 
-        return false;
+        return $pSql->fetchAll();
     }
 
     /**
-     * Bring the sale by a search of id from database
+     * Returns a array containing the sale by a search of id from database
      *
      * @param int $int
-     * @return array|bool Bring the sale if have something or FALSE if dont have nothing
+     * @return array|null Returns the sale if have or NULL if dont
      */
-    public function searchSaleById(int $id)
+    public function searchSaleById(int $id): ?array
     {
         $sql = "
         SELECT
-            s.*, p.*, si.*
+            s.*, p.name AS product_name, si.quantity_sale, s.id AS sale_id
         FROM
             sale AS s
             INNER JOIN sale_items AS si ON s.id = si.sale_id
@@ -77,9 +76,9 @@ class SaleController
         $pSql = Connection::getInstance()->prepare($sql);
         $pSql->bindValue('id', $id);
         $pSql->execute();
-        if ($pSql->rowCount() > 0) return $pSql->fetch();
+        if ($pSql->rowCount() > 0) return $pSql->fetchAll();
 
-        return false;
+        return null;
     }
 
 }

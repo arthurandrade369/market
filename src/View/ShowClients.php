@@ -6,19 +6,9 @@ $clients = new ClientsController();
 if (isset($_REQUEST['name']) and !empty($_REQUEST['name'])) {
 
     $aws = $clients->searchClientByName($_POST['name']);
-    if ($aws) {
-        //
-    } else {
-        echo "<h2>Cliente não existe!</h2>";
-    }
 } else {
 
     $aws = $clients->getAllClients();
-    if ($aws) {
-        //
-    } else {
-        echo "<h2>Nâo existem clientes cadastrados!</h2>";
-    }
 }
 ?>
 
@@ -70,10 +60,10 @@ if (isset($_REQUEST['name']) and !empty($_REQUEST['name'])) {
         </thead>
         <tbody>
             <?php
-            if ($aws) {
-                foreach ($aws as $value) {
-                    echo "
-                        <tr><td>" . $value['id'] . "</td>
+            foreach ($aws as $value) {
+                echo "
+                    <tr>
+                        <td>" . $value['id'] . "</td>
                         <td>" . $value['name'] . "</td>
                         <td>" . $value['email'] . "</td>
                         <td>" . $value['street'] . "</td>
@@ -82,8 +72,8 @@ if (isset($_REQUEST['name']) and !empty($_REQUEST['name'])) {
                         <td>" . $value['city'] . "</td>
                         <td>" . $value['state'] . "</td>
                         <td>" . $value['complement'] . "</td>
-                        <td>" . $value['postal_code'] . "</td></tr>";
-                }
+                        <td>" . $value['postal_code'] . "</td>
+                    </tr>";
             }
             ?>
         </tbody>

@@ -1,25 +1,13 @@
 <?php
 require_once("../Controller/OrdersController.php");
-
-$aux = 0;
 $order = new OrdersController();
 
 if (isset($_REQUEST['client']) and !empty($_REQUEST['client'])) {
 
     $aws = $order->searchOrderByClient($_POST['client']);
-    if ($aws) {
-        $aux = count($aws);
-    } else {
-        echo "<h2>Compra não existe!</h2>";
-    }
 } else {
 
     $aws = $order->getAllOrders();
-    if ($aws) {
-        //
-    } else {
-        echo "<h2>Nâo existem ordens cadastrados!</h2>";
-    }
 }
 ?>
 
@@ -69,24 +57,19 @@ if (isset($_REQUEST['client']) and !empty($_REQUEST['client'])) {
         </thead>
         <tbody>
             <?php
-            if ($aws) {
-                if (count($aws) == $aux) {
-                    echo $aws['oid'];
-                } else {
-                    foreach ($aws as $value) {
-                        echo "
-                            <tr>    
-                                <td>" . $value['order_id'] . "</td>
-                                <td>" . $value['type'] . "</td>
-                                <td>" . $value['forecast'] . "</td>
-                                <td>" . $value['receipt'] . "</td>
-                                <td>" . $value['name'] . "</td>
-                                <td>" . $value['state'] . "</td>
-                                <td>" . $value['final_price'] . "</td>
-                            </tr>";
-                    }
-                }
+            foreach ($aws as $value) {
+                echo "
+                    <tr>
+                        <td>" . $value['order_id'] . "</td>
+                        <td>" . $value['type'] . "</td>
+                        <td>" . $value['forecast'] . "</td>
+                        <td>" . $value['receipt'] . "</td>
+                        <td>" . $value['name'] . "</td>
+                        <td>" . $value['state'] . "</td>
+                        <td>" . $value['final_price'] . "</td>
+                    </tr>";
             }
+
             ?>
         </tbody>
     </table>

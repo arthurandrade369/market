@@ -1,25 +1,14 @@
 <?php
 require_once("../Controller/ProductsController.php");
 
-$aux = 0;
 $clients = new ProductsController();
 
 if (isset($_REQUEST['name']) and !empty($_REQUEST['name'])) {
 
     $aws = $clients->searchProductsByName($_POST['name']);
-    if ($aws) {
-        $aux = count($aws);
-    } else {
-        echo "<h2>Produto não existe!</h2>";
-    }
 } else {
 
     $aws = $clients->getAllProducts();
-    if ($aws) {
-        //
-    } else {
-        echo "<h2>Nâo existem produtos cadastrados!</h2>";
-    }
 }
 ?>
 
@@ -67,22 +56,17 @@ if (isset($_REQUEST['name']) and !empty($_REQUEST['name'])) {
         </thead>
         <tbody>
             <?php
-            if ($aws) {
-                if (count($aws) == $aux) {
-                    echo $aws['id'];
-                } else {
-                    foreach ($aws as $value) {
-                        echo "
-                            <tr>
-                                <td>" . $value['id'] . "</td>
-                                <td>" . $value['name'] . "</td>
-                                <td>" . $value['price_product'] . "</td>
-                                <td>" . $value['quantity_inventory'] . "</td>
-                                <td>" . $value['discount'] . "</td>
-                            </tr>";
-                    }
-                }
-            } ?>
+            foreach ($aws as $value) {
+                echo "
+                    <tr>
+                        <td>" . $value['id'] . "</td>
+                        <td>" . $value['name'] . "</td>
+                        <td>" . $value['price_product'] . "</td>
+                        <td>" . $value['quantity_inventory'] . "</td>
+                        <td>" . $value['discount'] . "</td>
+                    </tr>";
+            }
+            ?>
         </tbody>
     </table>
     <h2></h2>

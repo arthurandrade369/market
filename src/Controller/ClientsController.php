@@ -10,7 +10,7 @@ class ClientsController
      * Signup a new client in database
      * 
      * @param Clients $clients
-     * @return string|false Return the id if sucess or FALSE if failure
+     * @return string|false Return the id in time of register
      */
     public function newClient(Clients $clients): string
     {
@@ -54,11 +54,11 @@ class ClientsController
     }
 
     /**
-     * Bring the entire clients from database
+     * Return a array containing the entire clients from database
      * 
-     * @return array|bool - Bring the client if have something or FALSE if dont have nothing
+     * @return array - Returns the client if have something or an empty array
      */
-    public function getAllClients()
+    public function getAllClients(): array
     {
         $sql = "
             SELECT
@@ -69,18 +69,17 @@ class ClientsController
         ";
         $pSql = Connection::getInstance()->prepare($sql);
         $pSql->execute();
-        if ($pSql->rowCount() > 0) return $pSql->fetchall();
 
-        return false;
+        return $pSql->fetchAll();
     }
 
     /**
-     * Bring all of clients by a search of id from database
+     * Return a array containing all clients by a search of id from database
      *
      * @param int $id
-     * @return array|false Bring the client if have something or FALSE if dont have nothing
+     * @return array|null Returns the client if have or NULL if dont
      */
-    public function searchClientById(int $id)
+    public function searchClientById(int $id): ?array
     {
         $sql = "
             SELECT
@@ -93,41 +92,42 @@ class ClientsController
         $pSql = Connection::getInstance()->prepare($sql);
         $pSql->bindValue('id', $id);
         $pSql->execute();
-        if ($pSql->rowCount() > 0) return $pSql->fetch();
+        if ($pSql->rowCount() > 0) return $pSql->fetchAll();
 
-        return false;
+        return null;
     }
 
     /**
-     * Bring all of clients by a search of name from database
+     * Returns a array containing all clients by a search of name from database
      *
      * @param string $name
-     * @return array|false Bring the client if have something or FALSE if dont have nothing
+     * @return array Returns the client if have something or an empty array
      */
-    public function searchClientByName(string $name)
+    public function searchClientByName(string $name): array
     {
         $sql = "
             SELECT
                 c.*, ca.*
             FROM
                 clients AS c 
-                INNER JOIN  client_addresses AS ca ON c.id = ca.clients_id AND c.name LIKE CONCAT(:name,'%')
+                INNER JOIN  client_addresses AS ca ON c.id = ca.clients_id 
+            WHERE
+                c.name LIKE CONCAT(:name,'%')
         ";
         $pSql = Connection::getInstance()->prepare($sql);
         $pSql->bindValue('name', $name);
         $pSql->execute();
-        if ($pSql->rowCount() > 0) return $pSql->fetch();
 
-        return false;
+        return $pSql->fetchAll();;
     }
 
     /**
-     * Bring all of clients by a search of email from database
+     * Return a array containing all clients by a search of email from database
      *
      * @param string $email
-     * @return array|false Bring the client if have something or FALSE if dont have nothing
+     * @return array|null Returns the client if have or NULL if dont
      */
-    public function searchClientByEmail(string $email)
+    public function searchClientByEmail(string $email): ?array
     {
         $sql = "
             SELECT
@@ -140,22 +140,22 @@ class ClientsController
         $pSql = Connection::getInstance()->prepare($sql);
         $pSql->bindValue('email', $email);
         $pSql->execute();
-        if ($pSql->rowCount() > 0) return $pSql->fetch();
+        if ($pSql->rowCount() > 0) return $pSql->fetchAll();
 
-        return false;
+        return null;
     }
 
     /**
-     * Verify if the entry of email already exists in database 
+     * Checks if the email exists and returns customer data
      * 
      * @param string $email
-     * @return boolean TRUE if the email dont exists or FALSE if exists
+     * @return array|null Return a array containing the client or NULL if dont exist
      */
-    public function checkIsEmail(string $email)
+    public function checkIsEmail(string $email): ?array
     {
         $sql = "
             SELECT 
-                c.email 
+                c.* 
             FROM 
                 clients AS c 
             WHERE  
@@ -165,8 +165,8 @@ class ClientsController
         $pSql->bindValue('email', $email);
         $pSql->execute();
 
-        if ($pSql->rowCount() > 0) return false;
+        if ($pSql->rowCount() > 0) return $pSql->fetchAll();
 
-        return true;
+        return null;
     }
 }

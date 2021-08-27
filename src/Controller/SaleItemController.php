@@ -30,11 +30,11 @@ class SaleItemController
     }
 
     /**
-     * Bring the entire sales from database
+     * Returns a array containing the entire sales from database
      * 
-     * @return array|bool - Bring sales if sucess or FALSE in failure
+     * @return array - Returns sales if sucess or an empty array
      */
-    public function getAllSaleItem()
+    public function getAllSaleItem(): array
     {
         $sql = "
         SELECT
@@ -45,18 +45,17 @@ class SaleItemController
         ";
         $pSql = Connection::getInstance()->prepare($sql);
         $pSql->execute();
-        if ($pSql->rowCount() > 0) return $pSql->fetchall();
 
-        return false;
+        return $pSql->fetchAll();
     }
 
     /**
-     * Bring the sale item by a search of id from database
+     * Returns a array containing the sale item by a search of id from database
      *
      * @param int $id
-     * @return array|bool Bring the sale item if have something or FALSE if dont have nothing
+     * @return array|null Returns the sale item if have or NULL if dont
      */
-    public function searchSaleItemsById(int $id)
+    public function searchSaleItemsById(int $id): ?array
     {
         $sql = "
         SELECT
@@ -68,18 +67,18 @@ class SaleItemController
         $pSql = Connection::getInstance()->prepare($sql);
         $pSql->bindValue('id', $id);
         $pSql->execute();
-        if ($pSql->rowCount() > 0) return $pSql->fetch();
+        if ($pSql->rowCount() > 0) return $pSql->fetchAll();
 
-        return false;
+        return null;
     }
 
     /**
-     * Bring the sale item by a search of products name from database
+     * Returns a array containing the sale item by a search of products name from database
      *
      * @param string $name
-     * @return array|bool Bring the sale item if have something or FALSE if dont have nothing
+     * @return array Returns the sale item if have something or an empty array
      */
-    public function searchSaleItemsByProductName(string $name)
+    public function searchSaleItemsByProductName(string $name): array
     {
         $sql = "
         SELECT
@@ -91,8 +90,7 @@ class SaleItemController
         $pSql = Connection::getInstance()->prepare($sql);
         $pSql->bindValue('name', $name);
         $pSql->execute();
-        if ($pSql->rowCount() > 0) return $pSql->fetch();
 
-        return false;
+        return $pSql->fetchAll();
     }
 }

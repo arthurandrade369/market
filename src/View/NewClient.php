@@ -9,8 +9,8 @@ if (isset($_REQUEST['send'])) {
     $signup = new ClientsController();
     $user = new Clients();
     $address = new ClientAddresses();
-
-    if ($signup->checkIsEmail($_POST['email'])) {
+    $isClient = $signup->checkIsEmail($_POST['email']);
+    if (!$isClient) {
 
         $user->setObject($_POST);
         $_POST['clientId'] = $signup->newClient($user);

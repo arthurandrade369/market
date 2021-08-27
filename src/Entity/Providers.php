@@ -1,6 +1,7 @@
 <?php
+require_once("../Interface/InterfaceSetter.php");
 
-class Providers
+class Providers implements setObject
 {
     private int $id;
     private string $name;

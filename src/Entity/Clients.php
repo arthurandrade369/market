@@ -1,6 +1,7 @@
 <?php
+require_once("../Interface/InterfaceSetter.php");
 
-class Clients
+class Clients implements setObject
 {
     private int $id;
     private string $name;

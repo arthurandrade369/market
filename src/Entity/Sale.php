@@ -1,6 +1,7 @@
 <?php
+require_once("../Interface/InterfaceSetter.php");
 
-class Sale
+class Sale implements setObject
 {
     private int $id;
     private string $date;
@@ -198,7 +199,7 @@ class Sale
         $this->setState($object['state']);
         $this->setPaymentMethod($object['payment_method']);
         $this->setFinalPrice($object['final_price']);
-        if (!is_null($object['discount']) and is_float($object['discount'])) $this->setDiscount($object['discount']);
+        if (!is_null($object['discount'])) $this->setDiscount(floatval($object['discount']));
         $this->setShipping($object['shipping']);
         if (isset($object['was_paid'])) $this->setWasPaid($object['was_paid']);
 
